@@ -1,0 +1,63 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../cosmoz-omnitable/cosmoz-omnitable-column-behavior.html">
+
+<link rel="import" href="../cosmoz-treenode/cosmoz-treenode.html">
+
+<!--
+`cosmoz-omnitable-treenode-column`
+cosmoz-omnitable column to display a tree node
+
+@demo demo/index.html
+-->
+
+<dom-module id="cosmoz-omnitable-treenode-column">
+	<template>
+		<template id="data-template">
+			<cosmoz-treenode node-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]"></cosmoz-treenode>
+		</template>
+
+		<template id="edit-data-template">
+		</template>
+
+		<template id="header-template">
+			<paper-input label="[[title]]" value="{{filter}}"></paper-input>
+		</template>
+
+  </template>
+
+  <script>
+	Polymer({
+
+		is: 'cosmoz-omnitable-treenode-column',
+
+		properties: {
+			ownerTree: {
+				type: Cosmoz.Tree
+			},
+		},
+
+		behaviors: [
+			Cosmoz.OmnitableColumnBehavior
+		],
+
+		getComparableValue: function (item, valuePath) {
+			var val = this.ownerTree.getPathString(this.get(valuePath, item), '/');
+			return val;
+		},
+
+		// Implement filtering using treenode-navigator
+		getFilterFn: function () {
+			if (!this.filter) {
+				return;
+			}
+			return this._applySingleFilter.bind(this, this.filter);
+		},
+
+		_applySingleFilter: function (filterString, item) {
+			var value = this.getComparableValue(item, this.valuePath).toLowerCase();
+			return value.indexOf(filterString.toLowerCase()) >= 0;
+		}
+
+	});
+  </script>
+</dom-module>

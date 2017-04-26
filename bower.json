@@ -1,0 +1,19 @@
+{
+  "name": "cosmoz-omnitable-treenode-column",
+  "description": "cosmoz-omnitable column to display a tree node",
+  "main": "cosmoz-omnitable-treenode-column.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "cosmoz-omnitable": "neovici/cosmoz-omnitable",
+    "cosmoz-tree": "Neovici/cosmoz-tree",
+    "cosmoz-treenode": "Neovici/cosmoz-treenode"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.7",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.4"
+  }
+}
