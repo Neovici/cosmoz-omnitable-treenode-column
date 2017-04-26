@@ -4,9 +4,9 @@
   "main": "cosmoz-omnitable-treenode-column.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "cosmoz-omnitable": "neovici/cosmoz-omnitable",
-    "cosmoz-tree": "Neovici/cosmoz-tree",
-    "cosmoz-treenode": "Neovici/cosmoz-treenode"
+    "cosmoz-omnitable": "neovici/cosmoz-omnitable#master",
+    "cosmoz-tree": "Neovici/cosmoz-tree#master",
+    "cosmoz-treenode": "Neovici/cosmoz-treenode#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
