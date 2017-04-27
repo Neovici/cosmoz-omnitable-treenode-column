@@ -13,7 +13,7 @@ cosmoz-omnitable column to display a tree node
 <dom-module id="cosmoz-omnitable-treenode-column">
 	<template>
 		<template id="data-template">
-			<cosmoz-treenode node-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]"></cosmoz-treenode>
+			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" node-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]"></cosmoz-treenode>
 		</template>
 
 		<template id="edit-data-template">
@@ -34,10 +34,36 @@ cosmoz-omnitable column to display a tree node
 			ownerTree: {
 				type: Cosmoz.Tree
 			},
+
+			/**
+			 * Ask for a list of values
+			 */
+			bindValues: {
+				type: Boolean,
+				readOnly: true,
+				value: true
+			},
+
+			showMaxNodes: {
+				type: Number
+			},
+
+			/**
+			 * If displayed node share a common path from root, this property indicates wether this common
+			 * path should be replaced by an ellipsis.
+			 */
+			hideCommonPath: {
+				type: Boolean,
+				value: false
+			}
 		},
 
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
+		],
+
+		observers: [
+			'_valuesChanged(values, ownerTree)'
 		],
 
 		getComparableValue: function (item, valuePath) {
@@ -56,6 +82,48 @@ cosmoz-omnitable column to display a tree node
 		_applySingleFilter: function (filterString, item) {
 			var value = this.getComparableValue(item, this.valuePath).toLowerCase();
 			return value.indexOf(filterString.toLowerCase()) >= 0;
+		},
+
+		_valuesChanged: function (values, ownerTree) {
+			var paths, smallestPath;
+
+			paths = values.map(function (nodeId) {
+				return ownerTree.findNodeById(nodeId).pathLocator.split('.');
+			});
+
+			// Find one of the smallestPath (actually the first, but it doesn't matter as we will compare it with all other paths)
+			paths.forEach(function (path) {
+				if (smallestPath === undefined || path.length < smallestPath.length) {
+					smallestPath = path;
+				}
+			});
+
+			smallestPath.splice(-1);
+
+			while (smallestPath.length > 0) {
+				if (paths.some(function (path) {
+					return !this._arrayStartsWith(path, smallestPath);
+				}, this)) {
+					smallestPath.splice(-1);
+				} else {
+					break;
+				}
+			}
+
+			this._hideFromRoot = smallestPath.length;
+		},
+
+		/**
+		 * Returns true if first items of array are the same as those in searchArray
+		 */
+		_arrayStartsWith(array, searchArray) {
+			var i;
+			for (i = 0; i < searchArray.length; i+=1) {
+				if (array[i] !== searchArray[i]) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 	});
