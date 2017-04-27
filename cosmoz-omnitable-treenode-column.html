@@ -85,18 +85,19 @@ cosmoz-omnitable column to display a tree node
 		},
 
 		_valuesChanged: function (values, ownerTree) {
-			var paths, smallestPath;
+			if (!values || !Array.isArray(values) || values.length == 0) {
+				return;
+			}
 
-			paths = values.map(function (nodeId) {
-				return ownerTree.findNodeById(nodeId).pathLocator.split('.');
-			});
-
-			// Find one of the smallestPath (actually the first, but it doesn't matter as we will compare it with all other paths)
-			paths.forEach(function (path) {
-				if (smallestPath === undefined || path.length < smallestPath.length) {
-					smallestPath = path;
-				}
-			});
+			var paths = values.map(function (nodeId) {
+					return ownerTree.findNodeById(nodeId).pathLocator.split('.');
+				}),
+				smallestPath = paths.reduce(function (agg, part) {
+					if (agg === undefined || part.length < agg.length) {
+						return part;
+					}
+					return agg;
+				});
 
 			smallestPath.splice(-1);
 
