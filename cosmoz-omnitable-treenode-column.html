@@ -55,6 +55,11 @@ cosmoz-omnitable column to display a tree node
 			hideCommonPath: {
 				type: Boolean,
 				value: false
+			},
+
+			_hideFromRoot: {
+				type: Number,
+				value: 0
 			}
 		},
 
@@ -84,14 +89,25 @@ cosmoz-omnitable column to display a tree node
 			return value.indexOf(filterString.toLowerCase()) >= 0;
 		},
 
+		_valueIsGuid: function (input) {
+			return input.length === 36;
+		},
+
 		_valuesChanged: function (values, ownerTree) {
 			if (!values || !Array.isArray(values) || values.length == 0) {
 				return;
 			}
 
-			var paths = values.map(function (nodeId) {
-					return ownerTree.findNodeById(nodeId).pathLocator.split('.');
-				}),
+			var hideFromRoot = 0,
+				paths = values.map(function (value) {
+					console.log(value, ownerTree);
+					var pathLocator = value;
+					if (this._valueIsGuid(value)) {
+						pathLocator = ownerTree.findNodeById(nodeId).pathLocator;
+					}
+					// otherwise path locator
+					return pathLocator.split('.')
+				}, this),
 				smallestPath = paths.reduce(function (agg, part) {
 					if (agg === undefined || part.length < agg.length) {
 						return part;
@@ -101,7 +117,19 @@ cosmoz-omnitable column to display a tree node
 
 			smallestPath.splice(-1);
 
-			while (smallestPath.length > 0) {
+			smallestPath.every(function (sPathPart, sppIndex) {
+				var allSame = paths.every(function (path) {
+					return path[sppIndex] === sPathPart;
+				});
+				if (allSame) {
+					hideFromRoot += 1;
+				}
+				return allSame;
+			});
+
+			console.log('hideFromRoot', hideFromRoot);
+
+			/* while (smallestPath.length > 0) {
 				if (paths.some(function (path) {
 					return !this._arrayStartsWith(path, smallestPath);
 				}, this)) {
@@ -109,9 +137,9 @@ cosmoz-omnitable column to display a tree node
 				} else {
 					break;
 				}
-			}
+			} */
 
-			this._hideFromRoot = smallestPath.length;
+			this.set('_hideFromRoot', hideFromRoot);
 		},
 
 		/**
