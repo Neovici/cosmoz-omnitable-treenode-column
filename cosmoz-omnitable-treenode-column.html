@@ -81,7 +81,7 @@ cosmoz-omnitable column to display a tree node
 
 		getComparableValue: function (item, valuePath) {
 			var path = this.ownerTree.getPath(this.get(valuePath, item));
-			return this.ownerTree.getPathString(path, '/');
+			return this.ownerTree.getPathString(path, ' / ');
 		},
 
 		// Implement filtering using treenode-navigator
@@ -90,6 +90,10 @@ cosmoz-omnitable column to display a tree node
 				return;
 			}
 			return this._applySingleFilter.bind(this, this.filter);
+		},
+
+		getString: function (item, valuePath) {
+			return this.getComparableValue(item, valuePath);
 		},
 
 		_applySingleFilter: function (filterString, item) {
