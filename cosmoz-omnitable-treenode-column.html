@@ -54,7 +54,7 @@ cosmoz-omnitable column to display a tree node
 			 * If displayed node share a common path from root, this property indicates wether this common
 			 * path should be replaced by an ellipsis.
 			 */
-			hideCommonPath: {
+			showCommonPath: {
 				type: Boolean,
 				value: false
 			},
@@ -71,7 +71,7 @@ cosmoz-omnitable column to display a tree node
 			_hideFromRoot: {
 				type: Number,
 				value: 0,
-				computed: '_computeHideFromRoot(values, ownerTree)'
+				computed: '_computeHideFromRoot(showCommonPath, values, ownerTree)'
 			}
 		},
 
@@ -97,8 +97,8 @@ cosmoz-omnitable column to display a tree node
 			return value.indexOf(filterString.toLowerCase()) >= 0;
 		},
 
-		_computeHideFromRoot: function (values, ownerTree) {
-			if (!values || !Array.isArray(values) || values.length < 2) {
+		_computeHideFromRoot: function (showCommonPath, values, ownerTree) {
+			if (showCommonPath || !values || !Array.isArray(values) || values.length < 2) {
 				return 0;
 			}
 
