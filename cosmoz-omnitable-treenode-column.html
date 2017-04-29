@@ -105,13 +105,23 @@ cosmoz-omnitable column to display a tree node
 			var paths = values.map(function (value) {
 				var pathLocator = value;
 				if (ownerTree.isGuid(value)) {
-					pathLocator = ownerTree.findNodeById(nodeId).pathLocator;
+					pathLocator = ownerTree.findNodeById(value).pathLocator;
 				}
 				return pathLocator.split('.')
 			});
 
-			return paths[0]
-				.filter(function (sPathPart, sppIndex) {
+			return paths
+				.reduce(function (agg, part) {
+					if (agg === undefined || part.length < agg.length) {
+						return part;
+					}
+					return agg;
+				})
+				.filter(function (sPathPart, sppIndex, shortest) {
+					if (sppIndex + 1 === shortest.length) {
+						// we need at least one node to show
+						return false;
+					}
 					return paths.every(function (path) {
 						return path[sppIndex] === sPathPart;
 					});
