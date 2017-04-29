@@ -1,0 +1,30 @@
+{
+  "name": "cosmoz-omnitable-treenode-column",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/Neovici/cosmoz-omnitable-treenode-column.svg?branch=master)](https://travis-ci.org/Neovici/cosmoz-omnitable-treenode-column)",
+  "main": "cosmoz-omnitable-treenode-column.html",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-plugin-html": "^1.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neovici/cosmoz-omnitable-treenode-column.git"
+  },
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/neovici/cosmoz-omnitable-treenode-column/issues"
+  },
+  "homepage": "https://github.com/neovici/cosmoz-omnitable-treenode-column#readme"
+}
