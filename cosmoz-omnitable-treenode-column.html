@@ -13,14 +13,16 @@ cosmoz-omnitable column to display a tree node
 <dom-module id="cosmoz-omnitable-treenode-column">
 	<template>
 		<template id="data-template">
-			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" node-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]"></cosmoz-treenode>
+			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]"
+				key-type="[[ valueType ]]" key-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]">
+			</cosmoz-treenode>
 		</template>
 
 		<template id="edit-data-template">
 		</template>
 
 		<template id="header-template">
-			<paper-input label="[[title]]" value="{{filter}}"></paper-input>
+			<paper-input label="[[ title ]]" value="{{ filter }}"></paper-input>
 		</template>
 
   </template>
@@ -55,6 +57,15 @@ cosmoz-omnitable column to display a tree node
 			hideCommonPath: {
 				type: Boolean,
 				value: false
+			},
+
+			/**
+			 * The type of value present in valuePath (nodeId or pathLocator)
+			 * 'unknown' if cosmoz-treenode should figure it out
+			 */
+			valueType: {
+				type: String,
+				value: 'unknown'
 			},
 
 			_hideFromRoot: {
