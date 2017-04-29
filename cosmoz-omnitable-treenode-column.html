@@ -80,8 +80,8 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		getComparableValue: function (item, valuePath) {
-			var val = this.ownerTree.getPathString(this.get(valuePath, item), '/');
-			return val;
+			var path = this.ownerTree.getPath(this.get(valuePath, item));
+			return this.ownerTree.getPathString(path, '/');
 		},
 
 		// Implement filtering using treenode-navigator
@@ -97,10 +97,6 @@ cosmoz-omnitable column to display a tree node
 			return value.indexOf(filterString.toLowerCase()) >= 0;
 		},
 
-		_valueIsGuid: function (input) {
-			return input.length === 36;
-		},
-
 		_computeHideFromRoot: function (values, ownerTree) {
 			if (!values || !Array.isArray(values) || values.length < 2) {
 				return 0;
@@ -108,11 +104,11 @@ cosmoz-omnitable column to display a tree node
 
 			var paths = values.map(function (value) {
 				var pathLocator = value;
-				if (this._valueIsGuid(value)) {
+				if (ownerTree.isGuid(value)) {
 					pathLocator = ownerTree.findNodeById(nodeId).pathLocator;
 				}
 				return pathLocator.split('.')
-			}, this);
+			});
 
 			return paths[0]
 				.filter(function (sPathPart, sppIndex) {
