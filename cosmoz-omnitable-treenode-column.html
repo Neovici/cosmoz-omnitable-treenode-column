@@ -70,16 +70,13 @@ cosmoz-omnitable column to display a tree node
 
 			_hideFromRoot: {
 				type: Number,
-				value: 0
+				value: 0,
+				computed: '_computeHideFromRoot(values, ownerTree)'
 			}
 		},
 
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
-		],
-
-		observers: [
-			'_valuesChanged(values, ownerTree)'
 		],
 
 		getComparableValue: function (item, valuePath) {
@@ -104,68 +101,27 @@ cosmoz-omnitable column to display a tree node
 			return input.length === 36;
 		},
 
-		_valuesChanged: function (values, ownerTree) {
-			if (!values || !Array.isArray(values) || values.length == 0) {
-				return;
+		_computeHideFromRoot: function (values, ownerTree) {
+			if (!values || !Array.isArray(values) || values.length < 2) {
+				return 0;
 			}
 
-			var hideFromRoot = 0,
-				paths = values.map(function (value) {
-					console.log(value, ownerTree);
-					var pathLocator = value;
-					if (this._valueIsGuid(value)) {
-						pathLocator = ownerTree.findNodeById(nodeId).pathLocator;
-					}
-					// otherwise path locator
-					return pathLocator.split('.')
-				}, this),
-				smallestPath = paths.reduce(function (agg, part) {
-					if (agg === undefined || part.length < agg.length) {
-						return part;
-					}
-					return agg;
-				});
-
-			smallestPath.splice(-1);
-
-			smallestPath.every(function (sPathPart, sppIndex) {
-				var allSame = paths.every(function (path) {
-					return path[sppIndex] === sPathPart;
-				});
-				if (allSame) {
-					hideFromRoot += 1;
+			var paths = values.map(function (value) {
+				var pathLocator = value;
+				if (this._valueIsGuid(value)) {
+					pathLocator = ownerTree.findNodeById(nodeId).pathLocator;
 				}
-				return allSame;
-			});
+				return pathLocator.split('.')
+			}, this);
 
-			console.log('hideFromRoot', hideFromRoot);
-
-			/* while (smallestPath.length > 0) {
-				if (paths.some(function (path) {
-					return !this._arrayStartsWith(path, smallestPath);
-				}, this)) {
-					smallestPath.splice(-1);
-				} else {
-					break;
-				}
-			} */
-
-			this.set('_hideFromRoot', hideFromRoot);
-		},
-
-		/**
-		 * Returns true if first items of array are the same as those in searchArray
-		 */
-		_arrayStartsWith(array, searchArray) {
-			var i;
-			for (i = 0; i < searchArray.length; i+=1) {
-				if (array[i] !== searchArray[i]) {
-					return false;
-				}
-			}
-			return true;
+			return paths[0]
+				.filter(function (sPathPart, sppIndex) {
+					return paths.every(function (path) {
+						return path[sppIndex] === sPathPart;
+					});
+				})
+				.length;
 		}
-
 	});
   </script>
 </dom-module>
