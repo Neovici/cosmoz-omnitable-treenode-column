@@ -1,0 +1,19 @@
+language: node_js
+node_js: '6'
+dist: trusty
+sudo: required
+addons:
+  firefox: latest
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+before_script:
+- npm install -g bower polylint web-component-tester
+- bower install
+- polylint --no-recursion
+script: xvfb-run wct
+notifications:
+  slack:
+    secure: HHd9D/SiuPpi+haVnE8lnuVOJXhE5rX/6hVZyfZ0zG5zXl4OpVdxU4LvljHQrvLxiWLr6xuxMA4upc7H4uhCQUIuMHpIDJUCKjgUMW15hewzLoCz3UfILZVPWlpEEAZZZ8rZSVUOK7fLFpagkU2JZS2QKGeJquC3vaTPfvpj5JqJOnzzQBhB6KrnvDtKAAyvizg1dXXqmUYJa9OrFzXz19ae0rdP2acPTRRYpstg3fnO8XMhasuVZPS14e/WwnaFA8tbRV+5Z51Z4AkAlh4o8/oGL8dBS2LmNIbBG/Dn4QMew+2SlgF7v0pyICEnqHw8/DQw+LvPGUp61dwjatWLnkfxPhDJdByLJ7kh6PSOk9DMfVtvnBK0P1Fk4W2KyTYoMPaenMUrpAR5+rv+/rInwYwl6kqo6BZqzRvnWBdPCzNEej6nO9p9ZbOxAmBJCSWO7rDRzET6KwLkHoNBlw7g+zBJLgcKelQGRviNW2CA4UvkLN1h6f+uhlzaTW6hramqCOLt1H8AWKKuFFu1YW6dZ6yJGdtGKTaGrQxYS1vrbt6TJRQOml32NL9cRBIzfUzQHb1a+aBY9JUO9tjF5VIdS74KrXh/L5boHYYpp919F9fkJX7kipA1FjOgkT11HtapOePZ8XD3oi7STHfSkFI5GYshOZrYzUNgrnsms2qEvnw=
