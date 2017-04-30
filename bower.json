@@ -6,7 +6,8 @@
     "polymer": "Polymer/polymer#^1.4.0",
     "cosmoz-omnitable": "neovici/cosmoz-omnitable#master",
     "cosmoz-tree": "Neovici/cosmoz-tree#master",
-    "cosmoz-treenode": "Neovici/cosmoz-treenode#master"
+    "cosmoz-treenode": "Neovici/cosmoz-treenode#master",
+    "paper-input": "^1.1.24"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
