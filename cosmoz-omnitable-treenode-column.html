@@ -95,7 +95,7 @@ cosmoz-omnitable column to display a tree node
 		},
 
 		getString: function (item, valuePath) {
-			return this.getComparableValue(item, valuePath);
+			return this.getComparableValue(item, valuePath || this.valuePath);
 		},
 
 		_applySingleFilter: function (filterString, item) {
