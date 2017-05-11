@@ -15,8 +15,8 @@ cosmoz-omnitable column to display a tree node
 <dom-module id="cosmoz-omnitable-treenode-column">
 	<template>
 		<template id="data-template">
-			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]"
-				key-type="[[ valueType ]]" key-id="[[ get(valuePath, item) ]]" owner-tree="[[ ownerTree ]]">
+			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" no-wrap
+				key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
 			</cosmoz-treenode>
 		</template>
 
@@ -48,10 +48,11 @@ cosmoz-omnitable column to display a tree node
 				value: true
 			},
 
-			cellClass: {
-				type: String,
-				value: 'align-left rtl'
-			},
+			// cellClass: {
+			// 	type: String,
+			// 	value: 'align-left rtl'
+			// },
+
 
 			showMaxNodes: {
 				type: Number
@@ -67,12 +68,15 @@ cosmoz-omnitable column to display a tree node
 			},
 
 			/**
-			 * The type of value present in valuePath (nodeId or pathLocator)
-			 * 'unknown' if cosmoz-treenode should figure it out
-			 */
-			valueType: {
+				* Name of the property used to lookup the displayed node in the tree
+				*/
+			keyProperty: {
 				type: String,
-				value: 'unknown'
+			},
+
+			valueProperty: {
+				type: String,
+				value: 'name'
 			},
 
 			_hideFromRoot: {
@@ -87,8 +91,7 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		getComparableValue: function (item, valuePath) {
-			var path = this.ownerTree.getPath(this.get(valuePath, item));
-			return this.ownerTree.getPathString(path, ' / ');
+			return this.ownerTree.getPathStringByProperty(this.keyProperty, this.get(valuePath, item), this.valueProperty, ' / ');
 		},
 
 		// Implement filtering using treenode-navigator
@@ -114,14 +117,10 @@ cosmoz-omnitable column to display a tree node
 			}
 
 			var paths = values.map(function (value) {
-				var pathLocator = value;
-				if (ownerTree.isGuid(value)) {
-					pathLocator = ownerTree.findNodeById(value).pathLocator;
-				}
-				return pathLocator.split('.');
-			});
+				return ownerTree.getPathByProperty(this.keyProperty, value);
+			}, this);
 
-			return paths
+			var n = paths
 				.reduce(function (agg, part) {
 					if (agg === undefined || part.length < agg.length) {
 						return part;
@@ -138,6 +137,7 @@ cosmoz-omnitable column to display a tree node
 					});
 				})
 				.length;
+			return n;
 		}
 	});
   </script>

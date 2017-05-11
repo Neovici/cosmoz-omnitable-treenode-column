@@ -15,6 +15,7 @@
 	<link rel="import" href="../../iron-ajax/iron-ajax.html">
 	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable.html">
 
+	<link rel="import" href="../../cosmoz-tree/cosmoz-default-tree.html">
 	<link rel="import" href="../cosmoz-omnitable-treenode-column.html">
 
 	<style is="custom-style" include="demo-pages-shared-styles iron-flex iron-positioning">
@@ -51,9 +52,8 @@
 			<cosmoz-omnitable data="[[ getTableData(treeJson) ]]" class="fit">
 				<cosmoz-omnitable-column title="Name" value-path="name">
 				</cosmoz-omnitable-column>
-				<cosmoz-omnitable-treenode-column title="Node" flex="6"
-					value-path="nodeId" owner-tree="[[ getOwnerTree(treeJson) ]]"
-					show-max-nodes="3">
+				<cosmoz-omnitable-treenode-column title="Node" flex="5" show-max-nodes="3"
+					value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]">
 				</cosmoz-omnitable-treenode-column>
 			</cosmoz-omnitable>
 		</template>
@@ -61,7 +61,7 @@
 
 	<script>
 		basic.getOwnerTree = function (treeJson) {
-			return new Cosmoz.Tree(treeJson);
+			return new Cosmoz.DefaultTree(treeJson);
 		};
 
 		basic.getTableData = function (treeJson) {
