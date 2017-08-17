@@ -111,13 +111,28 @@ cosmoz-omnitable column to display a tree node
 			return value.indexOf(filterString.toLowerCase()) >= 0;
 		},
 
+		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
+		getPathByProperty: function (propertyName, propertyValue) {
+			if (propertyName === 'pathLocator') {
+				return this.ownerTree.getPathNodes(propertyValue);
+			}
+
+			var node = this.ownerTree.getNodeByProperty(propertyValue, propertyName);
+			if (node && node.pathLocator) {
+				return this.ownerTree.getPathNodes(node.pathLocator);
+			}
+
+			return [];
+		},
+
 		_computeHideFromRoot: function (showCommonPath, values, ownerTree) {
-			if (showCommonPath || !values || !Array.isArray(values) || values.length < 2) {
+			if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
 				return 0;
 			}
 
+
 			var paths = values.map(function (value) {
-				return ownerTree.getPathByProperty(this.keyProperty, value);
+				return this.getPathByProperty(this.keyProperty, value);
 			}, this);
 
 			var n = paths
