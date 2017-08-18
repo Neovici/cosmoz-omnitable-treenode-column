@@ -91,7 +91,7 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		getComparableValue: function (item, valuePath) {
-			return this.ownerTree.getPathStringByProperty(this.keyProperty, this.get(valuePath, item), this.valueProperty, ' / ');
+			return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
 		},
 
 		// Implement filtering using treenode-navigator
