@@ -130,28 +130,28 @@ cosmoz-omnitable column to display a tree node
 				return 0;
 			}
 
+			var
+				paths = values.map(function (value) {
+					return this.getPathByProperty(this.keyProperty, value);
+				}, this),
+				n = paths
+					.reduce(function (agg, part) {
+						if (agg === undefined || part.length < agg.length) {
+							return part;
+						}
+						return agg;
+					})
+					.filter(function (sPathPart, sppIndex, shortest) {
+						if (sppIndex + 1 === shortest.length) {
+							// we need at least one node to show
+							return false;
+						}
+						return paths.every(function (path) {
+							return path[sppIndex] === sPathPart;
+						});
+					})
+					.length;
 
-			var paths = values.map(function (value) {
-				return this.getPathByProperty(this.keyProperty, value);
-			}, this);
-
-			var n = paths
-				.reduce(function (agg, part) {
-					if (agg === undefined || part.length < agg.length) {
-						return part;
-					}
-					return agg;
-				})
-				.filter(function (sPathPart, sppIndex, shortest) {
-					if (sppIndex + 1 === shortest.length) {
-						// we need at least one node to show
-						return false;
-					}
-					return paths.every(function (path) {
-						return path[sppIndex] === sPathPart;
-					});
-				})
-				.length;
 			return n;
 		}
 	});
