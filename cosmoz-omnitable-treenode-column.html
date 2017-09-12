@@ -91,6 +91,10 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		getComparableValue: function (item, valuePath) {
+			if (!item || !this.ownerTree) {
+				return;
+			}
+
 			return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
 		},
 
@@ -113,6 +117,10 @@ cosmoz-omnitable column to display a tree node
 
 		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
 		getPathByProperty: function (propertyName, propertyValue) {
+			if (!this.ownerTree) {
+				return [];
+			}
+
 			if (propertyName === 'pathLocator') {
 				return this.ownerTree.getPathNodes(propertyValue);
 			}
