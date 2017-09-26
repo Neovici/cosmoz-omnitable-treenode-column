@@ -50,9 +50,9 @@
 				last-response="{{ treeJson }}">
 			</iron-ajax>
 			<cosmoz-omnitable data="[[ getTableData(treeJson) ]]" class="fit">
-				<cosmoz-omnitable-column title="Name" value-path="name">
+				<cosmoz-omnitable-column name="name" title="Name" value-path="name">
 				</cosmoz-omnitable-column>
-				<cosmoz-omnitable-treenode-column title="Node" flex="5" show-max-nodes="3"
+				<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="3"
 					value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]">
 				</cosmoz-omnitable-treenode-column>
 			</cosmoz-omnitable>
