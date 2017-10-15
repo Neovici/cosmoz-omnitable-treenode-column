@@ -16,19 +16,17 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax#^2.0.0"
-	},
-	"resolutions": {
-		"cosmoz-viewinfo": "master",
-		"iron-resizable-behavior": "1 - 2",
-		"iron-flex-layout": "1 - 2",
-		"paper-icon-button": "^2.0.0",
-		"paper-listbox": "^2.0.0",
-		"webcomponentsjs": "^0.7.24",
-		"iron-icons": "1 - 2",
-		"paper-ripple": "1 - 2",
-		"paper-material": "^2.0.0",
-		"paper-input": "1 - 2",
-		"iron-icon": "1 - 2",
-		"iron-iconset-svg": "1 - 2"
-	}
+  },
+  "resolutions": {
+    "iron-resizable-behavior": "1 - 2",
+    "iron-flex-layout": "1 - 2",
+    "paper-icon-button": "^2.0.0",
+    "paper-listbox": "^2.0.0",
+    "webcomponentsjs": "^0.7.24",
+    "iron-icons": "1 - 2",
+    "paper-ripple": "1 - 2",
+    "paper-input": "1 - 2",
+    "iron-icon": "1 - 2",
+    "iron-iconset-svg": "1 - 2"
+  }
 }
