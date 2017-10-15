@@ -116,18 +116,18 @@ cosmoz-omnitable column to display a tree node
 		},
 
 		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
-		getPathByProperty: function (propertyName, propertyValue) {
-			if (!this.ownerTree) {
+		getPathByProperty: function (propertyName, propertyValue, ownerTree = this.ownerTree) {
+			if (!ownerTree) {
 				return [];
 			}
 
 			if (propertyName === 'pathLocator') {
-				return this.ownerTree.getPathNodes(propertyValue);
+				return ownerTree.getPathNodes(propertyValue);
 			}
 
-			var node = this.ownerTree.getNodeByProperty(propertyValue, propertyName);
+			const node = ownerTree.getNodeByProperty(propertyValue, propertyName);
 			if (node && node.pathLocator) {
-				return this.ownerTree.getPathNodes(node.pathLocator);
+				return ownerTree.getPathNodes(node.pathLocator);
 			}
 
 			return [];
@@ -138,29 +138,23 @@ cosmoz-omnitable column to display a tree node
 				return 0;
 			}
 
-			var
-				paths = values.map(function (value) {
-					return this.getPathByProperty(this.keyProperty, value);
-				}, this),
-				n = paths
-					.reduce(function (agg, part) {
-						if (agg === undefined || part.length < agg.length) {
-							return part;
-						}
-						return agg;
-					})
-					.filter(function (sPathPart, sppIndex, shortest) {
-						if (sppIndex + 1 === shortest.length) {
-							// we need at least one node to show
-							return false;
-						}
-						return paths.every(function (path) {
-							return path[sppIndex] === sPathPart;
-						});
-					})
-					.length;
-
-			return n;
+			const paths = values.map(value =>  this.getPathByProperty(this.keyProperty, value, ownerTree));
+	
+			return paths
+				.reduce((agg, part) => {
+					if (agg === undefined || part.length < agg.length) {
+						return part;
+					}
+					return agg;
+				})
+				.filter((sPathPart, sppIndex, shortest) => {
+					if (sppIndex + 1 === shortest.length) {
+						// we need at least one node to show
+						return false;
+					}
+					return paths.every(path => path[sppIndex] === sPathPart);
+				})
+				.length;
 		}
 	});
   </script>
