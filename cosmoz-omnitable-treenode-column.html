@@ -31,6 +31,7 @@ cosmoz-omnitable column to display a tree node
 				label="[[ title ]]"
 				value="{{ filter }}"
 				min-length="0"
+				title="[[ _tooltip ]]"
 				show-results-on-focus>
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 			</paper-autocomplete>
@@ -92,6 +93,11 @@ cosmoz-omnitable column to display a tree node
 				type: Number,
 				value: 0,
 				computed: '_computeHideFromRoot(showCommonPath, values, ownerTree)'
+			},
+
+			_tooltip: {
+				type: String,
+				computed: '_computeTooltip(filter)'
 			}
 		},
 
@@ -106,6 +112,10 @@ cosmoz-omnitable column to display a tree node
 					text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
 				};
 			});
+		},
+
+		_computeTooltip(filter, ownerTree = this.ownerTree) {
+			return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
 		},
 
 		getComparableValue: function (item, valuePath) {
