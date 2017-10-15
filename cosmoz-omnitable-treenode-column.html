@@ -27,7 +27,7 @@ cosmoz-omnitable column to display a tree node
 		<template class="header">
 			<paper-autocomplete
 				text="{{ query }}"
-				source="[[ _computeSuggestionList(values) ]]"
+				source="[[ _computeSuggestionList(values, _collator) ]]"
 				label="[[ title ]]"
 				value="{{ filter }}"
 				min-length="0"
@@ -68,6 +68,11 @@ cosmoz-omnitable column to display a tree node
 				value: null
 			},
 
+			locale: {
+				type: String,
+				value: null
+			},
+
 			showMaxNodes: {
 				type: Number
 			},
@@ -93,6 +98,11 @@ cosmoz-omnitable column to display a tree node
 				value: 'name'
 			},
 
+			_collator: {
+				type: Object,
+				computed: '_computeCollator(locale)'
+			},
+
 			_hideFromRoot: {
 				type: Number,
 				value: 0,
@@ -109,7 +119,7 @@ cosmoz-omnitable column to display a tree node
 			Cosmoz.OmnitableColumnBehavior
 		],
 
-		_computeSuggestionList(values) {
+		_computeSuggestionList(values, collator) {
 			return values
 				.map(value => {
 					return {
@@ -117,7 +127,11 @@ cosmoz-omnitable column to display a tree node
 						text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
 					};
 				})
-				.sort((a, b) => a.text.localeCompare(b.text));
+				.sort((a, b) => collator.compare(a.text, b.text));
+		},
+
+		_computeCollator(locale) {
+			return new Intl.Collator(locale || undefined);
 		},
 
 		_computeTooltip(filter, ownerTree = this.ownerTree) {
