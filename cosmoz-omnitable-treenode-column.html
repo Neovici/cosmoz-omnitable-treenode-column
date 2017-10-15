@@ -63,6 +63,10 @@ cosmoz-omnitable column to display a tree node
 			// 	value: 'align-left rtl'
 			// },
 
+			filter: {
+				type: String,
+				value: null
+			},
 
 			showMaxNodes: {
 				type: Number
@@ -106,15 +110,20 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		_computeSuggestionList(values) {
-			return values.map(value => {
-				return {
-					value: value,
-					text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
-				};
-			});
+			return values
+				.map(value => {
+					return {
+						value: value,
+						text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
+					};
+				})
+				.sort((a, b) => a.text.localeCompare(b.text));
 		},
 
 		_computeTooltip(filter, ownerTree = this.ownerTree) {
+			if (filter == null) {
+				return;
+			}
 			return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
 		},
 
