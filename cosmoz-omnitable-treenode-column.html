@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
 <link rel="import" href="../cosmoz-omnitable/cosmoz-omnitable-column-behavior.html">
 <link rel="import" href="../cosmoz-treenode/cosmoz-treenode.html">
@@ -24,7 +25,15 @@ cosmoz-omnitable column to display a tree node
 		</template>
 
 		<template class="header">
-			<paper-input label="[[ title ]]" value="{{ filter }}"></paper-input>
+			<paper-autocomplete
+				text="{{ query }}"
+				source="[[ _computeSuggestionList(values) ]]"
+				label="[[ title ]]"
+				value="{{ filter }}"
+				min-length="0"
+				show-results-on-focus>
+				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
+			</paper-autocomplete>
 		</template>
 
   </template>
@@ -90,6 +99,15 @@ cosmoz-omnitable column to display a tree node
 			Cosmoz.OmnitableColumnBehavior
 		],
 
+		_computeSuggestionList(values) {
+			return values.map(value => {
+				return {
+					value: value,
+					text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
+				};
+			});
+		},
+
 		getComparableValue: function (item, valuePath) {
 			if (!item || !this.ownerTree) {
 				return;
@@ -110,9 +128,8 @@ cosmoz-omnitable column to display a tree node
 			return this.getComparableValue(item, valuePath || this.valuePath);
 		},
 
-		_applySingleFilter: function (filterString, item) {
-			var value = this.getComparableValue(item, this.valuePath).toLowerCase();
-			return value.indexOf(filterString.toLowerCase()) >= 0;
+		_applySingleFilter: function (filter, item) {
+			return filter === this.get(this.valuePath, item);
 		},
 
 		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components

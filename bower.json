@@ -7,7 +7,9 @@
     "cosmoz-omnitable": "neovici/cosmoz-omnitable#master",
     "cosmoz-tree": "Neovici/cosmoz-tree#master",
     "cosmoz-treenode": "Neovici/cosmoz-treenode#master",
-    "paper-input": "^2.0.0"
+    "paper-input": "^2.0.0",
+    "paper-autocomplete": "^3.3.0",
+    "paper-spinner": "^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
