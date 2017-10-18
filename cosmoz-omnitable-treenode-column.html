@@ -28,16 +28,24 @@ cosmoz-omnitable column to display a tree node
 			<paper-autocomplete
 				text="{{ query }}"
 				source="[[ _computeSuggestionList(values, _collator) ]]"
+				query-fn="[[ queryFn ]]"
 				label="[[ title ]]"
 				value="{{ filter }}"
 				min-length="0"
 				title="[[ _tooltip ]]"
 				show-results-on-focus>
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
+
+				<template slot="autocomplete-custom-template">
+					<paper-item id$="[[_getSuggestionId(index)]]" role="option" aria-selected="false" on-tap="_onSelect">
+						<div inner-h-t-m-l="[[ item.html ]]"></div>
+						<paper-ripple></paper-ripple>
+					</paper-item>
+				</template>
 			</paper-autocomplete>
 		</template>
 
-  </template>
+	</template>
 
   <script>
 	Polymer({
@@ -112,6 +120,36 @@ cosmoz-omnitable column to display a tree node
 			_tooltip: {
 				type: String,
 				computed: '_computeTooltip(filter)'
+			},
+
+			/**
+			 * `<paper-autocomplete>` `queryFn`
+			 * Seach for indexOf query in all the text
+			 */
+			queryFn: {
+				type: Function,
+				value: function () {
+					return function (datasource, query) {
+						var results = [];
+						datasource.forEach(item => {
+							var text,
+								value,
+								html;
+							if (typeof item === 'object') {
+								text = item[this.textProperty];
+								value = item[this.valueProperty];
+							} else {
+								text = item.toString();
+								value = text;
+							}
+							if (text.toLowerCase().indexOf(query) > -1) {
+								html = text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>');
+								results.push({text, value, html });
+							}
+						});
+						return results;
+					};
+				}
 			}
 		},
 
@@ -189,7 +227,7 @@ cosmoz-omnitable column to display a tree node
 			}
 
 			const paths = values.map(value =>  this.getPathByProperty(this.keyProperty, value, ownerTree));
-	
+
 			return paths
 				.reduce((agg, part) => {
 					if (agg === undefined || part.length < agg.length) {
