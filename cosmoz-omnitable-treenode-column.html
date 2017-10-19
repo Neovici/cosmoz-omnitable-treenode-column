@@ -37,7 +37,7 @@ cosmoz-omnitable column to display a tree node
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 
 				<template slot="autocomplete-custom-template">
-					<paper-item id$="[[_getSuggestionId(index)]]" role="option" aria-selected="false" on-tap="_onSelect">
+					<paper-item id$="[[	_getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
 						<div inner-h-t-m-l="[[ item.html ]]"></div>
 						<paper-ripple></paper-ripple>
 					</paper-item>
@@ -124,17 +124,21 @@ cosmoz-omnitable column to display a tree node
 
 			/**
 			 * `<paper-autocomplete>` `queryFn`
-			 * Seach for indexOf query in all the text
+			 * Search for indexOf query in full text of sources.
+			 * Highlights the matches.
 			 */
 			queryFn: {
 				type: Function,
-				value: function () {
-					return function (datasource, query) {
-						var results = [];
-						datasource.forEach(item => {
-							var text,
-								value,
-								html;
+				value: function() {
+					return function(datasource, query) {
+						return datasource.map(item => {
+							let text,
+								value;
+
+							if (item == null) {
+								return;
+							}
+
 							if (typeof item === 'object') {
 								text = item[this.textProperty];
 								value = item[this.valueProperty];
@@ -142,12 +146,24 @@ cosmoz-omnitable column to display a tree node
 								text = item.toString();
 								value = text;
 							}
-							if (text.toLowerCase().indexOf(query) > -1) {
-								html = text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>');
-								results.push({text, value, html });
+
+							if (text == null) {
+								return;
 							}
-						});
-						return results;
+
+							// if there is text search for indexOf query
+							if(query == null ){
+								return {text, value, html: text};
+							}
+
+							if (text.toLowerCase().indexOf(query) < 0) {
+								return;
+							}
+
+							// Highlight matches
+							return {text, value, html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')};
+
+						}).filter(item => item != null);
 					};
 				}
 			}
