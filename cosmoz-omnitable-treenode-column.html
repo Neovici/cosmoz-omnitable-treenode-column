@@ -129,8 +129,8 @@ cosmoz-omnitable column to display a tree node
 			 */
 			queryFn: {
 				type: Function,
-				value: function() {
-					return function(datasource, query) {
+				value: function () {
+					return function (datasource, query) {
 						return datasource.map(item => {
 							let text,
 								value;
@@ -152,7 +152,7 @@ cosmoz-omnitable column to display a tree node
 							}
 
 							// if there is text search for indexOf query
-							if(query == null ){
+							if (query == null) {
 								return {text, value, html: text};
 							}
 
