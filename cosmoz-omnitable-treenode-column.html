@@ -33,7 +33,8 @@ cosmoz-omnitable column to display a tree node
 				value="{{ filter }}"
 				min-length="0"
 				title="[[ _tooltip ]]"
-				show-results-on-focus>
+				show-results-on-focus
+				readonly="[[ _computeReadOnly(filter) ]]">
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 
 				<template slot="autocomplete-custom-template">
@@ -259,6 +260,10 @@ cosmoz-omnitable column to display a tree node
 					return paths.every(path => path[sppIndex] === sPathPart);
 				})
 				.length;
+		},
+
+		_computeReadOnly: function (filter) {
+			return !!filter;
 		}
 	});
   </script>
