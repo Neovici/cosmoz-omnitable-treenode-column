@@ -38,7 +38,7 @@ cosmoz-omnitable column to display a tree node
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 
 				<template slot="autocomplete-custom-template">
-					<paper-item id$="[[	_getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
+					<paper-item id$="[[ _getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
 						<div inner-h-t-m-l="[[ item.html ]]"></div>
 						<paper-ripple></paper-ripple>
 					</paper-item>
@@ -124,47 +124,52 @@ cosmoz-omnitable column to display a tree node
 			},
 
 			/**
-			 * `<paper-autocomplete>` `queryFn`
-			 * Search for indexOf query in full text of sources.
-			 * Highlights the matches.
+			 * Function used to filter available items.
+			 * This function is actually used by `paper-autocomplete`,
+			 * it is also exposed here so it is possible to provide a custom queryFn.
 			 */
 			queryFn: {
 				type: Function,
 				value: function () {
 					return function (datasource, query) {
-						return datasource.map(item => {
-							let text,
-								value;
+						const notNull = i => i != null;
+						return datasource.filter(notNull)
+							.map(item => {
+								let text,
+									value;
 
-							if (item == null) {
-								return;
-							}
+								if (typeof item === 'object') {
+									text = item[this.textProperty];
+									value = item[this.valueProperty];
+								} else {
+									value = text = item.toString();
+								}
 
-							if (typeof item === 'object') {
-								text = item[this.textProperty];
-								value = item[this.valueProperty];
-							} else {
-								text = item.toString();
-								value = text;
-							}
+								if (text == null) {
+									return;
+								}
 
-							if (text == null) {
-								return;
-							}
+								// if there is text search for indexOf query
+								if (query == null) {
+									return {
+										text,
+										value,
+										html: text
+									};
+								}
 
-							// if there is text search for indexOf query
-							if (query == null) {
-								return {text, value, html: text};
-							}
+								if (text.toLowerCase().indexOf(query) < 0) {
+									return;
+								}
 
-							if (text.toLowerCase().indexOf(query) < 0) {
-								return;
-							}
+								// Highlight matches
+								return {
+									text,
+									value,
+									html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')
+								};
 
-							// Highlight matches
-							return {text, value, html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')};
-
-						}).filter(item => item != null);
+							}).filter(notNull);
 					};
 				}
 			}
