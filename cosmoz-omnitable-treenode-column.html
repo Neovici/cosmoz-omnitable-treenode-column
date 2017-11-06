@@ -243,6 +243,13 @@ cosmoz-omnitable column to display a tree node
 			return [];
 		},
 
+		toXlsxValue: function (item, valuePath = this.valuePath) {
+			if (!valuePath) {
+				return '';
+			}
+			return this.getString(item, valuePath);
+		},
+
 		_computeHideFromRoot: function (showCommonPath, values, ownerTree) {
 			if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
 				return 0;
