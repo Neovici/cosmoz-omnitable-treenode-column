@@ -255,22 +255,25 @@ cosmoz-omnitable column to display a tree node
 				return 0;
 			}
 
-			const paths = values.map(value =>  this.getPathByProperty(this.keyProperty, value, ownerTree));
-
-			return paths
-				.reduce((agg, part) => {
+			const paths = values.map(value =>  this.getPathByProperty(this.keyProperty, value, ownerTree)),
+				reducedPaths = paths.reduce((agg, part) => {
 					if (agg === undefined || part.length < agg.length) {
 						return part;
 					}
 					return agg;
-				})
-				.filter((sPathPart, sppIndex, shortest) => {
-					if (sppIndex + 1 === shortest.length) {
-						// we need at least one node to show
-						return false;
-					}
-					return paths.every(path => path[sppIndex] === sPathPart);
-				})
+				});
+
+			if (!Array.isArray(reducedPaths)) {
+				return 0;
+			}
+
+			return reducedPaths.filter((sPathPart, sppIndex, shortest) => {
+				if (sppIndex + 1 === shortest.length) {
+					// we need at least one node to show
+					return false;
+				}
+				return paths.every(path => path[sppIndex] === sPathPart);
+			})
 				.length;
 		},
 
