@@ -27,7 +27,7 @@ cosmoz-omnitable column to display a tree node
 		<template class="header">
 			<paper-autocomplete
 				text="{{ query }}"
-				source="[[ _computeSuggestionList(values, _collator) ]]"
+				source="[[ _computeSuggestionList(values, _collator, ownerTree) ]]"
 				query-fn="[[ queryFn ]]"
 				label="[[ title ]]"
 				value="{{ filter }}"
@@ -179,12 +179,15 @@ cosmoz-omnitable column to display a tree node
 			Cosmoz.OmnitableColumnBehavior
 		],
 
-		_computeSuggestionList(values, collator) {
+		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
+			if (!ownerTree) {
+				return [];
+			}
 			return values
 				.map(value => {
 					return {
 						value: value,
-						text: this.ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
+						text: ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
 					};
 				})
 				.sort((a, b) => collator.compare(a.text, b.text));
