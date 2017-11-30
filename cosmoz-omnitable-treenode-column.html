@@ -180,7 +180,7 @@ cosmoz-omnitable column to display a tree node
 		],
 
 		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
-			if (!ownerTree) {
+			if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
 				return [];
 			}
 			return values
