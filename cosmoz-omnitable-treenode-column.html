@@ -282,7 +282,15 @@ cosmoz-omnitable column to display a tree node
 
 		_computeReadOnly: function (filter) {
 			return !!filter;
-		}
+		},
+
+		_serializeFilter: function (filter = this.filter) {
+			return filter || null;
+		},
+
+		_deserializeFilter: function (obj) {
+			return obj || null;
+		},
 	});
   </script>
 </dom-module>
