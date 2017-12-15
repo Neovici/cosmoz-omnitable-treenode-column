@@ -8,7 +8,7 @@
     "cosmoz-tree": "Neovici/cosmoz-tree#master",
     "cosmoz-treenode": "Neovici/cosmoz-treenode#master",
     "paper-input": "^2.0.0",
-    "paper-autocomplete": "Neovici/paper-autocomplete#read-only",
+    "paper-autocomplete": "^3.4.0",
     "paper-spinner": "^2.0.0"
   },
   "devDependencies": {
@@ -28,7 +28,6 @@
     "webcomponentsjs": "^0.7.24",
     "iron-icons": "1 - 2",
     "paper-ripple": "1 - 2",
-    "paper-input": "1 - 2",
-    "paper-autocomplete": "read-only"
+    "paper-input": "1 - 2"
   }
 }
