@@ -24,6 +24,12 @@ cosmoz-omnitable column to display a tree node
 		<template class="edit-cell">
 		</template>
 
+		<template class="group">
+			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" no-wrap
+				key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item.items.0) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
+			</cosmoz-treenode>
+		</template>
+
 		<template class="header">
 			<paper-autocomplete
 				text="{{ query }}"
