@@ -122,6 +122,16 @@ cosmoz-omnitable column to display a tree node
 				type: String,
 				computed: '_computeTooltip(filter)'
 			},
+	
+			minWidth: {
+				type: String,
+				value: '85px'
+			},
+
+			editMinWidth: {
+				type: String,
+				value: '85px'
+			},
 
 			/**
 			 * Function used to filter available items.
@@ -178,6 +188,10 @@ cosmoz-omnitable column to display a tree node
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
 		],
+
+		_computeShowResultsOnFocus(query) {
+			return query ? false : true;
+		},
 
 		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
 			if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
