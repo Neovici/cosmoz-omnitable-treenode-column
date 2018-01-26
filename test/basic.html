@@ -122,9 +122,10 @@
 			done();
 		});
 
-		test('selection readonly', function (done) {
+		test('selection readonly & showResultsOnFocus', function (done) {
 			paperAutocomplete.setOption(paperAutocomplete.source[0]);
 			assert.isTrue(paperAutocomplete.readonly);
+			assert.isFalse(paperAutocomplete.showResultsOnFocus);
 			done();
 		});
 

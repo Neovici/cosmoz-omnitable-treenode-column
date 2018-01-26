@@ -33,7 +33,7 @@ cosmoz-omnitable column to display a tree node
 				value="{{ filter }}"
 				min-length="0"
 				title="[[ _tooltip ]]"
-				show-results-on-focus
+				show-results-on-focus="[[ _showResultsOnFocus ]]"
 				readonly="[[ _computeReadOnly(filter) ]]">
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 
@@ -96,8 +96,8 @@ cosmoz-omnitable column to display a tree node
 			},
 
 			/**
-				* Name of the property used to lookup the displayed node in the tree
-				*/
+			 * Name of the property used to lookup the displayed node in the tree
+			 */
 			keyProperty: {
 				type: String,
 			},
@@ -105,6 +105,13 @@ cosmoz-omnitable column to display a tree node
 			valueProperty: {
 				type: String,
 				value: 'name'
+			},
+
+			/**
+			 * The value of the `paper-autocomplete` input.
+			 */
+			query: {
+				type: String
 			},
 
 			_collator: {
@@ -121,6 +128,12 @@ cosmoz-omnitable column to display a tree node
 			_tooltip: {
 				type: String,
 				computed: '_computeTooltip(filter)'
+			},
+	
+			_showResultsOnFocus: {
+				type: Boolean,
+				value: true,
+				computed: '_computeShowResultsOnFocus(filter)'
 			},
 
 			minWidth: {
@@ -290,8 +303,12 @@ cosmoz-omnitable column to display a tree node
 				.length;
 		},
 
-		_computeReadOnly: function (filter) {
+		_computeReadOnly(filter) {
 			return !!filter;
+		},
+
+		_computeShowResultsOnFocus(filter) {
+			return !filter;
 		},
 
 		_serializeFilter: function (filter = this.filter) {
