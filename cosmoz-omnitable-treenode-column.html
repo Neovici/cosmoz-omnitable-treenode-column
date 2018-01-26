@@ -133,7 +133,7 @@ cosmoz-omnitable column to display a tree node
 			_showResultsOnFocus: {
 				type: Boolean,
 				value: true,
-				computed: '_computeShowResultsOnFocus(query)'
+				computed: '_computeShowResultsOnFocus(filter)'
 			},
 
 			/**
@@ -191,10 +191,6 @@ cosmoz-omnitable column to display a tree node
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
 		],
-
-		_computeShowResultsOnFocus(query) {
-			return query ? false : true;
-		},
 
 		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
 			if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
@@ -297,8 +293,12 @@ cosmoz-omnitable column to display a tree node
 				.length;
 		},
 
-		_computeReadOnly: function (filter) {
+		_computeReadOnly(filter) {
 			return !!filter;
+		},
+
+		_computeShowResultsOnFocus(filter) {
+			return !filter;
 		},
 
 		_serializeFilter: function (filter = this.filter) {
