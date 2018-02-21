@@ -29,33 +29,32 @@
 			@apply --layout-vertical;
 			@apply --layout-relative;
 
-			--demo-snippet-demo: {
-				@apply --layout-flex;
-				position: relative;
-			};
-
-			--demo-snippet-code: {
-
-			};
-		}
-	</style>
+				--demo-snippet-code: {
+				};
+			}
+		</style>
+	</custom-style>
 </head>
 <body class="fullbleed">
 	<h3>cosmoz-omnitable-treenode-column demo</h3>
 	<demo-snippet id="snippet">
-		<template is="dom-bind" id="basic">
-			<iron-ajax auto
-				url="../../cosmoz-tree/demo/tree.json"
-				handle-as="json"
-				last-response="{{ treeJson }}">
-			</iron-ajax>
-			<cosmoz-omnitable data="[[ getTableData(treeJson) ]]" class="fit">
-				<cosmoz-omnitable-column name="name" title="Name" value-path="name">
-				</cosmoz-omnitable-column>
-				<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="3"
-					value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]">
-				</cosmoz-omnitable-treenode-column>
-			</cosmoz-omnitable>
+		<template>
+			<dom-bind id="basic">
+				<template is="dom-bind">
+					<iron-ajax auto
+						url="../../cosmoz-tree/demo/tree.json"
+						handle-as="json"
+						last-response="{{ treeJson }}">
+					</iron-ajax>
+					<cosmoz-omnitable data="[[ getTableData(treeJson) ]]" class="fit">
+						<cosmoz-omnitable-column name="name" title="Name" value-path="name">
+						</cosmoz-omnitable-column>
+						<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="3"
+							value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]">
+						</cosmoz-omnitable-treenode-column>
+					</cosmoz-omnitable>
+				</template>
+			</dom-bind>
 		</template>
 	</demo-snippet>
 
