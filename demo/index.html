@@ -7,6 +7,8 @@
 	<title>cosmoz-omnitable-treenode-column demo</title>
 
 	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../cosmoz-tree/cosmoz-default-tree.html">
+	<link rel="import" href="../cosmoz-omnitable-treenode-column.html">
 
 	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
@@ -15,8 +17,13 @@
 	<link rel="import" href="../../iron-ajax/iron-ajax.html">
 	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable.html">
 
-	<link rel="import" href="../../cosmoz-tree/cosmoz-default-tree.html">
-	<link rel="import" href="../cosmoz-omnitable-treenode-column.html">
+
+	<custom-style>
+		<style is="custom-style" include="demo-pages-shared-styles iron-flex iron-positioning">
+			body {
+				@apply --layout-fullbleed;
+				@apply --layout-vertical;
+			}
 
 	<style is="custom-style" include="demo-pages-shared-styles iron-flex iron-positioning">
 		body {
@@ -44,13 +51,15 @@
 					<iron-ajax auto
 						url="../../cosmoz-tree/demo/tree.json"
 						handle-as="json"
-						last-response="{{ treeJson }}">
+						last-response="{{ treeJson }}"
+						debounce-duration="300"
+						on-response="handleResponse">
 					</iron-ajax>
 					<cosmoz-omnitable data="[[ getTableData(treeJson) ]]" class="fit">
-						<cosmoz-omnitable-column name="name" title="Name" value-path="name">
+						<cosmoz-omnitable-column name="name" title="Name" value-path="name" min-width="200px">
 						</cosmoz-omnitable-column>
 						<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="3"
-							value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]">
+							value-path="nodeId" key-property="id" owner-tree="[[ getOwnerTree(treeJson) ]]" flex="1">
 						</cosmoz-omnitable-treenode-column>
 					</cosmoz-omnitable>
 				</template>
@@ -58,12 +67,20 @@
 		</template>
 	</demo-snippet>
 
-	<script>
-		var basic = document.getElementById('basic');
+	<script type="text/javascript">
+		'use strict';
+		(function () {
+			window.addEventListener('WebComponentsReady', function () {
+				(function () {
+					var basic = document.getElementById('basic');
+					basic = !basic.set ? basic.firstElementChild : basic;
 
-		basic.getOwnerTree = function (treeJson) {
-			return new Cosmoz.DefaultTree(treeJson);
-		};
+					basic.handleResponse = function () {
+						console.log('tree data');
+					};
+					basic.getOwnerTree = function (treeJson) {
+						return new Cosmoz.DefaultTree(treeJson);
+					};
 
 		basic.getTableData = function () {
 			return [

@@ -18,7 +18,8 @@
 		"webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
 		"iron-flex-layout": "PolymerElements/iron-flex-layout#1 - 2",
 		"iron-ajax": "PolymerElements/iron-ajax#1 - 2",
-		"iron-iconset-svg": "PolymerElements/iron-iconset-svg#1 - 2"
+		"iron-iconset-svg": "PolymerElements/iron-iconset-svg#1 - 2",
+		"promise-polyfill": "PolymerLabs/promise-polyfill#1 - 2"
 	},
 	"variants": {
 		"1.x": {
