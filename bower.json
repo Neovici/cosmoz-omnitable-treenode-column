@@ -4,9 +4,9 @@
   "main": "cosmoz-omnitable-treenode-column.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.0",
-    "cosmoz-omnitable": "neovici/cosmoz-omnitable#master",
-    "cosmoz-tree": "Neovici/cosmoz-tree#master",
-    "cosmoz-treenode": "Neovici/cosmoz-treenode#master",
+    "cosmoz-omnitable": "neovici/cosmoz-omnitable#^1.0.0",
+    "cosmoz-tree": "Neovici/cosmoz-tree#^1.0.0",
+    "cosmoz-treenode": "Neovici/cosmoz-treenode#^1.0.0",
     "paper-input": "^2.0.0",
     "paper-autocomplete": "^3.4.0",
     "paper-spinner": "^2.0.0"
