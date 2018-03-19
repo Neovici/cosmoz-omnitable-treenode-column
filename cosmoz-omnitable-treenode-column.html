@@ -129,7 +129,7 @@ cosmoz-omnitable column to display a tree node
 				type: String,
 				computed: '_computeTooltip(filter)'
 			},
-	
+
 			_showResultsOnFocus: {
 				type: Boolean,
 				value: true,
@@ -146,6 +146,8 @@ cosmoz-omnitable column to display a tree node
 				value: '85px'
 			},
 
+			/* eslint no-invalid-this: 0 */
+
 			/**
 			 * Function used to filter available items.
 			 * This function is actually used by `paper-autocomplete`,
@@ -153,7 +155,7 @@ cosmoz-omnitable column to display a tree node
 			 */
 			queryFn: {
 				type: Function,
-				value: function () {
+				value: () => {
 					return function (datasource, query) {
 						const notNull = i => i != null;
 						return datasource.filter(notNull)
@@ -227,7 +229,7 @@ cosmoz-omnitable column to display a tree node
 			return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
 		},
 
-		getComparableValue: function (item, valuePath) {
+		getComparableValue(item, valuePath) {
 			if (!item || !this.ownerTree) {
 				return;
 			}
@@ -236,23 +238,23 @@ cosmoz-omnitable column to display a tree node
 		},
 
 		// Implement filtering using treenode-navigator
-		getFilterFn: function () {
+		getFilterFn() {
 			if (!this.filter) {
 				return;
 			}
 			return this._applySingleFilter.bind(this, this.filter);
 		},
 
-		getString: function (item, valuePath) {
+		getString(item, valuePath) {
 			return this.getComparableValue(item, valuePath || this.valuePath);
 		},
 
-		_applySingleFilter: function (filter, item) {
+		_applySingleFilter(filter, item) {
 			return filter === this.get(this.valuePath, item);
 		},
 
 		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
-		getPathByProperty: function (propertyName, propertyValue, ownerTree = this.ownerTree) {
+		getPathByProperty(propertyName, propertyValue, ownerTree = this.ownerTree) {
 			if (!ownerTree) {
 				return [];
 			}
@@ -269,19 +271,19 @@ cosmoz-omnitable column to display a tree node
 			return [];
 		},
 
-		toXlsxValue: function (item, valuePath = this.valuePath) {
+		toXlsxValue(item, valuePath = this.valuePath) {
 			if (!valuePath) {
 				return '';
 			}
 			return this.getString(item, valuePath);
 		},
 
-		_computeHideFromRoot: function (showCommonPath, values, ownerTree) {
+		_computeHideFromRoot(showCommonPath, values, ownerTree) {
 			if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
 				return 0;
 			}
 
-			const paths = values.map(value =>  this.getPathByProperty(this.keyProperty, value, ownerTree)),
+			const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
 				reducedPaths = paths.reduce((agg, part) => {
 					if (agg === undefined || part.length < agg.length) {
 						return part;
@@ -311,11 +313,11 @@ cosmoz-omnitable column to display a tree node
 			return !filter;
 		},
 
-		_serializeFilter: function (filter = this.filter) {
+		_serializeFilter(filter = this.filter) {
 			return filter || null;
 		},
 
-		_deserializeFilter: function (obj) {
+		_deserializeFilter(obj) {
 			return obj || null;
 		},
 	});

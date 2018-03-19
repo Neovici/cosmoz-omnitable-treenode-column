@@ -70,20 +70,20 @@
 
 	<script type="text/javascript">
 		'use strict';
-		(function () {
-			window.addEventListener('WebComponentsReady', function () {
-				(function () {
-					var basic = document.getElementById('basic');
+		(() => {
+			window.addEventListener('WebComponentsReady', () => {
+				(() => {
+					let basic = document.getElementById('basic');
 					basic = !basic.set ? basic.firstElementChild : basic;
 
-					basic.handleResponse = function () {
+					basic.handleResponse = () => {
 						console.log('tree data');
 					};
-					basic.getOwnerTree = function (treeJson) {
+					basic.getOwnerTree = treeJson => {
 						return new Cosmoz.DefaultTree(treeJson);
 					};
 
-					basic.getTableData = function () {
+					basic.getTableData = () => {
 						return [
 							{
 								name: 'Sed a quam interdum',
