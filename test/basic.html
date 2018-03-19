@@ -104,16 +104,20 @@
 		});
 
 		setup(done => {
-			omnitable = fixture('basic');
-			omnitable.data = data;
+			setup(done => {
+				omnitable = fixture('basic');
+				omnitable.addEventListener('visible-columns-changed', () => {
+					Polymer.Base.async(() => {
+						column = omnitable.columns[1];
+						column.ownerTree = tree;
+						paperAutocomplete = omnitable.$$('cosmoz-omnitable-header-row').elements[1].querySelector('paper-autocomplete');
 
-			Polymer.Base.async(() => {
-				column = omnitable.columns[1];
-				column.ownerTree = tree;
-				paperAutocomplete = omnitable.$$('cosmoz-omnitable-header-row').elements[1].querySelector('paper-autocomplete');
-
-				Polymer.Base.async(done, 90);
-			}, 130);
+						Polymer.Base.async(done, 90);
+					}, 100);
+				});
+				omnitable.data = data;
+				omnitable.notifyResize();
+			});
 		});
 
 		test('it instantiates a cosmoz-omnitable element', done => {
