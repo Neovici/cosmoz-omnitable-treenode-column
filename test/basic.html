@@ -13,11 +13,12 @@
 	<link rel="import" href="../../test-fixture/test-fixture.html">
 	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
 
-	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable.html">
-	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable-templatizer.html">
-	<link rel="import" href="../../iron-ajax/iron-ajax.html">
 	<link rel="import" href="../../cosmoz-tree/cosmoz-default-tree.html">
 	<link rel="import" href="../cosmoz-omnitable-treenode-column.html">
+
+	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable.html">
+	<link rel="import" href="../../promise-polyfill/promise-polyfill-lite.html">
+	<link rel="import" href="../../iron-ajax/iron-ajax.html">
 </head><body>
 
 	<test-fixture id="basicTree">
@@ -42,12 +43,15 @@
 	</test-fixture>
 
 	<script>
-	suite('basic', function () {
-		var omnitable,
-			column,
-			tree,
-			paperAutocomplete,
-			data = [
+	(function () {
+		'use strict';
+
+		suite('basic', () => {
+			let omnitable,
+				column,
+				tree,
+				paperAutocomplete;
+			const data = [
 				{
 					name: 'Sed a quam interdum',
 					nodeId: '167d1485-7d4f-4c7d-86cd-a4fb00f31245'
@@ -94,54 +98,57 @@
 				},
 			];
 
-		suiteSetup(function (done) {
-			var basicTreeFixture = fixture('basicTree');
-			basicTreeFixture.addEventListener('response', function () {
-				tree = new Cosmoz.DefaultTree(basicTreeFixture.lastResponse);
+			suiteSetup(done => {
+				const basicTreeFixture = fixture('basicTree');
+				basicTreeFixture.addEventListener('response', () => {
+					tree = new Cosmoz.DefaultTree(basicTreeFixture.lastResponse);
+					done();
+				});
+			});
+
+			setup(done => {
+				omnitable = fixture('basic');
+				omnitable.addEventListener('visible-columns-changed', () => {
+					Polymer.Base.async(() => {
+						column = omnitable.columns[1];
+						column.ownerTree = tree;
+						paperAutocomplete = omnitable.$$('cosmoz-omnitable-header-row').elements[1].querySelector('paper-autocomplete');
+
+						Polymer.Base.async(done, 90);
+					}, 100);
+				});
+				omnitable.data = data;
+				omnitable.notifyResize();
+			});
+
+			test('it instantiates a cosmoz-omnitable element', done => {
+				assert.equal(omnitable.is, 'cosmoz-omnitable');
+				assert.equal(column.is, 'cosmoz-omnitable-treenode-column');
+				assert.equal(paperAutocomplete.is, 'paper-autocomplete');
 				done();
 			});
-		});
 
-		setup(function (done) {
-			omnitable = fixture('basic');
-			omnitable.data = data;
-
-			Polymer.Base.async(function () {
-				column = omnitable.columns[1];
-				column.ownerTree = tree;
-				paperAutocomplete = omnitable.$$('cosmoz-omnitable-header-row').elements[1].querySelector('paper-autocomplete');
-
-				Polymer.Base.async(done, 90);
-			}, 30);
-		});
-
-		test('it instantiates a cosmoz-omnitable element', function (done) {
-			assert.equal(omnitable.is, 'cosmoz-omnitable');
-			assert.equal(column.is, 'cosmoz-omnitable-treenode-column');
-			assert.equal(paperAutocomplete.is, 'paper-autocomplete');
-			done();
-		});
-
-		test('selection readonly & showResultsOnFocus', function (done) {
-			paperAutocomplete.setOption(paperAutocomplete.source[0]);
-			assert.isTrue(paperAutocomplete.readonly);
-			assert.isFalse(paperAutocomplete.showResultsOnFocus);
-			done();
-		});
-
-		test('search in middle of the text', function (done) {
-			let suggestions = paperAutocomplete.$.paperAutocompleteSuggestions,
-				input = paperAutocomplete.$.autocompleteInput;
-
-			paperAutocomplete.text = 'Uxuzqizf';
-			input.fire('focus', {});
-
-			Polymer.Base.async(function () {
-				assert.isTrue(suggestions.isOpen);
-				assert.equal(suggestions._suggestions.length, 1);
+			test('selection readonly & showResultsOnFocus', done => {
+				paperAutocomplete.setOption(paperAutocomplete.source[0]);
+				assert.isTrue(paperAutocomplete.readonly);
+				assert.isFalse(paperAutocomplete.showResultsOnFocus);
 				done();
-			}, 300);
+			});
+
+			test('search in middle of the text', done => {
+				const suggestions = paperAutocomplete.$.paperAutocompleteSuggestions,
+					input = paperAutocomplete.$.autocompleteInput;
+
+				paperAutocomplete.text = 'Uxuzqizf';
+				input.fire('focus', {});
+
+				Polymer.Base.async(() => {
+					assert.isTrue(suggestions.isOpen);
+					assert.equal(suggestions._suggestions.length, 1);
+					done();
+				}, 300);
+			});
 		});
-	});
+	})();
 	</script>
 </body></html>
