@@ -34,6 +34,7 @@ cosmoz-omnitable column to display a tree node
 				min-length="0"
 				title="[[ _tooltip ]]"
 				show-results-on-focus="[[ _showResultsOnFocus ]]"
+				focused="{{ headerFocused }}"
 				readonly="[[ _computeReadOnly(filter) ]]">
 				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 
