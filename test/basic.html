@@ -148,6 +148,31 @@
 					done();
 				}, 300);
 			});
+
+			test('suggestions are updated when input is focused if values are changed', done => {
+				const suggestions = paperAutocomplete.$.paperAutocompleteSuggestions,
+					input = paperAutocomplete.$.autocompleteInput;
+
+				paperAutocomplete.text = 'Uzw';
+				input.fire('focus', {});
+				omnitable.data = [
+					{
+						name: 'bbb',
+						nodeId: '3a7654f1-e3e6-49c7-b6a8-a4fb00f31245'
+					},
+					{
+						name: 'ccc',
+						nodeId: '426d7dba-a4f0-4bd4-9b34-a4fb00f31248'
+					}];
+				omnitable.notifyResize();
+
+				Polymer.Base.async(() => {
+					console.log(paperAutocomplete);
+					assert.isTrue(suggestions.isOpen);
+					assert.equal(suggestions._suggestions.length, 1);
+					done();
+				}, 300);
+			});
 		});
 	})();
 	</script>
