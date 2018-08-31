@@ -286,7 +286,7 @@ cosmoz-omnitable column to display a tree node
 
 			const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
 				reducedPaths = paths.reduce((agg, part) => {
-					if (agg === undefined || part.length < agg.length) {
+					if (agg === undefined || part !== undefined && part.length < agg.length) {
 						return part;
 					}
 					return agg;
