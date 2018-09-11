@@ -233,10 +233,11 @@ cosmoz-omnitable column to display a tree node
 			return new Intl.Collator(locale || undefined);
 		},
 		/**
-		 * Get a tooltip for the column.
+		 * Get a tooltip text for the column.
 		 * @param {string} filter Filter text.
-		 * @param {object} ownerTree Owner tree to get tooltip from.
+		 * @param {object} ownerTree Owner tree to get tooltip text from.
 		 * @param {void|string} Tooltip text.
+		 * @returns {string} Tooltip text.
 		 */
 		_computeTooltip(filter, ownerTree = this.ownerTree) {
 			if (filter == null) {
