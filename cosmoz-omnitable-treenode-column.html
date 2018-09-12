@@ -204,7 +204,13 @@ cosmoz-omnitable column to display a tree node
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
 		],
-
+		/**
+		 * Get a list of suggestions for the column header.
+		 * @param {array} values Suggestion values.
+		 * @param {object} collator Language sensitive string comparison object.
+		 * @param {object} ownerTree Owner tree to get texts from.
+		 * @returns {array} Suggestions remapped for the column header.
+		 */
 		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
 			if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
 				return [];
@@ -218,18 +224,33 @@ cosmoz-omnitable column to display a tree node
 				})
 				.sort((a, b) => collator.compare(a.text, b.text));
 		},
-
+		/**
+		 * Get a language sensitive string comparison object.
+		 * @param {string} locale Current locale.
+		 * @returns {object} Collator.
+		 */
 		_computeCollator(locale) {
 			return new Intl.Collator(locale || undefined);
 		},
-
+		/**
+		 * Get a tooltip text for the column.
+		 * @param {string} filter Filter text.
+		 * @param {object} ownerTree Owner tree to get tooltip text from.
+		 * @param {void|string} Tooltip text.
+		 * @returns {string} Tooltip text.
+		 */
 		_computeTooltip(filter, ownerTree = this.ownerTree) {
 			if (filter == null) {
 				return;
 			}
 			return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
 		},
-
+		/**
+		 * Get a comparable value from the column.
+		 * @param {object} item Column data.
+		 * @param {string} valuePath Value path in column data.
+		 * @returns {void|string} Column data in a comparable format.
+		 */
 		getComparableValue(item, valuePath) {
 			if (!item || !this.ownerTree) {
 				return;
@@ -238,18 +259,31 @@ cosmoz-omnitable column to display a tree node
 			return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
 		},
 
-		// Implement filtering using treenode-navigator
+		/**
+		 * Get a filter function for the column.
+		 * @returns {void|function} Filter function.
+		 */
 		getFilterFn() {
 			if (!this.filter) {
 				return;
 			}
 			return this._applySingleFilter.bind(this, this.filter);
 		},
-
+		/**
+		 * Get column represented as a string.
+		 * @param {object} item Column data.
+		 * @param {string} valuePath Value path in column data.
+		 * @returns {void|string} Column in string format.
+		 */
 		getString(item, valuePath) {
 			return this.getComparableValue(item, valuePath || this.valuePath);
 		},
-
+		/**
+		 * Determine if a filter should be enabled or not.
+		 * @param {string} filter Filter text.
+		 * @param {object} item Column data.
+		 * @returns {boolean} Whether the filter should be enabled or not.
+		 */
 		_applySingleFilter(filter, item) {
 			return filter === this.get(this.valuePath, item);
 		},
@@ -271,14 +305,25 @@ cosmoz-omnitable column to display a tree node
 
 			return [];
 		},
-
+		/**
+		 * Get column content as an XLSX value.
+		 * @param {object} item Column data.
+		 * @param {string} valuePath Value path in column data.
+		 * @returns {string} Column in XLSX value format.
+		 */
 		toXlsxValue(item, valuePath = this.valuePath) {
 			if (!valuePath) {
 				return '';
 			}
 			return this.getString(item, valuePath);
 		},
-
+		/**
+		 * Get a number of nodes that should not be rendered starting from root.
+		 * @param {boolean} showCommonPath Show common node path or not.
+		 * @param {array} values Nodes.
+		 * @param {object} ownerTree Owner tree to get paths data from.
+		 * @returns {number} Node amount not to render.
+		 */
 		_computeHideFromRoot(showCommonPath, values, ownerTree) {
 			if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
 				return 0;
@@ -286,7 +331,7 @@ cosmoz-omnitable column to display a tree node
 
 			const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
 				reducedPaths = paths.reduce((agg, part) => {
-					if (agg === undefined || part !== undefined && part.length < agg.length) {
+					if (agg == null || part != null && part.length < agg.length) {
 						return part;
 					}
 					return agg;
@@ -301,15 +346,23 @@ cosmoz-omnitable column to display a tree node
 					// we need at least one node to show
 					return false;
 				}
-				return paths.every(path => path[sppIndex] === sPathPart);
+				return paths.every(path => path != null && path[sppIndex] === sPathPart);
 			})
 				.length;
 		},
-
+		/**
+		 * Determine if filter should be read only or not.
+		 * @param {string} filter Filter text.
+		 * @returns {boolean} Whether filter should be read only or not.
+		 */
 		_computeReadOnly(filter) {
 			return !!filter;
 		},
-
+		/**
+		 * Determine if results should be shown on focus or not.
+		 * @param {string} filter Filter text.
+		 * @returns {boolean} Whether results should be shown on focus or not.
+		 */
 		_computeShowResultsOnFocus(filter) {
 			return !filter;
 		},
