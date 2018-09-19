@@ -75,7 +75,7 @@ cosmoz-omnitable column to display a tree node
 
 			filter: {
 				type: String,
-				value: null
+				value: null,
 			},
 
 			locale: {
@@ -203,6 +203,9 @@ cosmoz-omnitable column to display a tree node
 
 		behaviors: [
 			Cosmoz.OmnitableColumnBehavior
+		],
+		observers: [
+			'_setQueryByPath(filter, ownerTree)'
 		],
 		/**
 		 * Get a list of suggestions for the column header.
@@ -366,11 +369,20 @@ cosmoz-omnitable column to display a tree node
 		_computeShowResultsOnFocus(filter) {
 			return !filter;
 		},
-
 		_serializeFilter(filter = this.filter) {
 			return filter || null;
 		},
-
+		/**
+		 * Set the query by using a path, this sets the initial header filter text of the column.
+		 * @param {string} path Path to set.
+		 * @returns {void}
+		 */
+		_setQueryByPath(path, ownerTree = this.ownerTree) {
+			if (path == null || ownerTree == null) {
+				return;
+			}
+			this.set('query', ownerTree.getPathStringByProperty(path, this.keyProperty, this.valueProperty, ' / '));
+		},
 		_deserializeFilter(obj) {
 			return obj || null;
 		},
