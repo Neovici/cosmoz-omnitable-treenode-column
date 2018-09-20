@@ -173,6 +173,11 @@
 					done();
 				}, 300);
 			});
+
+			test('_setQueryByPath(null, null) returns null', function (done) {
+				assert.equal(column._setQueryByPath(null, null), null);
+				done();
+			});
 		});
 	})();
 	</script>
