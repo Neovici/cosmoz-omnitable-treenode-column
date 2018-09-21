@@ -174,8 +174,17 @@
 				}, 300);
 			});
 
-			test('_setQueryByPath(null, null) returns null', function (done) {
-				assert.equal(column._setQueryByPath(null, null), null);
+			test('_setQueryByPath(null, null) leaves query as an empty string', done => {
+				column._setQueryByPath(null, null)
+				assert.equal(column.query, '');
+				done();
+			});
+
+			test('_setQueryByPath(\'1.8.10\', tree) sets query to Root / Company Pjqcakmiyx / Company Dyzljcycik', done => {
+				column.keyProperty = 'pathLocator';
+				column.valueProperty = 'name';
+				column._setQueryByPath('1.8.10', tree)
+				assert.equal(column.query, 'Root / Company Pjqcakmiyx / Company Dyzljcycik');
 				done();
 			});
 		});
