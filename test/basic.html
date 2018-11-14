@@ -121,13 +121,6 @@
 				omnitable.notifyResize();
 			});
 
-			test('it instantiates a cosmoz-omnitable element', done => {
-				assert.equal(omnitable.is, 'cosmoz-omnitable');
-				assert.equal(column.is, 'cosmoz-omnitable-treenode-column');
-				assert.equal(paperAutocomplete.is, 'paper-autocomplete');
-				done();
-			});
-
 			test('selection readonly & showResultsOnFocus', done => {
 				paperAutocomplete.setOption(paperAutocomplete.source[0]);
 				assert.isTrue(paperAutocomplete.readonly);

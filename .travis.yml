@@ -1,10 +1,9 @@
 language: node_js
-node_js: "lts/*"
-dist: trusty
-sudo: required
 env:
   global:
     - CC_TEST_REPORTER_ID=c07e476140f800aa20bc816ac34938dbf1e4b43d9c2e85e1c33d027f239feb11
+    - SAUCE_USERNAME=nomego
+    - secure: azH+aT5cbW0A+wu812SVEeC0O0kmS1VGoqQS3p1e1Ouw73CRXBkX7rxE0Pv0wVGSQC/fUHSPuZxpD2iZXaSrPZeua/XS4RixkYkNmw70vaazj/bcbTRZogWfiX86n8pFE9/NjMZuz6yiI82iJHvV0l3dAoqFAqkT9Oy2UdfIWZj+wPwtbSe/DNElE0BEKVeSXfxGmz2piFnEfuTC9i8UXC/VFkiirLWztRLlc9rvSeYDvOfbxtSsY99n7NAgDQaP07vLrICjtouGGL4bStoZ/d8J1pmQYF7vFwJ3m5JK+m6wytyNiu7lD1DY2BXDgyOP6M4Tz+IQGnQQkSxGqRN/C5BKiySJ4UO00ZMqpTZUZ8Xo5Uhxajyn+SneCHY9OupW6SuPfMnJgl5K9PdICS7O2ZY49C10h9btBcEXGRJBl7fbwNCXTuYl6Tlpc/4RBqFKaKu1NBIssCwAhd1P3w5cb41rrVkhLUrPUst1oIKrVnCgGTMTNmtCbkvy67jxTJ1tynqHFPVg5+ynsbVvxLfw6uC1sEdPERnuXgv5gee+Sc+EEotVrgjnWyer57I4ohAnZ9yl7LWdLIX6sKYQvhDIYxobiNIOqZ2uHtb73C0CagAoeIdL69jp+voVbt81OvvKiwvOYlXgMC5DHhvcpPun19u/ku3bqNEu2F2XYtpcIco=
 addons:
   firefox: latest
   apt:
@@ -17,7 +16,6 @@ cache:
   directories:
     - node_modules
     - bower_components
-    - bower_components-1.x
     - .eslintcache
     - $HOME/.cache/bower
 before_script:
@@ -26,7 +24,7 @@ before_script:
   - ./cc-test-reporter before-build
   - yarn run lint
 script:
-  - xvfb-run yarn test
+  - yarn test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 notifications:
