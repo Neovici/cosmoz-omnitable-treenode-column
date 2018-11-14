@@ -75,10 +75,11 @@
 				(() => {
 					let basic = document.getElementById('basic');
 					basic = !basic.set ? basic.firstElementChild : basic;
-
+		
 					basic.handleResponse = () => {
 						console.log('tree data');
 					};
+
 					basic.getOwnerTree = treeJson => {
 						return new Cosmoz.DefaultTree(treeJson);
 					};

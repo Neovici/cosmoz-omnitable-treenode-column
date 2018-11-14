@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 
 <link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
@@ -7,37 +7,35 @@
 <link rel="import" href="../cosmoz-treenode/cosmoz-treenode.html">
 
 <!--
-`cosmoz-omnitable-treenode-column`
-cosmoz-omnitable column to display a tree node
-
-@demo demo/index.html
+	`cosmoz-omnitable-treenode-column`
+	cosmoz-omnitable column to display a tree node
+	
+	@demo demo/index.html
 -->
 
 <dom-module id="cosmoz-omnitable-treenode-column">
 	<template>
 		<template class="cell">
 			<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" no-wrap
-				key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
+			key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
 			</cosmoz-treenode>
 		</template>
-
-		<template class="edit-cell">
-		</template>
-
+	
+		<template class="edit-cell"></template>
+	
 		<template class="header">
 			<paper-autocomplete
-				text="{{ query }}"
-				source="[[ _computeSuggestionList(values, _collator, ownerTree) ]]"
-				query-fn="[[ queryFn ]]"
-				label="[[ title ]]"
-				value="{{ filter }}"
-				min-length="0"
-				title="[[ _tooltip ]]"
-				show-results-on-focus="[[ _showResultsOnFocus ]]"
-				focused="{{ headerFocused }}"
-				readonly="[[ _computeReadOnly(filter) ]]">
-				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
-
+			text="{{ query }}"
+			source="[[ _computeSuggestionList(values, _collator, ownerTree) ]]"
+			query-fn="[[ queryFn ]]"
+			label="[[ title ]]"
+			value="{{ filter }}"
+			min-length="0"
+			title="[[ _tooltip ]]"
+			show-results-on-focus="[[ _showResultsOnFocus ]]"
+			focused="{{ headerFocused }}"
+			readonly="[[ _computeReadOnly(filter) ]]">
+			<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>		
 				<template slot="autocomplete-custom-template">
 					<paper-item id$="[[ _getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
 						<div inner-h-t-m-l="[[ item.html ]]"></div>
@@ -46,347 +44,346 @@ cosmoz-omnitable column to display a tree node
 				</template>
 			</paper-autocomplete>
 		</template>
-
 	</template>
 
-  <script>
-	Polymer({
-
-		is: 'cosmoz-omnitable-treenode-column',
-
-		properties: {
-			ownerTree: {
-				type: Cosmoz.Tree
-			},
-
-			/**
-			 * Ask for a list of values
-			 */
-			bindValues: {
-				type: Boolean,
-				readOnly: true,
-				value: true
-			},
-
-			// cellClass: {
-			// 	type: String,
-			// 	value: 'align-left rtl'
-			// },
-
-			filter: {
-				type: String,
-				value: null
-			},
-
-			locale: {
-				type: String,
-				value: null
-			},
-
-			showMaxNodes: {
-				type: Number
-			},
-
-			/**
-			 * If displayed node share a common path from root, this property indicates wether this common
-			 * path should be replaced by an ellipsis.
-			 */
-			showCommonPath: {
-				type: Boolean,
-				value: false
-			},
-
-			/**
-			 * Name of the property used to lookup the displayed node in the tree
-			 */
-			keyProperty: {
-				type: String,
-			},
-
-			valueProperty: {
-				type: String,
-				value: 'name'
-			},
-
-			/**
-			 * The value of the `paper-autocomplete` input.
-			 */
-			query: {
-				type: String
-			},
-
-			_collator: {
-				type: Object,
-				computed: '_computeCollator(locale)'
-			},
-
-			_hideFromRoot: {
-				type: Number,
-				value: 0,
-				computed: '_computeHideFromRoot(showCommonPath, values, ownerTree)'
-			},
-
-			_tooltip: {
-				type: String,
-				computed: '_computeTooltip(filter)'
-			},
-
-			_showResultsOnFocus: {
-				type: Boolean,
-				value: true,
-				computed: '_computeShowResultsOnFocus(filter)'
-			},
-
-			minWidth: {
-				type: String,
-				value: '85px'
-			},
-
-			editMinWidth: {
-				type: String,
-				value: '85px'
-			},
-
-			/* eslint no-invalid-this: 0 */
-
-			/**
-			 * Function used to filter available items.
-			 * This function is actually used by `paper-autocomplete`,
-			 * it is also exposed here so it is possible to provide a custom queryFn.
-			 */
-			queryFn: {
-				type: Function,
-				value: () => {
-					return function (datasource, query) {
-						const notNull = i => i != null;
-						return datasource.filter(notNull)
-							.map(item => {
-								let text,
-									value;
-
-								if (typeof item === 'object') {
-									text = item[this.textProperty];
-									value = item[this.valueProperty];
-								} else {
-									value = text = item.toString();
-								}
-
-								if (text == null) {
-									return;
-								}
-
-								// if there is text search for indexOf query
-								if (query == null) {
-									return {
-										text,
-										value,
-										html: text
-									};
-								}
-
-								if (text.toLowerCase().indexOf(query) < 0) {
-									return;
-								}
-
-								// Highlight matches
-								return {
-									text,
-									value,
-									html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')
-								};
-
-							}).filter(notNull);
-					};
-				}
+	<script>
+		class CosmozOmnitableTreenodeColumn extends Polymer.mixinBehaviors(Cosmoz.OmnitableColumnBehavior, Polymer.Element) {
+			static get is() {
+				return 'cosmoz-omnitable-treenode-column';
 			}
-		},
-
-		behaviors: [
-			Cosmoz.OmnitableColumnBehavior
-		],
-		observers: [
-			'_setQueryByPath(filter, ownerTree)'
-		],
-		/**
-		 * Get a list of suggestions for the column header.
-		 * @param {array} values Suggestion values.
-		 * @param {object} collator Language sensitive string comparison object.
-		 * @param {object} ownerTree Owner tree to get texts from.
-		 * @returns {array} Suggestions remapped for the column header.
-		 */
-		_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
-			if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
-				return [];
-			}
-			return values
-				.map(value => {
-					return {
-						value: value,
-						text: ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
-					};
-				})
-				.sort((a, b) => collator.compare(a.text, b.text));
-		},
-		/**
-		 * Get a language sensitive string comparison object.
-		 * @param {string} locale Current locale.
-		 * @returns {object} Collator.
-		 */
-		_computeCollator(locale) {
-			return new Intl.Collator(locale || undefined);
-		},
-		/**
-		 * Get a tooltip text for the column.
-		 * @param {string} filter Filter text.
-		 * @param {object} ownerTree Owner tree to get tooltip text from.
-		 * @param {void|string} Tooltip text.
-		 * @returns {string} Tooltip text.
-		 */
-		_computeTooltip(filter, ownerTree = this.ownerTree) {
-			if (filter == null) {
-				return;
-			}
-			return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
-		},
-		/**
-		 * Get a comparable value from the column.
-		 * @param {object} item Column data.
-		 * @param {string} valuePath Value path in column data.
-		 * @returns {void|string} Column data in a comparable format.
-		 */
-		getComparableValue(item, valuePath) {
-			if (!item || !this.ownerTree) {
-				return;
-			}
-
-			return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
-		},
-
-		/**
-		 * Get a filter function for the column.
-		 * @returns {void|function} Filter function.
-		 */
-		getFilterFn() {
-			if (!this.filter) {
-				return;
-			}
-			return this._applySingleFilter.bind(this, this.filter);
-		},
-		/**
-		 * Get column represented as a string.
-		 * @param {object} item Column data.
-		 * @param {string} valuePath Value path in column data.
-		 * @returns {void|string} Column in string format.
-		 */
-		getString(item, valuePath) {
-			return this.getComparableValue(item, valuePath || this.valuePath);
-		},
-		/**
-		 * Determine if a filter should be enabled or not.
-		 * @param {string} filter Filter text.
-		 * @param {object} item Column data.
-		 * @returns {boolean} Whether the filter should be enabled or not.
-		 */
-		_applySingleFilter(filter, item) {
-			return filter === this.get(this.valuePath, item);
-		},
-
-		// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
-		getPathByProperty(propertyName, propertyValue, ownerTree = this.ownerTree) {
-			if (!ownerTree) {
-				return [];
-			}
-
-			if (propertyName === 'pathLocator') {
-				return ownerTree.getPathNodes(propertyValue);
-			}
-
-			const node = ownerTree.getNodeByProperty(propertyValue, propertyName);
-			if (node && node.pathLocator) {
-				return ownerTree.getPathNodes(node.pathLocator);
-			}
-
-			return [];
-		},
-		/**
-		 * Get column content as an XLSX value.
-		 * @param {object} item Column data.
-		 * @param {string} valuePath Value path in column data.
-		 * @returns {string} Column in XLSX value format.
-		 */
-		toXlsxValue(item, valuePath = this.valuePath) {
-			if (!valuePath) {
-				return '';
-			}
-			return this.getString(item, valuePath);
-		},
-		/**
-		 * Get a number of nodes that should not be rendered starting from root.
-		 * @param {boolean} showCommonPath Show common node path or not.
-		 * @param {array} values Nodes.
-		 * @param {object} ownerTree Owner tree to get paths data from.
-		 * @returns {number} Node amount not to render.
-		 */
-		_computeHideFromRoot(showCommonPath, values, ownerTree) {
-			if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
-				return 0;
-			}
-
-			const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
-				reducedPaths = paths.reduce((agg, part) => {
-					if (agg == null || part != null && part.length < agg.length) {
-						return part;
+			static get properties() {
+				return {
+					ownerTree: {
+						type: Cosmoz.Tree
+					},
+		
+					/**
+					* Ask for a list of values
+					*/
+					bindValues: {
+						type: Boolean,
+						readOnly: true,
+						value: true
+					},
+		
+					filter: {
+						type: String,
+						value: null
+					},
+		
+					locale: {
+						type: String,
+						value: null
+					},
+		
+					showMaxNodes: {
+						type: Number
+					},
+		
+					/**
+					* If displayed node share a common path from root, this property indicates wether this common
+					* path should be replaced by an ellipsis.
+					*/
+					showCommonPath: {
+						type: Boolean,
+						value: false
+					},
+		
+					/**
+					* Name of the property used to lookup the displayed node in the tree
+					*/
+					keyProperty: {
+						type: String,
+					},
+		
+					valueProperty: {
+						type: String,
+						value: 'name'
+					},
+		
+					/**
+					* The value of the `paper-autocomplete` input.
+					*/
+					query: {
+						type: String
+					},
+		
+					_collator: {
+						type: Object,
+						computed: '_computeCollator(locale)'
+					},
+		
+					_hideFromRoot: {
+						type: Number,
+						value: 0,
+						computed: '_computeHideFromRoot(showCommonPath, values, ownerTree)'
+					},
+		
+					_tooltip: {
+						type: String,
+						computed: '_computeTooltip(filter)'
+					},
+		
+					_showResultsOnFocus: {
+						type: Boolean,
+						value: true,
+						computed: '_computeShowResultsOnFocus(filter)'
+					},
+		
+					minWidth: {
+						type: String,
+						value: '85px'
+					},
+		
+					editMinWidth: {
+						type: String,
+						value: '85px'
+					},
+		
+					/* eslint no-invalid-this: 0 */
+		
+					/**
+					* Function used to filter available items.
+					* This function is actually used by `paper-autocomplete`,
+					* it is also exposed here so it is possible to provide a custom queryFn.
+					*/
+					queryFn: {
+						type: Function,
+						value: () => {
+							return function (datasource, query) {
+								const notNull = i => i != null;
+								return datasource.filter(notNull)
+									.map(item => {
+										let text,
+											value;
+		
+										if (typeof item === 'object') {
+											text = item[this.textProperty];
+											value = item[this.valueProperty];
+										} else {
+											value = text = item.toString();
+										}
+		
+										if (text == null) {
+											return;
+										}
+		
+										// if there is text search for indexOf query
+										if (query == null) {
+											return {
+												text,
+												value,
+												html: text
+											};
+										}
+		
+										if (text.toLowerCase().indexOf(query) < 0) {
+											return;
+										}
+		
+										// Highlight matches
+										return {
+											text,
+											value,
+											html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')
+										};
+		
+									}).filter(notNull);
+							};
+						}
 					}
-					return agg;
-				});
-
-			if (!Array.isArray(reducedPaths)) {
-				return 0;
+				};
 			}
-
-			return reducedPaths.filter((sPathPart, sppIndex, shortest) => {
-				if (sppIndex + 1 === shortest.length) {
-					// we need at least one node to show
-					return false;
+			static get observers() {
+				return [
+					'_setQueryByPath(filter, ownerTree)'
+				];
+			}
+			constructor() {
+				super();
+			}
+		
+			/**
+			* Get a list of suggestions for the column header.
+			* @param {array} values Suggestion values.
+			* @param {object} collator Language sensitive string comparison object.
+			* @param {object} ownerTree Owner tree to get texts from.
+			* @returns {array} Suggestions remapped for the column header.
+			*/
+			_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
+				if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
+					return [];
 				}
-				return paths.every(path => path != null && path[sppIndex] === sPathPart);
-			})
-				.length;
-		},
-		/**
-		 * Determine if filter should be read only or not.
-		 * @param {string} filter Filter text.
-		 * @returns {boolean} Whether filter should be read only or not.
-		 */
-		_computeReadOnly(filter) {
-			return !!filter;
-		},
-		/**
-		 * Determine if results should be shown on focus or not.
-		 * @param {string} filter Filter text.
-		 * @returns {boolean} Whether results should be shown on focus or not.
-		 */
-		_computeShowResultsOnFocus(filter) {
-			return !filter;
-		},
-		_serializeFilter(filter = this.filter) {
-			return filter || null;
-		},
-		/**
-		 * Set the query by using a path, this sets the initial header filter text of the column.
-		 * @param {string} path Path to set.
-		 * @param {object} ownerTree Owner tree to get texts from.
-		 * @returns {void}
-		 */
-		_setQueryByPath(path, ownerTree = this.ownerTree) {
-			if (path == null || ownerTree == null) {
-				return;
+				return values
+					.map(value => {
+						return {
+							value: value,
+							text: ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
+						};
+					})
+					.sort((a, b) => collator.compare(a.text, b.text));
 			}
-			this.set('query', ownerTree.getPathStringByProperty(path, this.keyProperty, this.valueProperty, ' / '));
-		},
-		_deserializeFilter(obj) {
-			return obj || null;
-		},
-	});
-  </script>
+			/**
+			* Get a language sensitive string comparison object.
+			* @param {string} locale Current locale.
+			* @returns {object} Collator.
+			*/
+			_computeCollator(locale) {
+				return new Intl.Collator(locale || undefined);
+			}
+			/**
+			* Get a tooltip text for the column.
+			* @param {string} filter Filter text.
+			* @param {object} ownerTree Owner tree to get tooltip text from.
+			* @param {void|string} Tooltip text.
+			* @returns {string} Tooltip text.
+			*/
+			_computeTooltip(filter, ownerTree = this.ownerTree) {
+				if (filter == null) {
+					return;
+				}
+				return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
+			}
+			/**
+			* Get a comparable value from the column.
+			* @param {object} item Column data.
+			* @param {string} valuePath Value path in column data.
+			* @returns {void|string} Column data in a comparable format.
+			*/
+			getComparableValue(item, valuePath) {
+				if (!item || !this.ownerTree) {
+					return;
+				}
+		
+				return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
+			}
+		
+			/**
+			* Get a filter function for the column.
+			* @returns {void|function} Filter function.
+			*/
+			getFilterFn() {
+				if (!this.filter) {
+					return;
+				}
+				return this._applySingleFilter.bind(this, this.filter);
+			}
+			/**
+			* Get column represented as a string.
+			* @param {object} item Column data.
+			* @param {string} valuePath Value path in column data.
+			* @returns {void|string} Column in string format.
+			*/
+			getString(item, valuePath) {
+				return this.getComparableValue(item, valuePath || this.valuePath);
+			}
+			/**
+			* Determine if a filter should be enabled or not.
+			* @param {string} filter Filter text.
+			* @param {object} item Column data.
+			* @returns {boolean} Whether the filter should be enabled or not.
+			*/
+			_applySingleFilter(filter, item) {
+				return filter === this.get(this.valuePath, item);
+			}
+		
+			// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
+			getPathByProperty(propertyName, propertyValue, ownerTree = this.ownerTree) {
+				if (!ownerTree) {
+					return [];
+				}
+		
+				if (propertyName === 'pathLocator') {
+					return ownerTree.getPathNodes(propertyValue);
+				}
+		
+				const node = ownerTree.getNodeByProperty(propertyValue, propertyName);
+				if (node && node.pathLocator) {
+					return ownerTree.getPathNodes(node.pathLocator);
+				}
+		
+				return [];
+			}
+			/**
+			* Get column content as an XLSX value.
+			* @param {object} item Column data.
+			* @param {string} valuePath Value path in column data.
+			* @returns {string} Column in XLSX value format.
+			*/
+			toXlsxValue(item, valuePath = this.valuePath) {
+				if (!valuePath) {
+					return '';
+				}
+				return this.getString(item, valuePath);
+			}
+			/**
+			* Get a number of nodes that should not be rendered starting from root.
+			* @param {boolean} showCommonPath Show common node path or not.
+			* @param {array} values Nodes.
+			* @param {object} ownerTree Owner tree to get paths data from.
+			* @returns {number} Node amount not to render.
+			*/
+			_computeHideFromRoot(showCommonPath, values, ownerTree) {
+				if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
+					return 0;
+				}
+		
+				const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
+					reducedPaths = paths.reduce((agg, part) => {
+						if (agg == null || part != null && part.length < agg.length) {
+							return part;
+						}
+						return agg;
+					});
+		
+				if (!Array.isArray(reducedPaths)) {
+					return 0;
+				}
+		
+				return reducedPaths.filter((sPathPart, sppIndex, shortest) => {
+					if (sppIndex + 1 === shortest.length) {
+						// we need at least one node to show
+						return false;
+					}
+					return paths.every(path => path != null && path[sppIndex] === sPathPart);
+				})
+					.length;
+			}
+			/**
+			* Determine if filter should be read only or not.
+			* @param {string} filter Filter text.
+			* @returns {boolean} Whether filter should be read only or not.
+			*/
+			_computeReadOnly(filter) {
+				return !!filter;
+			}
+			/**
+			* Determine if results should be shown on focus or not.
+			* @param {string} filter Filter text.
+			* @returns {boolean} Whether results should be shown on focus or not.
+			*/
+			_computeShowResultsOnFocus(filter) {
+				return !filter;
+			}
+			_serializeFilter(filter = this.filter) {
+				return filter || null;
+			}
+			/**
+			* Set the query by using a path, this sets the initial header filter text of the column.
+			* @param {string} path Path to set.
+			* @param {object} ownerTree Owner tree to get texts from.
+			* @returns {void}
+			*/
+			_setQueryByPath(path, ownerTree = this.ownerTree) {
+				if (path == null || ownerTree == null) {
+					return;
+				}
+				this.set('query', ownerTree.getPathStringByProperty(path, this.keyProperty, this.valueProperty, ' / '));
+			}
+			_deserializeFilter(obj) {
+				return obj || null;
+			}
+		}
+		customElements.define(CosmozOmnitableTreenodeColumn.is, CosmozOmnitableTreenodeColumn);
+	</script>
 </dom-module>
