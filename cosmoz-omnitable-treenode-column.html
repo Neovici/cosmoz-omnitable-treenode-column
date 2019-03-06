@@ -3,7 +3,7 @@
 <link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
-<link rel="import" href="../cosmoz-omnitable/cosmoz-omnitable-column-behavior.html">
+<link rel="import" href="../cosmoz-omnitable/cosmoz-omnitable-column-mixin.html">
 <link rel="import" href="../cosmoz-treenode/cosmoz-treenode.html">
 
 <!--
@@ -47,7 +47,12 @@
 	</template>
 
 	<script>
-		class CosmozOmnitableTreenodeColumn extends Polymer.mixinBehaviors(Cosmoz.OmnitableColumnBehavior, Polymer.Element) {
+		/**
+		 * @polymer
+		 * @customElement
+		 * @appliesMixin Cosmoz.OmnitableColumnMixin
+		 */
+		class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.Element) {
 			static get is() {
 				return 'cosmoz-omnitable-treenode-column';
 			}
