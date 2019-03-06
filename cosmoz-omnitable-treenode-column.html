@@ -9,7 +9,7 @@
 <!--
 	`cosmoz-omnitable-treenode-column`
 	cosmoz-omnitable column to display a tree node
-	
+
 	@demo demo/index.html
 -->
 
@@ -20,9 +20,9 @@
 			key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
 			</cosmoz-treenode>
 		</template>
-	
+
 		<template class="edit-cell"></template>
-	
+
 		<template class="header">
 			<paper-autocomplete
 			text="{{ query }}"
@@ -35,7 +35,7 @@
 			show-results-on-focus="[[ _showResultsOnFocus ]]"
 			focused="{{ headerFocused }}"
 			readonly="[[ _computeReadOnly(filter) ]]">
-			<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>		
+			<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
 				<template slot="autocomplete-custom-template">
 					<paper-item id$="[[ _getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
 						<div inner-h-t-m-l="[[ item.html ]]"></div>
@@ -56,7 +56,7 @@
 					ownerTree: {
 						type: Cosmoz.Tree
 					},
-		
+
 					/**
 					* Ask for a list of values
 					*/
@@ -65,21 +65,21 @@
 						readOnly: true,
 						value: true
 					},
-		
+
 					filter: {
 						type: String,
 						value: null
 					},
-		
+
 					locale: {
 						type: String,
 						value: null
 					},
-		
+
 					showMaxNodes: {
 						type: Number
 					},
-		
+
 					/**
 					* If displayed node share a common path from root, this property indicates wether this common
 					* path should be replaced by an ellipsis.
@@ -88,60 +88,60 @@
 						type: Boolean,
 						value: false
 					},
-		
+
 					/**
 					* Name of the property used to lookup the displayed node in the tree
 					*/
 					keyProperty: {
 						type: String,
 					},
-		
+
 					valueProperty: {
 						type: String,
 						value: 'name'
 					},
-		
+
 					/**
 					* The value of the `paper-autocomplete` input.
 					*/
 					query: {
 						type: String
 					},
-		
+
 					_collator: {
 						type: Object,
 						computed: '_computeCollator(locale)'
 					},
-		
+
 					_hideFromRoot: {
 						type: Number,
 						value: 0,
 						computed: '_computeHideFromRoot(showCommonPath, values, ownerTree)'
 					},
-		
+
 					_tooltip: {
 						type: String,
 						computed: '_computeTooltip(filter)'
 					},
-		
+
 					_showResultsOnFocus: {
 						type: Boolean,
 						value: true,
 						computed: '_computeShowResultsOnFocus(filter)'
 					},
-		
+
 					minWidth: {
 						type: String,
 						value: '85px'
 					},
-		
+
 					editMinWidth: {
 						type: String,
 						value: '85px'
 					},
-		
+
 					/* eslint no-invalid-this: 0 */
-		
+
 					/**
 					* Function used to filter available items.
 					* This function is actually used by `paper-autocomplete`,
@@ -156,18 +156,18 @@
 									.map(item => {
 										let text,
 											value;
-		
+
 										if (typeof item === 'object') {
 											text = item[this.textProperty];
 											value = item[this.valueProperty];
 										} else {
 											value = text = item.toString();
 										}
-		
+
 										if (text == null) {
 											return;
 										}
-		
+
 										// if there is text search for indexOf query
 										if (query == null) {
 											return {
@@ -176,18 +176,18 @@
 												html: text
 											};
 										}
-		
+
 										if (text.toLowerCase().indexOf(query) < 0) {
 											return;
 										}
-		
+
 										// Highlight matches
 										return {
 											text,
 											value,
 											html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')
 										};
-		
+
 									}).filter(notNull);
 							};
 						}
@@ -202,7 +202,7 @@
 			constructor() {
 				super();
 			}
-		
+
 			/**
 			* Get a list of suggestions for the column header.
 			* @param {array} values Suggestion values.
@@ -254,10 +254,10 @@
 				if (!item || !this.ownerTree) {
 					return;
 				}
-		
+
 				return this.ownerTree.getPathStringByProperty(this.get(valuePath, item), this.keyProperty, this.valueProperty, ' / ');
 			}
-		
+
 			/**
 			* Get a filter function for the column.
 			* @returns {void|function} Filter function.
@@ -286,22 +286,22 @@
 			_applySingleFilter(filter, item) {
 				return filter === this.get(this.valuePath, item);
 			}
-		
+
 			// HACK(pasleq): Cosmoz.Tree API needs to be fixed to avoid such code in components
 			getPathByProperty(propertyName, propertyValue, ownerTree = this.ownerTree) {
 				if (!ownerTree) {
 					return [];
 				}
-		
+
 				if (propertyName === 'pathLocator') {
 					return ownerTree.getPathNodes(propertyValue);
 				}
-		
+
 				const node = ownerTree.getNodeByProperty(propertyValue, propertyName);
 				if (node && node.pathLocator) {
 					return ownerTree.getPathNodes(node.pathLocator);
 				}
-		
+
 				return [];
 			}
 			/**
@@ -327,7 +327,7 @@
 				if (showCommonPath || !values || !Array.isArray(values) || values.length === 0) {
 					return 0;
 				}
-		
+
 				const paths = values.map(value => this.getPathByProperty(this.keyProperty, value, ownerTree)),
 					reducedPaths = paths.reduce((agg, part) => {
 						if (agg == null || part != null && part.length < agg.length) {
@@ -335,11 +335,11 @@
 						}
 						return agg;
 					});
-		
+
 				if (!Array.isArray(reducedPaths)) {
 					return 0;
 				}
-		
+
 				return reducedPaths.filter((sPathPart, sppIndex, shortest) => {
 					if (sppIndex + 1 === shortest.length) {
 						// we need at least one node to show
