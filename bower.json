@@ -4,7 +4,7 @@
 	"main": "cosmoz-omnitable-treenode-column.html",
 	"dependencies": {
 		"polymer": "Polymer/polymer#^2.6.1",
-		"cosmoz-omnitable": "Neovici/cosmoz-omnitable#^1.0.0",
+		"cosmoz-omnitable": "Neovici/cosmoz-omnitable#2.0.*",
 		"cosmoz-tree": "Neovici/cosmoz-tree#^2.0.0",
 		"cosmoz-treenode": "Neovici/cosmoz-treenode#^2.0.0",
 		"paper-autocomplete": "ellipticaljs/paper-autocomplete#^3.7.0",
