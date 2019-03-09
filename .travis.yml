@@ -1,9 +1,7 @@
+---
 language: node_js
-env:
-  global:
-    - CC_TEST_REPORTER_ID=c07e476140f800aa20bc816ac34938dbf1e4b43d9c2e85e1c33d027f239feb11
-    - SAUCE_USERNAME=nomego
-    - secure: azH+aT5cbW0A+wu812SVEeC0O0kmS1VGoqQS3p1e1Ouw73CRXBkX7rxE0Pv0wVGSQC/fUHSPuZxpD2iZXaSrPZeua/XS4RixkYkNmw70vaazj/bcbTRZogWfiX86n8pFE9/NjMZuz6yiI82iJHvV0l3dAoqFAqkT9Oy2UdfIWZj+wPwtbSe/DNElE0BEKVeSXfxGmz2piFnEfuTC9i8UXC/VFkiirLWztRLlc9rvSeYDvOfbxtSsY99n7NAgDQaP07vLrICjtouGGL4bStoZ/d8J1pmQYF7vFwJ3m5JK+m6wytyNiu7lD1DY2BXDgyOP6M4Tz+IQGnQQkSxGqRN/C5BKiySJ4UO00ZMqpTZUZ8Xo5Uhxajyn+SneCHY9OupW6SuPfMnJgl5K9PdICS7O2ZY49C10h9btBcEXGRJBl7fbwNCXTuYl6Tlpc/4RBqFKaKu1NBIssCwAhd1P3w5cb41rrVkhLUrPUst1oIKrVnCgGTMTNmtCbkvy67jxTJ1tynqHFPVg5+ynsbVvxLfw6uC1sEdPERnuXgv5gee+Sc+EEotVrgjnWyer57I4ohAnZ9yl7LWdLIX6sKYQvhDIYxobiNIOqZ2uHtb73C0CagAoeIdL69jp+voVbt81OvvKiwvOYlXgMC5DHhvcpPun19u/ku3bqNEu2F2XYtpcIco=
+node_js: "lts/*"
+
 addons:
   firefox: latest
   apt:
@@ -11,6 +9,7 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+
 cache:
   yarn: true
   directories:
@@ -18,15 +17,24 @@ cache:
     - bower_components
     - .eslintcache
     - $HOME/.cache/bower
+    - $HOME/cc
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=c07e476140f800aa20bc816ac34938dbf1e4b43d9c2e85e1c33d027f239feb11
+    - SAUCE_USERNAME=nomego
+    - secure: azH+aT5cbW0A+wu812SVEeC0O0kmS1VGoqQS3p1e1Ouw73CRXBkX7rxE0Pv0wVGSQC/fUHSPuZxpD2iZXaSrPZeua/XS4RixkYkNmw70vaazj/bcbTRZogWfiX86n8pFE9/NjMZuz6yiI82iJHvV0l3dAoqFAqkT9Oy2UdfIWZj+wPwtbSe/DNElE0BEKVeSXfxGmz2piFnEfuTC9i8UXC/VFkiirLWztRLlc9rvSeYDvOfbxtSsY99n7NAgDQaP07vLrICjtouGGL4bStoZ/d8J1pmQYF7vFwJ3m5JK+m6wytyNiu7lD1DY2BXDgyOP6M4Tz+IQGnQQkSxGqRN/C5BKiySJ4UO00ZMqpTZUZ8Xo5Uhxajyn+SneCHY9OupW6SuPfMnJgl5K9PdICS7O2ZY49C10h9btBcEXGRJBl7fbwNCXTuYl6Tlpc/4RBqFKaKu1NBIssCwAhd1P3w5cb41rrVkhLUrPUst1oIKrVnCgGTMTNmtCbkvy67jxTJ1tynqHFPVg5+ynsbVvxLfw6uC1sEdPERnuXgv5gee+Sc+EEotVrgjnWyer57I4ohAnZ9yl7LWdLIX6sKYQvhDIYxobiNIOqZ2uHtb73C0CagAoeIdL69jp+voVbt81OvvKiwvOYlXgMC5DHhvcpPun19u/ku3bqNEu2F2XYtpcIco=
+    - NEO_CC_URL=https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    - NEO_CC=$HOME/cc/cc-test-reporter
+
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
-  - yarn run lint
+  - yarn lint
+  - ([[ -e $NEO_CC ]] || curl -L $NEO_CC_URL > $NEO_CC) && chmod +x $NEO_CC
+  - $NEO_CC before-build
 script:
-  - yarn test
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - yarn test $([ -z "$SAUCE_ACCESS_KEY"] && echo "--skip-plugin sauce")
+  - $NEO_CC after-build --exit-code $TRAVIS_TEST_RESULT
+
 notifications:
   slack:
     secure: HHd9D/SiuPpi+haVnE8lnuVOJXhE5rX/6hVZyfZ0zG5zXl4OpVdxU4LvljHQrvLxiWLr6xuxMA4upc7H4uhCQUIuMHpIDJUCKjgUMW15hewzLoCz3UfILZVPWlpEEAZZZ8rZSVUOK7fLFpagkU2JZS2QKGeJquC3vaTPfvpj5JqJOnzzQBhB6KrnvDtKAAyvizg1dXXqmUYJa9OrFzXz19ae0rdP2acPTRRYpstg3fnO8XMhasuVZPS14e/WwnaFA8tbRV+5Z51Z4AkAlh4o8/oGL8dBS2LmNIbBG/Dn4QMew+2SlgF7v0pyICEnqHw8/DQw+LvPGUp61dwjatWLnkfxPhDJdByLJ7kh6PSOk9DMfVtvnBK0P1Fk4W2KyTYoMPaenMUrpAR5+rv+/rInwYwl6kqo6BZqzRvnWBdPCzNEej6nO9p9ZbOxAmBJCSWO7rDRzET6KwLkHoNBlw7g+zBJLgcKelQGRviNW2CA4UvkLN1h6f+uhlzaTW6hramqCOLt1H8AWKKuFFu1YW6dZ6yJGdtGKTaGrQxYS1vrbt6TJRQOml32NL9cRBIzfUzQHb1a+aBY9JUO9tjF5VIdS74KrXh/L5boHYYpp919F9fkJX7kipA1FjOgkT11HtapOePZ8XD3oi7STHfSkFI5GYshOZrYzUNgrnsms2qEvnw=
