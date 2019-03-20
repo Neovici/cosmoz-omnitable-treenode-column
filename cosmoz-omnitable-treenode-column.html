@@ -23,6 +23,11 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 	static get template() {
 		return Polymer.html`
 			<template class="cell">
+				<style>
+					cosmoz-omnitable-item-expand-line cosmoz-treenode {
+						white-space: normal;
+					}
+				</style>
 				<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" no-wrap
 				key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
 				</cosmoz-treenode>
