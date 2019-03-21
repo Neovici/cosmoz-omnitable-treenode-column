@@ -112,7 +112,7 @@
 					Polymer.Base.async(() => {
 						column = omnitable.columns[1];
 						column.ownerTree = tree;
-						paperAutocomplete = omnitable.$$('cosmoz-omnitable-header-row').elements[1].querySelector('paper-autocomplete');
+						paperAutocomplete = omnitable.$$('paper-autocomplete');
 
 						Polymer.Base.async(done, 90);
 					}, 100);
