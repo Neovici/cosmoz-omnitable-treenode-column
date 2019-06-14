@@ -1,27 +1,32 @@
-<link rel="import" href="../polymer/polymer-element.html">
+/* <link rel="import" href="cosmoz-omnitable/cosmoz-omnitable-column-mixin.html*/
+/* <link rel="import" href="cosmoz-treenode/cosmoz-treenode.html*/
 
-<link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
-<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
-<link rel="import" href="../cosmoz-omnitable/cosmoz-omnitable-column-mixin.html">
-<link rel="import" href="../cosmoz-treenode/cosmoz-treenode.html">
+import '@neovici/paper-autocomplete';
+import '@neovici/cosmoz-treenode';
+import '@polymer/paper-spinner/paper-spinner-lite';
 
-<script>
+import { PolymerElement } from '@polymer/polymer/polymer-element';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+
+import { CosmozTree } from '@neovici/cosmoz-tree';
+import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
+
 /**
  * Column that displays a tree node, for `cosmoz-omnitable`.
  *
  * @polymer
  * @customElement
- * @appliesMixin Cosmoz.OmnitableColumnMixin
+ * @appliesMixin columnMixin
  * @demo demo/index.html
  */
-class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.Element) {
+class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	static get is() {
 		return 'cosmoz-omnitable-treenode-column';
 	}
 
 	static get template() {
-		return Polymer.html`
+		return html`
 			<template class="cell">
 				<style>
 					cosmoz-omnitable-item-expand-line cosmoz-treenode {
@@ -59,10 +64,11 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 		`;
 	}
 
+	/* eslint-disable-next-line max-lines-per-function */
 	static get properties() {
 		return {
 			ownerTree: {
-				type: Cosmoz.Tree
+				type: CosmozTree
 			},
 
 			/**
@@ -101,7 +107,7 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 			* Name of the property used to lookup the displayed node in the tree
 			*/
 			keyProperty: {
-				type: String,
+				type: String
 			},
 
 			valueProperty: {
@@ -173,7 +179,7 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 								}
 
 								if (text == null) {
-									return;
+									return undefined;
 								}
 
 								// if there is text search for indexOf query
@@ -186,14 +192,14 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 								}
 
 								if (text.toLowerCase().indexOf(query) < 0) {
-									return;
+									return undefined;
 								}
 
 								// Highlight matches
 								return {
 									text,
 									value,
-									html: text.replace(new RegExp('(' + query + ')', 'ig'), '<b>$1</b>')
+									html: text.replace(new RegExp('(' + query + ')', 'igu'), '<b>$1</b>')
 								};
 
 							}).filter(notNull);
@@ -222,7 +228,7 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 		return values
 			.map(value => {
 				return {
-					value: value,
+					value,
 					text: ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
 				};
 			})
@@ -391,4 +397,3 @@ class CosmozOmnitableTreenodeColumn extends Cosmoz.OmnitableColumnMixin(Polymer.
 }
 
 customElements.define(CosmozOmnitableTreenodeColumn.is, CosmozOmnitableTreenodeColumn);
-</script>

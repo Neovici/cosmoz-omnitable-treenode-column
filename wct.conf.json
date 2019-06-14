@@ -17,7 +17,7 @@
 			"dir": "./coverage",
 			"reporters": ["text-summary", "lcov"],
 			"include": [
-				"cosmoz-omnitable-treenode-column.html"
+				"**/cosmoz-*.js"
 			],
 			"exclude": []
 		},
