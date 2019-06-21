@@ -6,25 +6,25 @@
 
 	<title>cosmoz-omnitable-treenode-column basic tests</title>
 
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-	<script src="../../web-component-tester/browser.js"></script>
-	<script src="../../test-fixture/test-fixture-mocha.js"></script>
+	<script src="/components/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script src="/components/mocha/mocha.js"></script>
+	<script src="/components/wct-mocha/wct-mocha.js"></script>
+	<script src="/components/chai/chai.js"></script>
+	<script src="/components/@polymer/test-fixture/test-fixture-mocha.js"></script>
 
-	<link rel="import" href="../../test-fixture/test-fixture.html">
-	<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+	<script type="module" src="/components/@polymer/test-fixture/test-fixture.js"></script>
+	<script type="module" src="/components/@polymer/iron-test-helpers/iron-test-helpers.js"></script>
+	<script type="module" src="/components/@polymer/iron-ajax/iron-ajax.js"></script>
 
-	<link rel="import" href="../../cosmoz-tree/cosmoz-default-tree.html">
-	<link rel="import" href="../cosmoz-omnitable-treenode-column.html">
+	<script type="module" src="/components/@neovici/cosmoz-omnitable/cosmoz-omnitable.js"></script>
 
-	<link rel="import" href="../../cosmoz-omnitable/cosmoz-omnitable.html">
-	<link rel="import" href="../../promise-polyfill/promise-polyfill-lite.html">
-	<link rel="import" href="../../iron-ajax/iron-ajax.html">
+	<script type="module" src="../cosmoz-omnitable-treenode-column.js"></script>
 </head><body>
 
 	<test-fixture id="basicTree">
 		<template>
 			<iron-ajax auto
-				url="../../cosmoz-tree/demo/tree.json"
+				url="/components/@neovici/cosmoz-tree/demo/tree.json"
 				handle-as="json">
 			</iron-ajax>
 		</template>
@@ -42,9 +42,9 @@
 		</template>
 	</test-fixture>
 
-	<script>
-	(function () {
-		'use strict';
+	<script type="module">
+		import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
+		import { Base } from '@polymer/polymer/polymer-legacy';
 
 		suite('basic', () => {
 			let omnitable,
@@ -95,13 +95,13 @@
 				{
 					name: 'Etiam sit amet mauris semper',
 					nodeId: '219b3399-7edd-42b7-ad92-a4fb00f31247'
-				},
+				}
 			];
 
 			suiteSetup(done => {
 				const basicTreeFixture = fixture('basicTree');
 				basicTreeFixture.addEventListener('response', () => {
-					tree = new Cosmoz.DefaultTree(basicTreeFixture.lastResponse);
+					tree = new DefaultTree(basicTreeFixture.lastResponse);
 					done();
 				});
 			});
@@ -109,12 +109,12 @@
 			setup(done => {
 				omnitable = fixture('basic');
 				omnitable.addEventListener('visible-columns-changed', () => {
-					Polymer.Base.async(() => {
+					Base.async(() => {
 						column = omnitable.columns[1];
 						column.ownerTree = tree;
 						paperAutocomplete = omnitable.$$('paper-autocomplete');
 
-						Polymer.Base.async(done, 90);
+						Base.async(done, 90);
 					}, 100);
 				});
 				omnitable.data = data;
@@ -135,7 +135,7 @@
 				paperAutocomplete.text = 'Uxuzqizf';
 				input.fire('focus', {});
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					assert.isTrue(suggestions.isOpen);
 					assert.equal(suggestions._suggestions.length, 1);
 					done();
@@ -156,10 +156,11 @@
 					{
 						name: 'ccc',
 						nodeId: '426d7dba-a4f0-4bd4-9b34-a4fb00f31248'
-					}];
+					}
+				];
 				omnitable.notifyResize();
 
-				Polymer.Base.async(() => {
+				Base.async(() => {
 					console.log(paperAutocomplete);
 					assert.isTrue(suggestions.isOpen);
 					assert.equal(suggestions._suggestions.length, 1);
@@ -181,6 +182,5 @@
 				done();
 			});
 		});
-	})();
 	</script>
 </body></html>
