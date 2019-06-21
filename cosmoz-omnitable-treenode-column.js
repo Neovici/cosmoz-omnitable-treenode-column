@@ -9,7 +9,7 @@ import '@polymer/paper-spinner/paper-spinner-lite';
 import { PolymerElement } from '@polymer/polymer/polymer-element';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
 
-import { CosmozTree } from '@neovici/cosmoz-tree';
+import { Tree } from '@neovici/cosmoz-tree';
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
 
 /**
@@ -68,7 +68,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	static get properties() {
 		return {
 			ownerTree: {
-				type: CosmozTree
+				type: Tree
 			},
 
 			/**

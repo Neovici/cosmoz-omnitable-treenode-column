@@ -27,15 +27,15 @@
 		"test": "polymer test"
 	},
 	"dependencies": {
-		"@neovici/cosmoz-omnitable": "plumelo/cosmoz-omnitable#feature/NEOV-374-polymer-3",
-		"@neovici/cosmoz-tree": "plumelo/cosmoz-tree#NEOV-377-polymer-3",
-		"@neovici/cosmoz-treenode": "plumelo/cosmoz-treenode#feature/NEOV-378-polymer-3",
-		"@neovici/paper-autocomplete": "plumelo/paper-autocomplete",
+		"@neovici/cosmoz-omnitable": "neovici/cosmoz-omnitable#semver:^3.0.0",
+		"@neovici/cosmoz-tree": "neovici/cosmoz-tree#semver:^3.0.0",
+		"@neovici/cosmoz-treenode": "neovici/cosmoz-treenode#semver:^3.0.0",
+		"@neovici/paper-autocomplete": "neovici/paper-autocomplete#semver:^4.0.0",
 		"@polymer/paper-spinner": "^3.0.0",
 		"@polymer/polymer": "^3.0.0"
 	},
 	"devDependencies": {
-		"@neovici/eslint-config": "neovici/eslint-config#semver:~1.0.0",
+		"@neovici/eslint-config": "neovici/eslint-config#semver:^1.0.0",
 		"@polymer/iron-ajax": "^3.0.0",
 		"@polymer/iron-component-page": "^4.0.0",
 		"@polymer/iron-demo-helpers": "^3.0.0",
@@ -44,9 +44,11 @@
 		"@polymer/iron-test-helpers": "^3.0.0",
 		"@polymer/test-fixture": "^4.0.2",
 		"@webcomponents/webcomponentsjs": "^2.0.0",
+		"babel-eslint": "^10.0.2",
 		"chai": "^4.2.0",
 		"eslint": "^5.15.1",
 		"eslint-plugin-html": "^5.0.3",
+		"eslint-plugin-import": "^2.17.3",
 		"eslint-plugin-mocha": "^5.3.0",
 		"mocha": "^5.0.0",
 		"polymer-cli": "^1.9.7",

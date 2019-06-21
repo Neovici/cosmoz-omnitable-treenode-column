@@ -78,7 +78,7 @@
 	</script>
 
 	<script type="module">
-		import { CosmozDefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
+		import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 
 		/* eslint-disable-next-line max-lines-per-function */
 		window.addEventListener('WebComponentsReady', () => {
@@ -90,7 +90,7 @@
 			};
 
 			basic.getOwnerTree = treeJson => {
-				return new CosmozDefaultTree(treeJson);
+				return new DefaultTree(treeJson);
 			};
 
 			basic.getTableData = () => {

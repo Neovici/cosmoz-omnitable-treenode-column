@@ -43,7 +43,7 @@
 	</test-fixture>
 
 	<script type="module">
-		import { CosmozDefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
+		import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 		import { Base } from '@polymer/polymer/polymer-legacy';
 
 		suite('basic', () => {
@@ -101,7 +101,7 @@
 			suiteSetup(done => {
 				const basicTreeFixture = fixture('basicTree');
 				basicTreeFixture.addEventListener('response', () => {
-					tree = new CosmozDefaultTree(basicTreeFixture.lastResponse);
+					tree = new DefaultTree(basicTreeFixture.lastResponse);
 					done();
 				});
 			});
