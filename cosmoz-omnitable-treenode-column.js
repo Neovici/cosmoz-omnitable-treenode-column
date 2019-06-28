@@ -119,7 +119,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			* The value of the `paper-autocomplete` input.
 			*/
 			query: {
-				type: String
+				type: String,
+				notify: true
 			},
 
 			_collator: {
