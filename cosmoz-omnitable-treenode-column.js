@@ -217,16 +217,20 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 	/**
 	* Get a list of suggestions for the column header.
-	* @param {array} values Suggestion values.
+	* @param {array|object} values Suggestion values.
 	* @param {object} collator Language sensitive string comparison object.
 	* @param {object} ownerTree Owner tree to get texts from.
 	* @returns {array} Suggestions remapped for the column header.
 	*/
 	_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
-		if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
+		if (values == null || !ownerTree) {
 			return [];
 		}
-		return values
+		let remappedValues = values;
+		if (!Array.isArray(remappedValues)) {
+			remappedValues = Object.keys(values).map(key => key)
+		}
+		return remappedValues
 			.map(value => {
 				return {
 					value,
