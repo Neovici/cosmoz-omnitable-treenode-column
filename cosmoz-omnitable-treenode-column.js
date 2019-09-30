@@ -136,7 +136,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 			_tooltip: {
 				type: String,
-				computed: '_computeTooltip(filter)'
+				computed: '_computeTooltip(filter, ownerTree, keyProperty, valueProperty)'
 			},
 
 			_showResultsOnFocus: {
@@ -247,14 +247,16 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	* Get a tooltip text for the column.
 	* @param {string} filter Filter text.
 	* @param {object} ownerTree Owner tree to get tooltip text from.
-	* @param {void|string} Tooltip text.
+	* @param {string} keyProperty the property to search to find the node
+	* @param {string} valueProperty the value for keyProperty to be the correct node
 	* @returns {string} Tooltip text.
 	*/
-	_computeTooltip(filter, ownerTree = this.ownerTree) {
-		if (filter == null) {
+	_computeTooltip(filter, ownerTree, keyProperty, valueProperty) {
+		const requiredValues = [filter, ownerTree, keyProperty, valueProperty];
+		if (requiredValues.includes(null)) {
 			return;
 		}
-		return ownerTree.getPathStringByProperty(filter, this.keyProperty, this.valueProperty, ' / ');
+		return ownerTree.getPathStringByProperty(filter, keyProperty, valueProperty, ' / ');
 	}
 	/**
 	* Get a comparable value from the column.
