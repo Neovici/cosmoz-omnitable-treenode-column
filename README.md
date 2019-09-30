@@ -1,5 +1,7 @@
 # \<cosmoz-omnitable-treenode-column\>
 
+[![Build Status](https://travis-ci.com/Neovici/cosmoz-omnitable-treenode-column.svg?branch=master)](https://travis-ci.com/Neovici/cosmoz-omnitable-treenode-column)
+
 cosmoz-omnitable column to display a tree node
 
 ## Install the Polymer-CLI
