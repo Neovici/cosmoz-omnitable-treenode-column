@@ -253,7 +253,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	*/
 	_computeTooltip(filter, ownerTree, keyProperty, valueProperty) {
 		const requiredValues = [filter, ownerTree, keyProperty, valueProperty];
-		if (requiredValues.includes(null)) {
+		if (requiredValues.includes(null) || requiredValues.includes(undefined)) {
 			return;
 		}
 		return ownerTree.getPathStringByProperty(filter, keyProperty, valueProperty, ' / ');
