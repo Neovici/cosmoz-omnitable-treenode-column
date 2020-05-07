@@ -152,7 +152,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				value: '85px'
 			},
 
-			_textProperty: { value: 'text' },
+			_textProperty: { value: 'text' }
 		};
 	}
 
