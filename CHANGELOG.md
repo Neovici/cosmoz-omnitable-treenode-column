@@ -1,3 +1,10 @@
+### [3.2.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.0...v3.2.1) (2020-05-07)
+
+
+### Bug Fixes
+
+* fixes filter and ui ([0125843](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/0125843d3241ee70db58c5a7177113b16c8607aa))
+
 ## [3.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.1.2...v3.2.0) (2020-05-07)
 
 
