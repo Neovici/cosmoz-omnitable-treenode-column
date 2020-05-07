@@ -1,8 +1,4 @@
-/* <link rel="import" href="cosmoz-omnitable/cosmoz-omnitable-column-mixin.html*/
-/* <link rel="import" href="cosmoz-treenode/cosmoz-treenode.html*/
-
-
-import '@neovici/paper-autocomplete';
+import '@neovici/cosmoz-autocomplete';
 import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
@@ -41,25 +37,28 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			<template class="edit-cell"></template>
 
 			<template class="header">
-				<paper-autocomplete
-				text="{{ query }}"
-				source="[[ _computeSuggestionList(values, _collator, ownerTree) ]]"
-				query-fn="[[ queryFn ]]"
-				label="[[ title ]]"
-				value="{{ filter }}"
-				min-length="0"
-				title="[[ _tooltip ]]"
-				show-results-on-focus="[[ _showResultsOnFocus ]]"
-				focused="{{ headerFocused }}"
-				readonly="[[ _computeReadOnly(filter) ]]">
-				<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active="[[ loading ]]" hidden="[[ !loading ]]"></paper-spinner-lite>
-					<template slot="autocomplete-custom-template">
-						<paper-item id$="[[ _getSuggestionId(index) ]]" role="option" aria-selected="false" on-tap="_onSelect">
-							<div inner-h-t-m-l="[[ item.html ]]"></div>
-							<paper-ripple></paper-ripple>
-						</paper-item>
-					</template>
-				</paper-autocomplete>
+				<cosmoz-autocomplete-ui
+					class$="external-values-[[ externalValues ]]"
+					label="[[ title ]]"
+					title="[[ _tooltip ]]"
+					source="[[ _source ]]"
+					text-property="[[ _textProperty ]]"
+					value="[[  _computeValue(filter) ]]"
+					text="[[ query ]]"
+					on-change="[[ _onChange ]]"
+					on-focus="[[ _onFocus ]]"
+					on-text="[[ _onText ]]"
+					external="[[ externalValues ]]"
+					limit="[[ _limit ]]"
+				>
+					<paper-spinner-lite
+						style="width: 20px; height: 20px;"
+						suffix
+						slot="suffix"
+						active="[[ loading ]]"
+						hidden="[[ !loading ]]"
+					></paper-spinner-lite>
+				</cosmoz-autocomplete-ui>
 			</template>
 		`;
 	}
@@ -139,12 +138,10 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				computed: '_computeTooltip(filter, ownerTree, keyProperty, valueProperty)'
 			},
 
-			_showResultsOnFocus: {
-				type: Boolean,
-				value: true,
-				computed: '_computeShowResultsOnFocus(filter)'
+			_source: {
+				type: Array,
+				computed: '_computeSource(values, _collator, ownerTree, keyProperty, valueProperty)'
 			},
-
 			minWidth: {
 				type: String,
 				value: '85px'
@@ -155,64 +152,16 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				value: '85px'
 			},
 
-			/* eslint no-invalid-this: 0 */
-
-			/**
-			* Function used to filter available items.
-			* This function is actually used by `paper-autocomplete`,
-			* it is also exposed here so it is possible to provide a custom queryFn.
-			*/
-			queryFn: {
-				type: Function,
-				value: () => {
-					return function (datasource, query) {
-						const notNull = i => i != null;
-						return datasource.filter(notNull)
-							.map(item => {
-								let text,
-									value;
-
-								if (typeof item === 'object') {
-									text = item[this.textProperty];
-									value = item[this.valueProperty];
-								} else {
-									value = text = item.toString();
-								}
-
-								if (text == null) {
-									return undefined;
-								}
-
-								// if there is text search for indexOf query
-								if (query == null) {
-									return {
-										text,
-										value,
-										html: text
-									};
-								}
-
-								if (text.toLowerCase().indexOf(query) < 0) {
-									return undefined;
-								}
-
-								// Highlight matches
-								return {
-									text,
-									value,
-									html: text.replace(new RegExp('(' + query + ')', 'igu'), '<b>$1</b>')
-								};
-
-							}).filter(notNull);
-					};
-				}
-			}
+			_textProperty: { value: 'text' },
+			_limit: { value: 1 }
 		};
 	}
-	static get observers() {
-		return [
-			'_setQueryByPath(filter, ownerTree)'
-		];
+
+	constructor() {
+		super();
+		this._onFocus = this._onFocus.bind(this);
+		this._onChange = this._onChange.bind(this);
+		this._onText = this._onText.bind(this);
 	}
 
 	/**
@@ -222,17 +171,16 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	* @param {object} ownerTree Owner tree to get texts from.
 	* @returns {array} Suggestions remapped for the column header.
 	*/
-	_computeSuggestionList(values, collator, ownerTree = this.ownerTree) {
+	_computeSource(values, collator, ownerTree = this.ownerTree, keyProperty = this.keyProperty, valueProperty = this.valueProperty) {
 		if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
 			return [];
 		}
 		return values
-			.map(value => {
-				return {
+			.map(value =>
+				 ({
 					value,
-					text: ownerTree.getPathStringByProperty(value, this.keyProperty, this.valueProperty, ' / ')
-				};
-			})
+					text: ownerTree.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
+				}))
 			.sort((a, b) => collator.compare(a.text, b.text));
 	}
 	/**
@@ -363,39 +311,30 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		})
 			.length;
 	}
-	/**
-	* Determine if filter should be read only or not.
-	* @param {string} filter Filter text.
-	* @returns {boolean} Whether filter should be read only or not.
-	*/
-	_computeReadOnly(filter) {
-		return !!filter;
-	}
-	/**
-	* Determine if results should be shown on focus or not.
-	* @param {string} filter Filter text.
-	* @returns {boolean} Whether results should be shown on focus or not.
-	*/
-	_computeShowResultsOnFocus(filter) {
-		return !filter;
-	}
+
 	_serializeFilter(filter = this.filter) {
 		return filter || null;
 	}
-	/**
-	* Set the query by using a path, this sets the initial header filter text of the column.
-	* @param {string} path Path to set.
-	* @param {object} ownerTree Owner tree to get texts from.
-	* @returns {void}
-	*/
-	_setQueryByPath(path, ownerTree = this.ownerTree) {
-		if (path == null || ownerTree == null) {
-			return;
-		}
-		this.set('query', ownerTree.getPathStringByProperty(path, this.keyProperty, this.valueProperty, ' / '));
-	}
 	_deserializeFilter(obj) {
 		return obj || null;
+	}
+
+	_computeValue(
+		filter,
+		source = this._source || []
+	) {
+		return source.filter(({ value }) => filter === value);
+	}
+	_onChange(value) {
+		this.filter = value?.[0]?.value;
+	}
+
+	_onFocus(focused) {
+		this.headerFocused = focused;
+	}
+
+	_onText(text) {
+		this.query = text;
 	}
 }
 
