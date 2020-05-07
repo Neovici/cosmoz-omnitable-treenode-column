@@ -169,18 +169,18 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	* @param {array} values Suggestion values.
 	* @param {object} collator Language sensitive string comparison object.
 	* @param {object} ownerTree Owner tree to get texts from.
+	* @param {string} keyProperty The key property
+	* @param {string} valueProperty the value property
 	* @returns {array} Suggestions remapped for the column header.
 	*/
 	_computeSource(values, collator, ownerTree = this.ownerTree, keyProperty = this.keyProperty, valueProperty = this.valueProperty) {
 		if (!Array.isArray(values) || values.length === 0 || !ownerTree) {
 			return [];
 		}
-		return values
-			.map(value =>
-				 ({
-					value,
-					text: ownerTree.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
-				}))
+		return values.map(value => ({
+			value,
+			text: ownerTree.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
+		}))
 			.sort((a, b) => collator.compare(a.text, b.text));
 	}
 	/**
