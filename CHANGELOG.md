@@ -1,3 +1,11 @@
+## [3.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.1.2...v3.2.0) (2020-05-07)
+
+
+### Features
+
+* replaces paper-autocomplete with cosmoz-autocomplete ([d9581dd](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/d9581dd3435824d4d5cbb627333b22b1cce31b21))
+* upgrade repo ([b1932f2](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/b1932f21187ef158f8bdbe5a8798c73f4289ac1a))
+
 ## [3.1.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.1.1...v3.1.2) (2019-10-15)
 
 
