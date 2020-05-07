@@ -43,7 +43,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 					title="[[ _tooltip ]]"
 					source="[[ _source ]]"
 					text-property="[[ _textProperty ]]"
-					value="[[  _computeValue(filter) ]]"
+					value="[[  _computeValue(filter, _source) ]]"
 					text="[[ query ]]"
 					on-change="[[ _onChange ]]"
 					on-focus="[[ _onFocus ]]"
@@ -152,8 +152,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				value: '85px'
 			},
 
-			_textProperty: { value: 'text' },
-			_limit: { value: 1 }
+			_textProperty: { value: 'text' }
 		};
 	}
 
@@ -321,12 +320,12 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 	_computeValue(
 		filter,
-		source = this._source || []
+		source = []
 	) {
 		return source.find(({ value }) => filter === value);
 	}
 	_onChange(value) {
-		this.filter = value?.[0]?.value;
+		this.filter = value?.slice(-1)?.[0]?.value || null;
 	}
 
 	_onFocus(focused) {
