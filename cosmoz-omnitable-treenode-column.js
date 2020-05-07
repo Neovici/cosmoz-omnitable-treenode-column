@@ -323,7 +323,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		filter,
 		source = this._source || []
 	) {
-		return source.filter(({ value }) => filter === value);
+		return source.find(({ value }) => filter === value);
 	}
 	_onChange(value) {
 		this.filter = value?.[0]?.value;
