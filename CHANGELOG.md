@@ -1,3 +1,10 @@
+### [3.2.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.1...v3.2.2) (2020-06-03)
+
+
+### Bug Fixes
+
+* restores internal suggestions filtering ([df4d129](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/df4d1297e83160883962367a233fbfba45fb3c33))
+
 ### [3.2.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.0...v3.2.1) (2020-05-07)
 
 
