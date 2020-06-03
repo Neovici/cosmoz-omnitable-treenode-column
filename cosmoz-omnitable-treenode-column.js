@@ -48,7 +48,6 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 					on-change="[[ _onChange ]]"
 					on-focus="[[ _onFocus ]]"
 					on-text="[[ _onText ]]"
-					external="[[ externalValues ]]"
 					limit="[[ _limit ]]"
 				>
 					<paper-spinner-lite
