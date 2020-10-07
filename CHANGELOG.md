@@ -1,3 +1,10 @@
+### [3.2.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.2...v3.2.3) (2020-10-07)
+
+
+### Bug Fixes
+
+* **owner-tree:** owner-tree updates are not sent to the cosmoz-treenode ([cbddf4d](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/cbddf4ded452da15b31384debeb5d936115a6f34))
+
 ### [3.2.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.1...v3.2.2) (2020-06-03)
 
 
