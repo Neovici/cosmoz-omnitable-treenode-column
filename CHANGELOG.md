@@ -1,3 +1,10 @@
+### [3.2.4](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.3...v3.2.4) (2020-10-15)
+
+
+### Bug Fixes
+
+* upgrade cosmoz-omnitable ([88b5dd0](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/88b5dd08f987a7f32972b644d48a742b373db557))
+
 ### [3.2.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.2...v3.2.3) (2020-10-07)
 
 
