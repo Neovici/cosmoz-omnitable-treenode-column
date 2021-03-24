@@ -57,7 +57,7 @@ suite('basic', () => {
 	let tree,
 		omnitable;
 	suiteSetup(async () => {
-		tree = await fetch('/base/node_modules/@neovici/cosmoz-tree/demo/tree.json')
+		tree = await fetch('/node_modules/@neovici/cosmoz-tree/demo/tree.json')
 			.then(r => r.json());
 	});
 	setup(async () => {
