@@ -3,7 +3,9 @@ import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
 import { PolymerElement } from '@polymer/polymer/polymer-element';
-import { html } from '@polymer/polymer/lib/utils/html-tag';
+import {
+	html, nothing
+} from 'lit-html';
 
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
 
@@ -20,45 +22,47 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return 'cosmoz-omnitable-treenode-column';
 	}
 
-	static get template() {
+	renderCell(column, { item }) {
 		return html`
-			<template class="cell">
 				<style>
 					cosmoz-omnitable-item-expand-line cosmoz-treenode {
 						white-space: normal;
 					}
 				</style>
-				<cosmoz-treenode hide-from-root="[[ _hideFromRoot ]]" show-max-nodes="[[ showMaxNodes ]]" no-wrap
-				key-property="[[ keyProperty ]]" key-value="[[ get(valuePath, item) ]]" value-property="[[ valueProperty ]]" owner-tree="[[ ownerTree ]]">
-				</cosmoz-treenode>
-			</template>
+				<cosmoz-treenode
+					hide-from-root=${ column._hideFromRoot }
+					show-max-nodes=${ column.showMaxNodes }
+					no-wrap
+					key-property=${ column.keyProperty }
+					.keyValue=${ column.get(column.valuePath, item) }
+					value-property=${ column.valueProperty }
+					.ownerTree=${ column.ownerTree }
+				></cosmoz-treenode>
+	`;
+	}
 
-			<template class="edit-cell"></template>
+	renderEditCell() {
+		return nothing;
+	}
 
-			<template class="header">
-				<cosmoz-autocomplete-ui
-					class$="external-values-[[ externalValues ]]"
-					label="[[ title ]]"
-					title="[[ _tooltip ]]"
-					source="[[ _source ]]"
-					text-property="[[ _textProperty ]]"
-					value="[[  _computeValue(filter, _source) ]]"
-					text="[[ query ]]"
-					on-change="[[ _onChange ]]"
-					on-focus="[[ _onFocus ]]"
-					on-text="[[ _onText ]]"
-					limit="[[ _limit ]]"
-				>
-					<paper-spinner-lite
-						style="width: 20px; height: 20px;"
-						suffix
-						slot="suffix"
-						active="[[ loading ]]"
-						hidden="[[ !loading ]]"
-					></paper-spinner-lite>
-				</cosmoz-autocomplete-ui>
-			</template>
-		`;
+	renderHeader(column) {
+		const spinner = column.loading
+			? html`<paper-spinner-lite style="width: 20px; height: 20px;" suffix slot="suffix" active></paper-spinner-lite>`
+			: nothing;
+
+		return html`<cosmoz-autocomplete-ui
+			class="external-values-[[ externalValues ]]"
+			.label=${ column.title }
+			.title=${ column._tooltip }
+			.source=${ column._source }
+			.textProperty=${ column._textProperty }
+			.value=${ column._computeValue(column.filter, column._source) }
+			.text=${ column.query }
+			.onChange=${ column._onChange }
+			.onFocus=${ column._onFocus }
+			.onText=${ column._onText }
+			.limit=${ column._limit }
+		>${ spinner }</cosmoz-autocomplete-ui>`;
 	}
 
 	/* eslint-disable-next-line max-lines-per-function */
