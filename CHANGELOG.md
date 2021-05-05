@@ -1,3 +1,10 @@
+### [4.0.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v4.0.0...v4.0.1) (2021-05-05)
+
+
+### Bug Fixes
+
+* upgrade to omnitable v6 ([1eb91a7](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/1eb91a7e20bacbb67b324c00497b1aaef4e8ea64))
+
 ## [4.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v3.2.4...v4.0.0) (2021-03-24)
 
 
