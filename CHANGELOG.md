@@ -1,3 +1,19 @@
+## [5.0.0-beta.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v4.0.1...v5.0.0-beta.1) (2021-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* the column uses the updated omnitable column API
+
+### Features
+
+* upgrade to omnitable v8 ([5a944c6](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/5a944c69aa830557652cc18db7a5b9a34291942f))
+
+
+### Bug Fixes
+
+* error in computeSource ([d7c7440](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/d7c7440ff520b73c26588624d9875324afacb810))
+
 ### [4.0.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v4.0.0...v4.0.1) (2021-05-05)
 
 
