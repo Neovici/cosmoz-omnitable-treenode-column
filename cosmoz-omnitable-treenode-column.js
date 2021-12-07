@@ -150,7 +150,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		const collator = makeCollator(locale);
 
 		return valuesFrom(data, valuePath)
-			.map(value => ({
+			?.map(value => ({
 				value,
 				text: ownerTree.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
 			}))

@@ -76,6 +76,9 @@ suite('basic', () => {
 	`);
 		omnitable.data = data;
 		await nextFrame();
+		await nextFrame();
+		await nextFrame();
+		// omnitable renders the cells in the third animation frame
 	});
 
 	test('renders', () => {
@@ -87,7 +90,6 @@ suite('basic', () => {
 	test('onChange', async () => {
 		const column = omnitable.columns[1][columnSymbol];
 		assert.isNull(column.serializeFilter(column, undefined));
-		console.log(input().source[0]);
 		input()._onChange([input().source[0]]);
 		await nextFrame();
 		assert.equal(omnitable.filters.node.filter, '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
