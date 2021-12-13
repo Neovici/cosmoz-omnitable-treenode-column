@@ -1,3 +1,10 @@
+## [5.0.0-beta.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.0.0-beta.1...v5.0.0-beta.2) (2021-12-13)
+
+
+### Bug Fixes
+
+* match new getComparableValue signature ([f48d5f3](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/f48d5f3122aa8594a5ba59913323956cb8e4d80d))
+
 ## [5.0.0-beta.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v4.0.1...v5.0.0-beta.1) (2021-12-07)
 
 
