@@ -106,7 +106,7 @@ suite('basic', () => {
 
 	test('getComparableValue', () => {
 		const column = omnitable.columns[1][columnSymbol];
-		assert.isUndefined(column.getComparableValue(undefined, 'nodeId', column));
-		assert.equal(column.getComparableValue(omnitable.data[0], 'nodeId', column), 'Root / Company Pjqcakmiyx');
+		assert.isUndefined(column.getComparableValue(column, undefined));
+		assert.equal(column.getComparableValue(column, omnitable.data[0]), 'Root / Company Pjqcakmiyx');
 	});
 });

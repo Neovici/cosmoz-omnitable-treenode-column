@@ -14,14 +14,14 @@ import { makeCollator } from './utils';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
 
 const
-	getComparableValue = (item, valuePath, { ownerTree, keyProperty, valueProperty }) => {
+	getComparableValue = ({ valuePath, ownerTree, keyProperty, valueProperty }, item) => {
 		if (!item || !ownerTree) {
 			return;
 		}
 
 		return ownerTree.getPathStringByProperty(get(item, valuePath), keyProperty, valueProperty, ' / ');
 	},
-	getString = (column, item) => getComparableValue(item, column.valuePath, column),
+	getString = (column, item) => getComparableValue(column, item),
 
 	applySingleFilter = ({ valuePath }, filter) => item => filter === get(item, valuePath);
 
@@ -52,13 +52,12 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 	/**
 	* Get a comparable value from the column.
-	* @param {object} item Column data.
-	* @param {string} valuePath Value path in column data.
 	* @param {object} column Column configuration.
+	* @param {object} item Column data.
 	* @returns {void|string} Column data in a comparable format.
 	*/
-	getComparableValue(item, valuePath, column) {
-		return getComparableValue(item, valuePath, column);
+	getComparableValue(column, item) {
+		return getComparableValue(column, item);
 	}
 
 	getFilterFn(column, filter) {
@@ -105,6 +104,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				hide-from-root=${ 0 }
 				show-max-nodes=${ column.showMaxNodes }
 				no-wrap
+				style="direction: rtl; text-align: left"
 				key-property=${ column.keyProperty }
 				.keyValue=${ get(item, column.valuePath) }
 				value-property=${ column.valueProperty }
