@@ -40,7 +40,6 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return {
 			ownerTree: { type: Object },
 			locale: { type: String },
-			showMaxNodes: { type: Number },
 			/**
 			* Name of the property used to lookup the displayed node in the tree
 			*/
@@ -101,10 +100,9 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				}
 			</style>
 			<cosmoz-treenode
-				hide-from-root=${ 0 }
-				show-max-nodes=${ column.showMaxNodes }
+				hide-from-root="0"
+				show-max-nodes="0"
 				no-wrap
-				style="direction: rtl; text-align: left"
 				key-property=${ column.keyProperty }
 				.keyValue=${ get(item, column.valuePath) }
 				value-property=${ column.valueProperty }
