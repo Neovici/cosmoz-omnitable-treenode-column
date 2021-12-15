@@ -44,7 +44,8 @@ class CosmozOmnitableTreenodeColumnInput extends polymerHauntedRender(PolymerEle
 			/**
 			* The value of the `paper-autocomplete` input.
 			*/
-			query: { type: String, notify: true }
+			query: { type: String, notify: true },
+			source: { type: String, notify: true } // necessary, so that the input is re-rendered when source is updated
 		};
 	}
 

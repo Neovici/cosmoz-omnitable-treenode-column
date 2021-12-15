@@ -38,7 +38,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	/* eslint-disable-next-line max-lines-per-function */
 	static get properties() {
 		return {
-			ownerTree: { type: Object },
+			ownerTree: { type: Object, notify: true },
 			locale: { type: String },
 			/**
 			* Name of the property used to lookup the displayed node in the tree
@@ -144,13 +144,17 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	 *
 	 * @return  {array}                 The sorted values.
 	 */
-	computeSource({ ownerTree, keyProperty, valueProperty, locale = null, valuePath }, data) {
-		const collator = makeCollator(locale);
+	computeSource({ ownerTree, keyProperty, valueProperty, locale = null, valuePath, externalValues, values }, data) {
+		const
+			collator = makeCollator(locale),
+			values_ = externalValues
+				? values
+				: valuesFrom(data, valuePath);
 
-		return valuesFrom(data, valuePath)
+		return values_
 			?.map(value => ({
 				value,
-				text: ownerTree.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
+				text: ownerTree?.getPathStringByProperty(value, keyProperty, valueProperty, ' / ')
 			}))
 			.sort((a, b) => collator.compare(a.text, b.text));
 	}
