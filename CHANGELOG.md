@@ -1,3 +1,10 @@
+## [5.0.0-beta.4](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.0.0-beta.3...v5.0.0-beta.4) (2021-12-17)
+
+
+### Bug Fixes
+
+* upgrade cosmoz-omnitable@v8 ([68ed8bb](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/68ed8bb78638861f6dc9b9d1c0c24b825af0d24f))
+
 ## [5.0.0-beta.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.0.0-beta.2...v5.0.0-beta.3) (2021-12-15)
 
 
