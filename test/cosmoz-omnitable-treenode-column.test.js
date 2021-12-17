@@ -5,6 +5,7 @@ import {
 import '@neovici/cosmoz-omnitable';
 import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
+import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns';
 
 const data = [
 	{
@@ -56,6 +57,9 @@ const data = [
 suite('basic', () => {
 	let tree,
 		omnitable;
+
+	const input = () => omnitable.shadowRoot.querySelector('cosmoz-omnitable-treenode-column-input');
+
 	suiteSetup(async () => {
 		tree = await fetch('/node_modules/@neovici/cosmoz-tree/demo/tree.json')
 			.then(r => r.json());
@@ -71,36 +75,38 @@ suite('basic', () => {
 			</cosmoz-omnitable>
 	`);
 		omnitable.data = data;
-		omnitable._columnObserver.flush();
-		omnitable.flush();
 		await nextFrame();
+		await nextFrame();
+		await nextFrame();
+		// omnitable renders the cells in the third animation frame
 	});
 
 	test('renders', () => {
-		assert.isOk(omnitable.visibleColumns[1]);
-		const column = omnitable.visibleColumns[1];
-		assert.deepEqual(column._source, column._computeSource(column.values, column._collator));
+		assert.isOk(omnitable.columns[1][columnSymbol]);
+		const column = omnitable.columns[1][columnSymbol];
+		assert.deepEqual(input().source, column.computeSource(column, data));
 	});
 
-	test('onChange', () => {
-		const column = omnitable.visibleColumns[1];
-		assert.isNull(column._serializeFilter());
-		column._onChange([column._source[0]]);
-		assert.equal(column.filter, column._source[0].value);
-		assert.equal(column._serializeFilter(), column.filter);
+	test('onChange', async () => {
+		const column = omnitable.columns[1][columnSymbol];
+		assert.isNull(column.serializeFilter(column, undefined));
+		input()._onChange([input().source[0]]);
+		await nextFrame();
+		assert.equal(omnitable.filters.node.filter, '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
+		assert.equal(column.serializeFilter(column, omnitable.filters.node.filter), '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
 	});
 
 
-	test('_deserializeFilter', () => {
-		const column = omnitable.visibleColumns[1];
-		assert.equal(column._deserializeFilter(2), 2);
-		assert.isNull(column._deserializeFilter());
+	test('deserializeFilter', () => {
+		const column = omnitable.columns[1][columnSymbol];
+		assert.equal(column.deserializeFilter(column, 2), 2);
+		assert.isNull(column.deserializeFilter(column));
 	});
 
 
 	test('getComparableValue', () => {
-		const column = omnitable.visibleColumns[1];
-		assert.isUndefined(column.getComparableValue());
-		assert.equal(column.getComparableValue(omnitable.data[0], 'nodeId'), 'Root / Company Pjqcakmiyx');
+		const column = omnitable.columns[1][columnSymbol];
+		assert.isUndefined(column.getComparableValue(column, undefined));
+		assert.equal(column.getComparableValue(column, omnitable.data[0]), 'Root / Company Pjqcakmiyx');
 	});
 });

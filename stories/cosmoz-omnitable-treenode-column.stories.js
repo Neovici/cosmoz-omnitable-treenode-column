@@ -9,6 +9,7 @@ export default {
 	component: 'cosmoz-omnitable-treenode-column'
 };
 
+// eslint-disable-next-line max-lines-per-function
 const basic = () => {
 	const data = [
 			{
@@ -59,10 +60,10 @@ const basic = () => {
 		content = fetch('./node_modules/@neovici/cosmoz-tree/demo/tree.json')
 			.then(r => r.json())
 			.then(tree => html`
-		<cosmoz-omnitable .data=${ data }>
+		<cosmoz-omnitable .data=${ data } hash-param="test">
 			<cosmoz-omnitable-column name="name" title="Name" value-path="name" min-width="200px">
 			</cosmoz-omnitable-column>
-			<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="3"
+			<cosmoz-omnitable-treenode-column name="node" title="Node" flex="5" show-max-nodes="1"
 				value-path="nodeId" key-property="id" .ownerTree=${ new DefaultTree(tree) } >
 			</cosmoz-omnitable-treenode-column>
 		</cosmoz-omnitable>
