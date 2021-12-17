@@ -5,7 +5,7 @@ import {
 import '@neovici/cosmoz-omnitable';
 import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
-import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/normalize-settings';
+import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns';
 
 const data = [
 	{
