@@ -1,3 +1,10 @@
+## [5.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.0.0...v5.1.0) (2022-03-31)
+
+
+### Features
+
+* **deps:** update cosmoz-autocomplete ([f9ad816](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/f9ad816e35290d311bd7166561a4aac6eb78adbe))
+
 ## [5.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v4.0.1...v5.0.0) (2021-12-17)
 
 
