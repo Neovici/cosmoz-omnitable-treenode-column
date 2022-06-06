@@ -59,7 +59,7 @@
 	},
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "^3.0.0",
-		"@neovici/cosmoz-omnitable": "^8.0.0",
+		"@neovici/cosmoz-omnitable": "^8.0.0 || ^9.0.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
 		"@neovici/cosmoz-treenode": "^4.2.0",
 		"@polymer/paper-spinner": "^3.0.0",
