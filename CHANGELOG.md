@@ -1,3 +1,10 @@
+## [5.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.1.0...v5.2.0) (2022-06-06)
+
+
+### Features
+
+* compatible with omnitable v9 ([804bd4e](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/804bd4eff3ff7dc3b6f1aac717fdeb0eec9c5ae3))
+
 ## [5.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.0.0...v5.1.0) (2022-03-31)
 
 
