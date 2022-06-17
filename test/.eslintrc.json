@@ -1,6 +1,0 @@
-{
-	"extends": "@neovici/eslint-config/test-config",
-	"rules": {
-		"no-console": "off"
-	}
-}
