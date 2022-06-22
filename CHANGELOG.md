@@ -1,3 +1,14 @@
+## [6.0.0-beta.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.2.0...v6.0.0-beta.1) (2022-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade to lit@^2 and haunted@^5
+
+### Features
+
+* upgrade to lit@^2 ([5bebbe4](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/5bebbe45500b234d35531cfff07aeb7c7aafdce3))
+
 ## [5.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.1.0...v5.2.0) (2022-06-06)
 
 
