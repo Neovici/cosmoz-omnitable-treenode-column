@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v6.0.0...v6.0.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update ([f9f8d1a](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/f9f8d1a22c935d0ce0b41cd1e8bdd1fa3e1b997e))
+
 ## [6.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v5.2.0...v6.0.0) (2022-06-22)
 
 
