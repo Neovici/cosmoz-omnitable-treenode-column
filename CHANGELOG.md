@@ -1,3 +1,14 @@
+## [7.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v6.0.1...v7.0.0) (2022-07-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Upgrade omnitable, input, dropdown & utils deps.
+
+### Features
+
+* **deps:** upgrade ([68778f6](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/68778f6d4f028fd0257d135444837ed67582cf16))
+
 ## [6.0.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v6.0.0...v6.0.1) (2022-06-23)
 
 
