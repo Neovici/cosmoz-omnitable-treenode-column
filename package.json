@@ -58,12 +58,13 @@
 		}
 	},
 	"dependencies": {
-		"@neovici/cosmoz-autocomplete": "4.0.0",
-		"@neovici/cosmoz-omnitable": "^10.0.0",
+		"@neovici/cosmoz-autocomplete": "5.0.0",
+		"@neovici/cosmoz-omnitable": "^11.0.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
 		"@neovici/cosmoz-treenode": "^5.0.0",
 		"@polymer/paper-spinner": "^3.0.0",
 		"@polymer/polymer": "^3.4.1",
+		"eslint-import-resolver-typescript": "^3.2.7",
 		"lit-html": "^2.0.0"
 	},
 	"devDependencies": {
