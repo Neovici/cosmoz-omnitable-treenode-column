@@ -1,3 +1,10 @@
+## [7.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.0.0...v7.1.0) (2022-09-15)
+
+
+### Features
+
+* update deps ([e475c2e](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/e475c2e9725f3ce72a778f884f4c5219bce1a739))
+
 ## [7.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v6.0.1...v7.0.0) (2022-07-20)
 
 
