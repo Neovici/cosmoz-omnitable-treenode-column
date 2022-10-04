@@ -128,6 +128,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			.keyProperty=${ keyProperty }
 			@filter-changed=${ ({ detail: { value }}) => setState(state => ({ ...state, filter: value })) }
 			@header-focused-changed=${ ({ detail: { value }}) => setState(state => ({ ...state, headerFocused: value })) }
+			@query-changed=${ ({ detail: { value }}) => setState(state => ({ ...state, query: value })) }
 		>${ spinner }</cosmoz-omnitable-treenode-column-input>`;
 	}
 
