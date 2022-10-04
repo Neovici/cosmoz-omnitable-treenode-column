@@ -1,3 +1,11 @@
+## [7.1.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.0...v7.1.1) (2022-10-04)
+
+
+### Bug Fixes
+
+* **chore:**  lint ([0e6d9a8](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/0e6d9a88de3c7a45cfa7162cf204ef7f3e3940a1))
+* restore query notification ([81ea712](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/81ea7121b33b5e6fc1467a26889c360e51adfd03))
+
 ## [7.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.0.0...v7.1.0) (2022-09-15)
 
 
