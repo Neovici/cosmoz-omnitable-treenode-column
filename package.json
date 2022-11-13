@@ -27,7 +27,8 @@
 		"test:watch": "wtr --watch",
 		"storybook": "wds",
 		"storybook:build": "build-storybook",
-		"storybook:deploy": "storybook-to-ghpages"
+		"storybook:deploy": "storybook-to-ghpages",
+		"prepare": "husky install"
 	},
 	"release": {
 		"plugins": [
@@ -52,11 +53,6 @@
 			"@commitlint/config-conventional"
 		]
 	},
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "5.0.0",
 		"@neovici/cosmoz-omnitable": "^11.0.0 || ^12.0.0",
@@ -78,7 +74,7 @@
 		"@web/dev-server-storybook": "^0.5.0",
 		"@webcomponents/webcomponentsjs": "^2.5.0",
 		"eslint-import-resolver-typescript": "^3.2.7",
-		"husky": "^4.3.8",
+		"husky": "^8.0.0",
 		"semantic-release": "^19.0.0",
 		"sinon": "^14.0.0"
 	}

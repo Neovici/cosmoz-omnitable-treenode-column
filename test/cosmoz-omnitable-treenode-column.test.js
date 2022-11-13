@@ -58,7 +58,7 @@ suite('basic', () => {
 	let tree,
 		omnitable;
 
-	const input = () => omnitable.shadowRoot.querySelector('cosmoz-omnitable-treenode-column-input');
+	const autocomplete = () => omnitable.shadowRoot.querySelector('cosmoz-autocomplete');
 
 	suiteSetup(async () => {
 		tree = await fetch('/node_modules/@neovici/cosmoz-tree/demo/tree.json')
@@ -84,13 +84,13 @@ suite('basic', () => {
 	test('renders', () => {
 		assert.isOk(omnitable.columns[1][columnSymbol]);
 		const column = omnitable.columns[1][columnSymbol];
-		assert.deepEqual(input().source, column.computeSource(column, data));
+		assert.deepEqual(autocomplete().source, column.computeSource(column, data));
 	});
 
 	test('onChange', async () => {
 		const column = omnitable.columns[1][columnSymbol];
 		assert.isNull(column.serializeFilter(column, undefined));
-		input()._onChange([input().source[0]]);
+		autocomplete().onChange([autocomplete().source[0]]);
 		await nextFrame();
 		assert.equal(omnitable.filters.node.filter, '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
 		assert.equal(column.serializeFilter(column, omnitable.filters.node.filter), '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
