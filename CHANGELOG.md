@@ -1,3 +1,10 @@
+## [7.1.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.2...v7.1.3) (2023-01-07)
+
+
+### Bug Fixes
+
+* **deps:** correct cosmoz-autocomplete version ([00eb5b6](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/00eb5b68f86b37e10fe18db37af94e106e9e9753))
+
 ## [7.1.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.1...v7.1.2) (2022-11-13)
 
 
