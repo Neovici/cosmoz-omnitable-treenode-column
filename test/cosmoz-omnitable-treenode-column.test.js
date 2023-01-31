@@ -92,17 +92,16 @@ suite('basic', () => {
 		assert.isNull(column.serializeFilter(column, undefined));
 		autocomplete().onChange([autocomplete().source[0]]);
 		await nextFrame();
-		assert.equal(omnitable.filters.node.filter, '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
-		assert.equal(column.serializeFilter(column, omnitable.filters.node.filter), '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
+		assert.equal(omnitable.filters.node.filter[0].value, '167d1485-7d4f-4c7d-86cd-a4fb00f31245');
+		assert.deepEqual(column.serializeFilter(column, omnitable.filters.node.filter),
+			 '[{"value":"167d1485-7d4f-4c7d-86cd-a4fb00f31245","text":"Root / Company Pjqcakmiyx"}]');
 	});
-
 
 	test('deserializeFilter', () => {
 		const column = omnitable.columns[1][columnSymbol];
 		assert.equal(column.deserializeFilter(column, 2), 2);
 		assert.isNull(column.deserializeFilter(column));
 	});
-
 
 	test('getComparableValue', () => {
 		const column = omnitable.columns[1][columnSymbol];

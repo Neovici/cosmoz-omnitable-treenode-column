@@ -96,11 +96,11 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	}
 
 	serializeFilter(column, filter) {
-		return filter.length === 0 ? null : JSON.stringify(filter);
+		return !filter || filter.length === 0 ? null : JSON.stringify(filter);
 	}
 
 	deserializeFilter(column, filter) {
-		return JSON.parse(decodeURIComponent(filter));
+		return filter == null ? null : JSON.parse(decodeURIComponent(filter));
 
 	}
 
