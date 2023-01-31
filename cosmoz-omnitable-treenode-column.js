@@ -8,10 +8,12 @@ import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
-import { applyMultiFilter } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-list-mixin';
 import { get } from '@polymer/polymer/lib/utils/path';
 import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
+import {
+	prop, array
+} from '@neovici/cosmoz-autocomplete/lib/utils';
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
@@ -31,7 +33,14 @@ const getComparableValue = (
 	applySingleFilter =
 		({ valuePath }, filter) =>
 		(item) =>
-			filter === get(item, valuePath);
+			filter === get(item, valuePath),
+	applyMultiFilter = ({ valuePath, emptyValue, headerValueProperty }, filters) => item => {
+		const val = prop(headerValueProperty),
+			values = array(get(item, valuePath));
+		return filters.some(filter =>
+			values.length === 0 && val(filter) === emptyValue || values.some(value => value === val(filter))
+		);
+	};
 
 /**
  * Column that displays a tree node, for `cosmoz-omnitable`.
@@ -52,6 +61,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			 */
 			keyProperty: { type: String },
 			valueProperty: { type: String, value: 'name' },
+			headerValueProperty: { type: String, value: 'value' },
+			headerTextProperty: { type: String, value: 'text' },
 			minWidth: { type: String, value: '85px' },
 			limit: { type: String },
 		};
@@ -128,7 +139,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	}
 
 	renderHeader(
-		{ title, loading, limit },
+		{ title, loading, limit, headerValueProperty, headerTextProperty },
 		{ filter },
 		setState,
 		source
@@ -145,8 +156,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return html`<cosmoz-autocomplete
 			.label=${title}
 			.title=${computeTooltip(filter,title)}
-			.textProperty=${'text'}
-			.valueProperty=${'value'}
+			.textProperty=${headerTextProperty}
+			.valueProperty=${headerValueProperty}
 			.value=${guard([filter, source], () => filter)}
 			.limit=${ limit }
 			.onChange=${(value) => {
