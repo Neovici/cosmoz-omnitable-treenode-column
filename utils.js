@@ -11,20 +11,27 @@ const
 
 	/**
 	* Get a tooltip text for the column.
-	* @param {string} filter Filter text.
-	* @param {object} ownerTree Owner tree to get tooltip text from.
-	* @param {string} keyProperty the property to search to find the node
-	* @param {string} valueProperty the value for keyProperty to be the correct node
+	* @param {array} filters Filter text.
 	* @param {string} title the title
 	* @returns {string} Tooltip text.
 	*/
-	computeTooltip = (filter, ownerTree, keyProperty, valueProperty, title) => {
-		const requiredValues = [filter, ownerTree, keyProperty, valueProperty];
-		if (requiredValues.includes(null) || requiredValues.includes(undefined)) {
+	computeTooltip = (filters = [], title) => {
+		if (!Array.isArray(filters) || filters.length < 1) {
 			return title;
 		}
-		return ownerTree.getPathStringByProperty(filter, keyProperty, valueProperty, ' / ');
+		return filters.map(item => item?.text).join(',');
+	},
+
+	/**
+	* Get a filter object for the url.
+	* @param {array} value Filter text.
+	* @returns {object} Filter object.
+	*/
+	getCurrentFilter = (value) => {
+		if (value == null || (Array.isArray(value) && value.length == 0)) {
+			return null;
+		}
+		return value;
 	};
 
-
-export { makeCollator, computeTooltip };
+export { makeCollator, computeTooltip, getCurrentFilter };
