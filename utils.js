@@ -28,7 +28,7 @@ const
 	* @returns {object} Filter object.
 	*/
 	getCurrentFilter = (value) => {
-		if (value == null || (Array.isArray(value) && value.length == 0)) {
+		if (value == null || (Array.isArray(value) && value.length === 0)) {
 			return null;
 		}
 		return value;
