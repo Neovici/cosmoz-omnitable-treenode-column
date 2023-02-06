@@ -200,18 +200,20 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		data
 	) {
 		const collator = makeCollator(locale),
-			values_ = externalValues ? values : valuesFrom(data, valuePath);
-		return values_
-			?.map((value) => ({
+			values_ = values != null && !Array.isArray(values) ? Object.keys(values) : values,
+			values__ = externalValues ? values_ : valuesFrom(data, valuePath);
+
+		return values__
+		?.map((value) => ({
+			value,
+			text: ownerTree?.getPathStringByProperty(
 				value,
-				text: ownerTree?.getPathStringByProperty(
-					value,
-					keyProperty,
-					valueProperty,
-					' / '
-				),
-			}))
-			.sort((a, b) => collator.compare(a.text, b.text));
+				keyProperty,
+				valueProperty,
+				' / '
+			),
+		}))
+		.sort((a, b) => collator.compare(a.text, b.text));
 	}
 
 }
