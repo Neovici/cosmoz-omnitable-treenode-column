@@ -11,9 +11,7 @@ import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-m
 import { get } from '@polymer/polymer/lib/utils/path';
 import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
-import {
-	prop, array
-} from '@neovici/cosmoz-autocomplete/lib/utils';
+import { array } from '@neovici/cosmoz-autocomplete/lib/utils';
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
@@ -34,13 +32,16 @@ const getComparableValue = (
 		({ valuePath }, filter) =>
 		(item) =>
 			filter === get(item, valuePath),
-	applyMultiFilter = ({ valuePath, emptyValue, headerValueProperty }, filters) => item => {
-		const val = prop(headerValueProperty),
-			values = array(get(item, valuePath));
-		return filters.some(filter =>
-			values.length === 0 && val(filter) === emptyValue || values.some(value => value === val(filter))
-		);
-	};
+	applyMultiFilter =
+		({ valuePath, emptyValue }, filters) =>
+		(item) => {
+			const values = array(get(item, valuePath));
+			return filters.some(
+				(filter) =>
+					(values.length === 0 && filter.value === emptyValue) ||
+					values.some((value) => value === filter.value)
+			);
+		};
 
 /**
  * Column that displays a tree node, for `cosmoz-omnitable`.
@@ -61,10 +62,10 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			 */
 			keyProperty: { type: String },
 			valueProperty: { type: String, value: 'name' },
-			headerValueProperty: { type: String, value: 'value' },
-			headerTextProperty: { type: String, value: 'text' },
 			minWidth: { type: String, value: '85px' },
 			limit: { type: String },
+			hideFromRoot: { type: String, value: '0' },
+			showMaxNodes: { type: String, value: '0' },
 		};
 	}
 
@@ -112,7 +113,6 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 	deserializeFilter(column, filter) {
 		return filter == null ? null : JSON.parse(decodeURIComponent(filter));
-
 	}
 
 	renderCell(column, { item }) {
@@ -123,8 +123,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				}
 			</style>
 			<cosmoz-treenode
-				hide-from-root="0"
-				show-max-nodes="0"
+				hide-from-root=${column.hideFromRoot}
+				show-max-nodes=${column.showMaxNodes}
 				no-wrap
 				key-property=${column.keyProperty}
 				.keyValue=${get(item, column.valuePath)}
@@ -138,12 +138,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return nothing;
 	}
 
-	renderHeader(
-		{ title, loading, limit, headerValueProperty, headerTextProperty },
-		{ filter },
-		setState,
-		source
-	) {
+	renderHeader({ title, loading, limit }, { filter }, setState, source) {
 		const spinner = when(
 			loading,
 			() => html`<paper-spinner-lite
@@ -155,11 +150,11 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		);
 		return html`<cosmoz-autocomplete
 			.label=${title}
-			.title=${computeTooltip(filter,title)}
-			.textProperty=${headerTextProperty}
-			.valueProperty=${headerValueProperty}
+			.title=${computeTooltip(filter, title)}
+			.textProperty=${'text'}
+			.valueProperty=${'value'}
 			.value=${guard([filter, source], () => filter)}
-			.limit=${ limit }
+			.limit=${limit}
 			.onChange=${(value) => {
 				setState((state) => ({
 					...state,
@@ -200,22 +195,22 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		data
 	) {
 		const collator = makeCollator(locale),
-			values_ = values != null && !Array.isArray(values) ? Object.keys(values) : values,
+			values_ =
+				values != null && !Array.isArray(values) ? Object.keys(values) : values,
 			values__ = externalValues ? values_ : valuesFrom(data, valuePath);
 
 		return values__
-		?.map((value) => ({
-			value,
-			text: ownerTree?.getPathStringByProperty(
+			?.map((value) => ({
 				value,
-				keyProperty,
-				valueProperty,
-				' / '
-			),
-		}))
-		.sort((a, b) => collator.compare(a.text, b.text));
+				text: ownerTree?.getPathStringByProperty(
+					value,
+					keyProperty,
+					valueProperty,
+					' / '
+				),
+			}))
+			.sort((a, b) => collator.compare(a.text, b.text));
 	}
-
 }
 
 customElements.define(
