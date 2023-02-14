@@ -1,3 +1,10 @@
+## [7.1.4](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.3...v7.1.4) (2023-02-14)
+
+
+### Bug Fixes
+
+* memoize imported from utils in omnitable treenode ([cdcc596](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/cdcc596a8ab0a4ccc766efbd229f39e389b61558))
+
 ## [7.1.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.2...v7.1.3) (2023-01-07)
 
 
