@@ -1,4 +1,4 @@
-import { memoize } from '@neovici/cosmoz-omnitable/lib/memoize';
+import { memoize } from '@neovici/cosmoz-utils/memoize';
 
 const
 	/**
