@@ -63,9 +63,14 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			keyProperty: { type: String },
 			valueProperty: { type: String, value: 'name' },
 			minWidth: { type: String, value: '85px' },
-			limit: { type: String },
-			hideFromRoot: { type: String, value: '0' },
-			showMaxNodes: { type: String, value: '0' },
+		};
+	}
+
+	getConfig(column) {
+		return {
+			hideFromRoot: column.hideFromRoot,
+			showMaxNodes: column.showMaxNodes,
+			limit: column.limit,
 		};
 	}
 
@@ -138,7 +143,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return nothing;
 	}
 
-	renderHeader({ title, loading, limit }, { filter }, setState, source) {
+	renderHeader({ loading, title, limit }, { filter }, setState, source) {
 		const spinner = when(
 			loading,
 			() => html`<paper-spinner-lite
