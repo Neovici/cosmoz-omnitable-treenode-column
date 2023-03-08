@@ -9,8 +9,9 @@ import '@polymer/paper-spinner/paper-spinner-lite';
 
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
 import { get } from '@polymer/polymer/lib/utils/path';
-import { makeCollator, computeTooltip } from './utils';
+import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
+import { array } from '@neovici/cosmoz-autocomplete/lib/utils';
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
@@ -19,7 +20,6 @@ const getComparableValue = (
 		if (!item || !ownerTree) {
 			return;
 		}
-
 		return ownerTree.getPathStringByProperty(
 			get(item, valuePath),
 			keyProperty,
@@ -31,7 +31,17 @@ const getComparableValue = (
 	applySingleFilter =
 		({ valuePath }, filter) =>
 		(item) =>
-			filter === get(item, valuePath);
+			filter === get(item, valuePath),
+	applyMultiFilter =
+		({ valuePath, emptyValue }, filters) =>
+		(item) => {
+			const values = array(get(item, valuePath));
+			return filters.some(
+				(filter) =>
+					(values.length === 0 && filter.value === emptyValue) ||
+					values.some((value) => value === filter.value)
+			);
+		};
 
 /**
  * Column that displays a tree node, for `cosmoz-omnitable`.
@@ -56,6 +66,14 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		};
 	}
 
+	getConfig(column) {
+		return {
+			hideFromRoot: column.hideFromRoot,
+			showMaxNodes: column.showMaxNodes,
+			limit: column.limit,
+		};
+	}
+
 	/**
 	 * Get a comparable value from the column.
 	 * @param {object} column Column configuration.
@@ -69,6 +87,9 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	getFilterFn(column, filter) {
 		if (!filter) {
 			return;
+		}
+		if (Array.isArray(filter) && filter.length > 0) {
+			return applyMultiFilter(column, filter);
 		}
 		return applySingleFilter(column, filter);
 	}
@@ -92,11 +113,11 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	}
 
 	serializeFilter(column, filter) {
-		return filter || null;
+		return !filter || filter.length === 0 ? null : JSON.stringify(filter);
 	}
 
-	deserializeFilter(column, obj) {
-		return obj || null;
+	deserializeFilter(column, filter) {
+		return filter == null ? null : JSON.parse(decodeURIComponent(filter));
 	}
 
 	renderCell(column, { item }) {
@@ -107,8 +128,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				}
 			</style>
 			<cosmoz-treenode
-				hide-from-root="0"
-				show-max-nodes="0"
+				hide-from-root=${column.hideFromRoot}
+				show-max-nodes=${column.showMaxNodes}
 				no-wrap
 				key-property=${column.keyProperty}
 				.keyValue=${get(item, column.valuePath)}
@@ -122,12 +143,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return nothing;
 	}
 
-	renderHeader(
-		{ title, ownerTree, loading, keyProperty, valueProperty = 'name' },
-		{ filter },
-		setState,
-		source
-	) {
+	renderHeader({ loading, title, limit }, { filter }, setState, source) {
 		const spinner = when(
 			loading,
 			() => html`<paper-spinner-lite
@@ -137,28 +153,20 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				active
 			></paper-spinner-lite>`
 		);
-
 		return html`<cosmoz-autocomplete
 			.label=${title}
-			.title=${computeTooltip(
-				filter,
-				ownerTree,
-				keyProperty,
-				valueProperty,
-				title
-			)}
-			.source=${source}
+			.title=${computeTooltip(filter, title)}
 			.textProperty=${'text'}
-			.value=${guard([source, filter], () =>
-				source?.find(({ value }) => filter === value)
-			)}
-			.limit=${1}
+			.valueProperty=${'value'}
+			.value=${guard([filter, source], () => filter)}
+			.limit=${limit}
 			.onChange=${(value) => {
 				setState((state) => ({
 					...state,
-					filter: value?.slice(-1)?.[0]?.value || null,
+					filter: getCurrentFilter(value),
 				}));
 			}}
+			.source=${source}
 			.onFocus=${(headerFocused) =>
 				setState((state) => ({ ...state, headerFocused }))}
 			.onText=${(query) => setState((state) => ({ ...state, query }))}
@@ -192,9 +200,11 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		data
 	) {
 		const collator = makeCollator(locale),
-			values_ = externalValues ? values : valuesFrom(data, valuePath);
+			values_ =
+				values != null && !Array.isArray(values) ? Object.keys(values) : values,
+			values__ = externalValues ? values_ : valuesFrom(data, valuePath);
 
-		return values_
+		return values__
 			?.map((value) => ({
 				value,
 				text: ownerTree?.getPathStringByProperty(
