@@ -55,10 +55,10 @@
 	},
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "^5.0.0",
-		"@neovici/cosmoz-omnitable": "^12.7.2",
+		"@neovici/cosmoz-omnitable":  "^12.0.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
 		"@neovici/cosmoz-treenode": "^5.0.0",
-		"@neovici/cosmoz-utils": "^5.12.1",
+		"@neovici/cosmoz-utils": "^5.16.0",
 		"@polymer/paper-spinner": "^3.0.0",
 		"@polymer/polymer": "^3.4.1",
 		"lit-html": "^2.0.0"
