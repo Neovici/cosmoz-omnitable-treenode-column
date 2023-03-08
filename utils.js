@@ -1,4 +1,4 @@
-import { memoooize } from '@neovici/cosmoz-utils/memoize';
+import { memoize } from '@neovici/cosmoz-utils/memoize';
 
 const /**
 	 * Get a language sensitive string comparison object.
@@ -6,7 +6,7 @@ const /**
 	 * @returns {object} Collator.
 	 */
 	_makeCollator = (locale) => new Intl.Collator(locale || undefined),
-	makeCollator = memoooize(_makeCollator),
+	makeCollator = memoize(_makeCollator),
 	/**
 	 * Get a tooltip text for the column.
 	 * @param {array} filters Filter text.
