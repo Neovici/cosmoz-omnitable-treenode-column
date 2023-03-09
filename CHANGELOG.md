@@ -1,3 +1,10 @@
+## [7.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.4...v7.2.0) (2023-03-09)
+
+
+### Features
+
+* **multi value filtering:** filtering on several nodes ([#92](https://github.com/neovici/cosmoz-omnitable-treenode-column/issues/92)) ([50ac57f](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/50ac57f15437bf49da4cb6b30c3ad4b7de2b54ab))
+
 ## [7.1.4](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.3...v7.1.4) (2023-02-14)
 
 
