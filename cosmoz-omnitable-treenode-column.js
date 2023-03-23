@@ -2,6 +2,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element';
 import { html, nothing } from 'lit-html';
 import { when } from 'lit-html/directives/when.js';
 import { guard } from 'lit-html/directives/guard.js';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 
 import '@neovici/cosmoz-autocomplete';
 import '@neovici/cosmoz-treenode';
@@ -63,6 +64,9 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			keyProperty: { type: String },
 			valueProperty: { type: String, value: 'name' },
 			minWidth: { type: String, value: '85px' },
+			hideFromRoot: { type: Number },
+			showMaxNodes: { type: Number },
+			limit: { type: Number },
 		};
 	}
 
@@ -128,8 +132,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				}
 			</style>
 			<cosmoz-treenode
-				hide-from-root=${column.hideFromRoot}
-				show-max-nodes=${column.showMaxNodes}
+				hide-from-root=${ifDefined(column.hideFromRoot)}
+				show-max-nodes=${ifDefined(column.showMaxNodes)}
 				no-wrap
 				key-property=${column.keyProperty}
 				.keyValue=${get(item, column.valuePath)}
