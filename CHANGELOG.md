@@ -1,3 +1,10 @@
+## [7.2.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.2.0...v7.2.1) (2023-03-24)
+
+
+### Bug Fixes
+
+* **limit,hideFromRoot,showMaxNodes:** properties were not set ([5c535d0](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/5c535d09d5a6672ec9956c2a3865b323142e6e8a))
+
 ## [7.2.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.1.4...v7.2.0) (2023-03-09)
 
 
