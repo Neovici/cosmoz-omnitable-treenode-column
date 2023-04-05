@@ -157,25 +157,42 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				active
 			></paper-spinner-lite>`
 		);
-		return html`<cosmoz-autocomplete
-			.label=${title}
-			.title=${computeTooltip(filter, title)}
-			.textProperty=${'text'}
-			.valueProperty=${'value'}
-			.value=${guard([filter, source], () => filter)}
-			.limit=${limit}
-			.onChange=${(value) => {
-				setState((state) => ({
-					...state,
-					filter: getCurrentFilter(value),
-				}));
-			}}
-			.source=${source}
-			.onFocus=${(headerFocused) =>
-				setState((state) => ({ ...state, headerFocused }))}
-			.onText=${(query) => setState((state) => ({ ...state, query }))}
-			>${spinner}</cosmoz-autocomplete
-		>`;
+		return html` <style>
+				cosmoz-autocomplete.cosmoz-treenode-header-input::part(input-label) {
+					text-transform: var(--cosmoz-omnitable-header-text-transform, none);
+					font-weight: var(--cosmoz-omnitable-header-font-weight, normal);
+					font-family: var(
+						--cosmoz-omnitable-header-font-family,
+						'Roboto',
+						'Noto',
+						sans-serif
+					);
+					font-size: var(--cosmoz-omnitable-header-font-size, 16px);
+				}
+			</style>
+
+			<cosmoz-autocomplete
+				class="cosmoz-treenode-header-input"
+				part="header-treenode"
+				exportparts="header-treenode"
+				.label=${title}
+				.title=${computeTooltip(filter, title)}
+				.textProperty=${'text'}
+				.valueProperty=${'value'}
+				.value=${guard([filter, source], () => filter)}
+				.limit=${limit}
+				.onChange=${(value) => {
+					setState((state) => ({
+						...state,
+						filter: getCurrentFilter(value),
+					}));
+				}}
+				.source=${source}
+				.onFocus=${(headerFocused) =>
+					setState((state) => ({ ...state, headerFocused }))}
+				.onText=${(query) => setState((state) => ({ ...state, query }))}
+				>${spinner}</cosmoz-autocomplete
+			>`;
 	}
 
 	/**
