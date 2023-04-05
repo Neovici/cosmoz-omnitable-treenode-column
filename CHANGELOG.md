@@ -1,3 +1,10 @@
+## [7.3.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.2.1...v7.3.0) (2023-04-05)
+
+
+### Features
+
+* adjusted font weight for header ([5985c48](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/5985c48cb1ed37d43a1f78e852d71707d3e299f6))
+
 ## [7.2.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.2.0...v7.2.1) (2023-03-24)
 
 
