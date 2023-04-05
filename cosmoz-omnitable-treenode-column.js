@@ -158,7 +158,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			></paper-spinner-lite>`
 		);
 		return html` <style>
-				cosmoz-autocomplete::part(input-label) {
+				cosmoz-autocomplete.cosmoz-treenode-header-input::part(input-label) {
 					text-transform: var(--cosmoz-omnitable-header-text-transform, none);
 					font-weight: var(--cosmoz-omnitable-header-font-weight, normal);
 					font-family: var(
@@ -172,6 +172,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			</style>
 
 			<cosmoz-autocomplete
+				class="cosmoz-treenode-header-input"
 				part="header-treenode"
 				exportparts="header-treenode"
 				.label=${title}
