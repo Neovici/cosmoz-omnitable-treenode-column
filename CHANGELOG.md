@@ -1,3 +1,10 @@
+## [7.5.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.4.0...v7.5.0) (2023-04-25)
+
+
+### Features
+
+* cleanup README ([dcbd35e](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/dcbd35e0eec69bac77d51613eceab7c898435d32))
+
 ## [7.4.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.3.0...v7.4.0) (2023-04-25)
 
 
