@@ -10,9 +10,9 @@ import '@polymer/paper-spinner/paper-spinner-lite';
 
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
 import { get } from '@polymer/polymer/lib/utils/path';
-import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
-import { array } from '@neovici/cosmoz-autocomplete/lib/utils';
+import { array } from '@neovici/cosmoz-utils/array';
+import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
