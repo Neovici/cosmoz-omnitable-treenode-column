@@ -1,3 +1,16 @@
+## [7.4.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.3.0...v7.4.0) (2023-04-25)
+
+
+### Features
+
+* adjust workflow ([393d143](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/393d143648117176554ec94fb966c117f6ac7bb9))
+* allow autocomplete v6 ([cb8cc34](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/cb8cc34395c4bb6c44fa7a9b08b9d7f30d927b97))
+
+
+### Bug Fixes
+
+* upgrade cosmoz-dropdown ([e3a9a9a](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/e3a9a9a870ed70cae6d836fd6636b9884cda170d))
+
 ## [7.3.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.2.1...v7.3.0) (2023-04-05)
 
 
