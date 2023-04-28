@@ -1,3 +1,10 @@
+## [7.6.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.5.0...v7.6.0) (2023-04-28)
+
+
+### Features
+
+* update autocomplete ([f950127](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/f95012732c50f480f757d55eef2e3ba0e9a760b7))
+
 ## [7.5.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.4.0...v7.5.0) (2023-04-25)
 
 
