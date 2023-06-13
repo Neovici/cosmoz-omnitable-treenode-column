@@ -67,11 +67,15 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			hideFromRoot: { type: Number },
 			showMaxNodes: { type: Number },
 			limit: { type: Number },
+			keepOpened: { type: Boolean, value: true },
+			keepQuery: { type: Boolean },
 		};
 	}
 
 	getConfig(column) {
 		return {
+			keepOpened: column.keepOpened,
+			keepQuery: column.keepQuery,
 			hideFromRoot: column.hideFromRoot,
 			showMaxNodes: column.showMaxNodes,
 			limit: column.limit,
@@ -147,7 +151,12 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		return nothing;
 	}
 
-	renderHeader({ loading, title, limit }, { filter }, setState, source) {
+	renderHeader(
+		{ loading, title, limit, keepOpened, keepQuery },
+		{ filter },
+		setState,
+		source
+	) {
 		const spinner = when(
 			loading,
 			() => html`<paper-spinner-lite
@@ -175,6 +184,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				class="cosmoz-treenode-header-input"
 				part="header-treenode"
 				exportparts="header-treenode"
+				?keep-opened=${keepOpened}
+				?keep-query=${keepQuery}
 				.label=${title}
 				.title=${computeTooltip(filter, title)}
 				.textProperty=${'text'}
