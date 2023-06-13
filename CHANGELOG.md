@@ -1,3 +1,10 @@
+## [7.7.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.6.0...v7.7.0) (2023-06-13)
+
+
+### Features
+
+* **treenode-column:** add keep-opened & keep-query support ([1504d90](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/1504d9089f7c6cc10f20584582bdc5273aa9ece6))
+
 ## [7.6.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.5.0...v7.6.0) (2023-04-28)
 
 
