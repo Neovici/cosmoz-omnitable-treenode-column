@@ -1,3 +1,10 @@
+## [7.8.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.7.0...v7.8.0) (2023-11-15)
+
+
+### Features
+
+* **treenode-column:** left alignment and only deepest node shown ([#102](https://github.com/neovici/cosmoz-omnitable-treenode-column/issues/102)) ([f8ef088](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/f8ef088c6e24ff8e819bcd576aa28dcbb7bb5a16)), closes [AB#12784](https://github.com/neovici/AB/issues/12784)
+
 ## [7.7.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.6.0...v7.7.0) (2023-06-13)
 
 
