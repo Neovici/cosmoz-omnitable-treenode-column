@@ -65,7 +65,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			valueProperty: { type: String, value: 'name' },
 			minWidth: { type: String, value: '85px' },
 			hideFromRoot: { type: Number },
-			showMaxNodes: { type: Number, value: '1' },
+			showMaxNodes: { type: Number, value: 1 },
 			limit: { type: Number },
 			keepOpened: { type: Boolean, value: true },
 			keepQuery: { type: Boolean },
