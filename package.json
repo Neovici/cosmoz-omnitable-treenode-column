@@ -54,27 +54,27 @@
 		]
 	},
 	"dependencies": {
-		"@neovici/cosmoz-autocomplete": "^6.0.0 || ^7.0.0",
-		"@neovici/cosmoz-omnitable": "^12.0.0",
+		"@neovici/cosmoz-autocomplete": "^8.0.0",
+		"@neovici/cosmoz-omnitable": "^13.0.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
-		"@neovici/cosmoz-treenode": "^5.0.0",
-		"@neovici/cosmoz-utils": "^5.16.0",
+		"@neovici/cosmoz-treenode": "^6.0.0",
+		"@neovici/cosmoz-utils": "^6.0.0",
 		"@polymer/paper-spinner": "^3.0.0",
 		"@polymer/polymer": "^3.4.1",
-		"lit-html": "^2.0.0"
+		"lit-html": "^2.0.0 || ^3.0.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.0",
-		"@commitlint/config-conventional": "^17.0.0",
+		"@commitlint/cli": "^18.0.0",
+		"@commitlint/config-conventional": "^18.0.0",
 		"@neovici/cfg": "^1.15.2",
-		"@open-wc/testing": "^3.0.0",
+		"@open-wc/testing": "^4.0.0",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
 		"@storybook/storybook-deployer": "^2.8.7",
-		"@web/dev-server-storybook": "^0.7.0",
+		"@web/dev-server-storybook": "^2.0.0",
 		"@webcomponents/webcomponentsjs": "^2.5.0",
 		"husky": "^8.0.0",
-		"semantic-release": "^21.0.1",
-		"sinon": "^15.0.0"
+		"semantic-release": "^23.0.0",
+		"sinon": "^17.0.0"
 	}
 }
