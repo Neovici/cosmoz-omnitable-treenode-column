@@ -60,7 +60,7 @@ suite('basic', () => {
 
 	suiteSetup(async () => {
 		tree = await fetch(
-			'/node_modules/@neovici/cosmoz-tree/demo/tree.json'
+			'/node_modules/@neovici/cosmoz-tree/examples/tree.json'
 		).then((r) => r.json());
 	});
 	setup(async () => {
