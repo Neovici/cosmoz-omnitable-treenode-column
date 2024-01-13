@@ -1,3 +1,14 @@
+## [8.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.8.0...v8.0.0) (2024-01-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update deps to @pionjs/pion
+
+### Features
+
+* update to pion ([330a2d6](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/330a2d6b523978ed32bb9a097c9a557215194d1e))
+
 ## [7.8.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.7.0...v7.8.0) (2023-11-15)
 
 
