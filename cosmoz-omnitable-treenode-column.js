@@ -12,11 +12,39 @@ import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-m
 import { get } from '@polymer/polymer/lib/utils/path';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
 import { array } from '@neovici/cosmoz-utils/array';
+import { invoke } from '@neovici/cosmoz-utils/function';
+
 import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
+
+const computeValues = (
+	{ ownerTree, keyProperty, valueProperty, locale = null },
+	data,
+) => {
+	const collator = makeCollator(locale);
+	const values =
+		data != null && !Array.isArray(data) ? Object.keys(data) : data;
+
+	return (
+		values
+			?.map((value) => ({
+				value,
+				text: ownerTree?.getPathStringByProperty(
+					value,
+					keyProperty,
+					valueProperty,
+					' / ',
+				),
+			}))
+			.sort((a, b) => collator.compare(a.text, b.text)) ?? []
+	);
+};
+
+const computeSource = (column, data) =>
+	computeValues(column, valuesFrom(data, column.valuePath));
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
-		item
+		item,
 	) => {
 		if (!item || !ownerTree) {
 			return;
@@ -25,7 +53,7 @@ const getComparableValue = (
 			get(item, valuePath),
 			keyProperty,
 			valueProperty,
-			' / '
+			' / ',
 		);
 	},
 	getString = (column, item) => getComparableValue(column, item),
@@ -40,7 +68,7 @@ const getComparableValue = (
 			return filters.some(
 				(filter) =>
 					(values.length === 0 && filter.value === emptyValue) ||
-					values.some((value) => value === filter.value)
+					values.some((value) => value === filter.value),
 			);
 		};
 
@@ -154,56 +182,41 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		{ loading, title, limit, keepOpened, keepQuery },
 		{ filter },
 		setState,
-		source
+		source,
 	) {
-		const spinner = when(
-			loading,
-			() => html`<paper-spinner-lite
-				style="width: 20px; height: 20px; flex: none"
-				suffix
-				slot="suffix"
-				active
-			></paper-spinner-lite>`
-		);
-
-		return html` <style>
-				cosmoz-autocomplete.cosmoz-treenode-header-input::part(input-label) {
-					text-transform: var(--cosmoz-omnitable-header-text-transform, none);
-					font-weight: var(--cosmoz-omnitable-header-font-weight, normal);
-					font-family: var(
-						--cosmoz-omnitable-header-font-family,
-						'Roboto',
-						'Noto',
-						sans-serif
-					);
-					font-size: var(--cosmoz-omnitable-header-font-size, 16px);
-				}
-			</style>
-
-			<cosmoz-autocomplete
-				class="cosmoz-treenode-header-input"
-				part="header-treenode"
-				exportparts="header-treenode"
-				?keep-opened=${keepOpened}
-				?keep-query=${keepQuery}
-				.label=${title}
-				.title=${computeTooltip(filter, title)}
-				.textProperty=${'text'}
-				.valueProperty=${'value'}
-				.value=${guard([filter, source], () => filter)}
-				.limit=${limit}
-				.onChange=${(value) => {
-					setState((state) => ({
-						...state,
-						filter: getCurrentFilter(value),
-					}));
-				}}
-				.source=${source}
-				.onFocus=${(headerFocused) =>
-					setState((state) => ({ ...state, headerFocused }))}
-				.onText=${(query) => setState((state) => ({ ...state, query }))}
-				>${spinner}</cosmoz-autocomplete
-			>`;
+		return html` <cosmoz-autocomplete
+			class="cosmoz-treenode-header-input"
+			part="header-treenode"
+			exportparts="header-treenode"
+			?keep-opened=${keepOpened}
+			?keep-query=${keepQuery}
+			.label=${title}
+			.title=${computeTooltip(filter, title)}
+			.textProperty=${'text'}
+			.valueProperty=${'value'}
+			.value=${guard([filter, source], () => filter)}
+			.limit=${limit}
+			.onChange=${(value) => {
+				setState((state) => ({
+					...state,
+					filter: getCurrentFilter(value),
+				}));
+			}}
+			.source=${source}
+			.onFocus=${(headerFocused) =>
+				setState((state) => ({ ...state, headerFocused }))}
+			.onText=${(query) => setState((state) => ({ ...state, query }))}
+			>${when(
+				loading,
+				() =>
+					html`<paper-spinner-lite
+						style="width: 20px; height: 20px; flex: none"
+						suffix
+						slot="suffix"
+						active
+					></paper-spinner-lite>`,
+			)}</cosmoz-autocomplete
+		>`;
 	}
 
 	/**
@@ -219,38 +232,19 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	 *
 	 * @return  {array}                 The sorted values.
 	 */
-	computeSource(
-		{
-			ownerTree,
-			keyProperty,
-			valueProperty,
-			locale = null,
-			valuePath,
-			externalValues,
-			values,
-		},
-		data
-	) {
-		const collator = makeCollator(locale),
-			values_ =
-				values != null && !Array.isArray(values) ? Object.keys(values) : values,
-			values__ = externalValues ? values_ : valuesFrom(data, valuePath);
 
-		return values__
-			?.map((value) => ({
-				value,
-				text: ownerTree?.getPathStringByProperty(
-					value,
-					keyProperty,
-					valueProperty,
-					' / '
-				),
-			}))
-			.sort((a, b) => collator.compare(a.text, b.text));
+	computeSource(column, data) {
+		return column.externalValues || typeof column.values === 'function'
+			? async (...args) =>
+					computeValues(
+						column,
+						await Promise.resolve(invoke(column.values, ...args)),
+					)
+			: computeSource(column, data);
 	}
 }
 
 customElements.define(
 	'cosmoz-omnitable-treenode-column',
-	CosmozOmnitableTreenodeColumn
+	CosmozOmnitableTreenodeColumn,
 );
