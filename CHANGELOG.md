@@ -1,3 +1,9 @@
+## [8.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.0.0...v8.1.0) (2024-09-12)
+
+### Features
+
+* implement values fn ([220ab6c](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/220ab6c0deb62fb833c8e67258a4a59e77aaa834))
+
 ## [8.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v7.8.0...v8.0.0) (2024-01-13)
 
 
