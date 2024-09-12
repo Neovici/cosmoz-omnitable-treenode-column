@@ -28,7 +28,7 @@
 		"storybook": "wds",
 		"storybook:build": "build-storybook",
 		"storybook:deploy": "storybook-to-ghpages",
-		"prepare": "husky install"
+		"prepare": "husky"
 	},
 	"release": {
 		"plugins": [
@@ -64,17 +64,16 @@
 		"lit-html": "^2.0.0 || ^3.0.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^18.0.0",
-		"@commitlint/config-conventional": "^18.0.0",
+		"@commitlint/cli": "^19.0.0",
+		"@commitlint/config-conventional": "^19.0.0",
 		"@neovici/cfg": "^1.15.2",
 		"@open-wc/testing": "^4.0.0",
 		"@semantic-release/changelog": "^6.0.0",
 		"@semantic-release/git": "^10.0.0",
 		"@storybook/storybook-deployer": "^2.8.7",
 		"@web/dev-server-storybook": "^2.0.0",
-		"@webcomponents/webcomponentsjs": "^2.5.0",
-		"husky": "^8.0.0",
-		"semantic-release": "^23.0.0",
-		"sinon": "^17.0.0"
+		"husky": "^9.0.0",
+		"semantic-release": "^24.0.0",
+		"sinon": "^18.0.0"
 	}
 }
