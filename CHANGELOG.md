@@ -1,3 +1,9 @@
+## [8.1.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.1.0...v8.1.1) (2024-11-20)
+
+### Bug Fixes
+
+* **deps:** upgrade cosmoz-autocomplete ([647bf0f](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/647bf0fb93b5385fdc955b8689e00709534d8a17))
+
 ## [8.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.0.0...v8.1.0) (2024-09-12)
 
 ### Features
