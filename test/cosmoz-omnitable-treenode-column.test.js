@@ -5,6 +5,8 @@ import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
 import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns';
 
+/* eslint-disable mocha/no-setup-in-describe */
+/* eslint-disable mocha/no-sibling-hooks */
 const data = [
 	{
 		name: 'Sed a quam interdum',
