@@ -53,6 +53,21 @@ const data = [
 ];
 
 suite('basic', () => {
+	const onError = window.onerror;
+	setup(() => {
+		window.onerror = function (err) {
+			if (err === 'ResizeObserver loop limit exceeded') {
+				// eslint-disable-next-line no-console
+				console.warn('Ignored: ResizeObserver loop limit exceeded');
+				return false;
+			}
+			return onError(...arguments);
+		};
+	});
+	teardown(() => {
+		window.onerror = onError;
+	});
+
 	let tree, omnitable;
 
 	const autocomplete = () =>
@@ -60,7 +75,7 @@ suite('basic', () => {
 
 	suiteSetup(async () => {
 		tree = await fetch(
-			'/node_modules/@neovici/cosmoz-tree/examples/tree.json'
+			'/node_modules/@neovici/cosmoz-tree/examples/tree.json',
 		).then((r) => r.json());
 	});
 	setup(async () => {
@@ -100,11 +115,11 @@ suite('basic', () => {
 		await nextFrame();
 		assert.equal(
 			omnitable.filters.node[0].value,
-			'167d1485-7d4f-4c7d-86cd-a4fb00f31245'
+			'167d1485-7d4f-4c7d-86cd-a4fb00f31245',
 		);
 		assert.deepEqual(
 			column.serializeFilter(column, omnitable.filters.node),
-			'[{"value":"167d1485-7d4f-4c7d-86cd-a4fb00f31245","text":"Root / Company Pjqcakmiyx"}]'
+			'[{"value":"167d1485-7d4f-4c7d-86cd-a4fb00f31245","text":"Root / Company Pjqcakmiyx"}]',
 		);
 	});
 
@@ -119,7 +134,7 @@ suite('basic', () => {
 		assert.isUndefined(column.getComparableValue(column, undefined));
 		assert.equal(
 			column.getComparableValue(column, omnitable.data[0]),
-			'Root / Company Pjqcakmiyx'
+			'Root / Company Pjqcakmiyx',
 		);
 	});
 });
