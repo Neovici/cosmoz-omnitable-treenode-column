@@ -1,3 +1,13 @@
+## [9.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.1.1...v9.0.0) (2025-01-17)
+
+### ⚠ BREAKING CHANGES
+
+* Update cosmoz-dropdown
+
+### Features
+
+* update cosmoz-dropdown ([ceaba15](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/ceaba154c4d7185a940a502549c31e2c6cc86ca5))
+
 ## [8.1.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.1.0...v8.1.1) (2024-11-20)
 
 ### Bug Fixes
