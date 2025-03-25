@@ -1,3 +1,9 @@
+## [9.0.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.0.0...v9.0.1) (2025-03-25)
+
+### Bug Fixes
+
+* commitlint config and update ([3a8124e](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/3a8124e764315902a0cfbb9d4f33b5419862e026))
+
 ## [9.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v8.1.1...v9.0.0) (2025-01-17)
 
 ### ⚠ BREAKING CHANGES
