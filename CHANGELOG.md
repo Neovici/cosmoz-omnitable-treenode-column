@@ -1,3 +1,9 @@
+## [9.1.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.0...v9.1.1) (2025-08-04)
+
+### Bug Fixes
+
+* automerge workflow ([0b6c9b0](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/0b6c9b089d18dcdcb16c8a3737dbd6de3aa88d01))
+
 ## [9.1.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.0.1...v9.1.0) (2025-07-21)
 
 ### Features
