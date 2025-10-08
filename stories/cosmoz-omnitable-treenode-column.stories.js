@@ -9,7 +9,6 @@ export default {
 	component: 'cosmoz-omnitable-treenode-column'
 };
 
-// eslint-disable-next-line max-lines-per-function
 const basic = () => {
 	const data = [
 			{
