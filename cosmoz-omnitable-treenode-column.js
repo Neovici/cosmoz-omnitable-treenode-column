@@ -8,9 +8,9 @@ import '@neovici/cosmoz-autocomplete';
 import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
-import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin';
+import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin.js';
 import { get } from '@polymer/polymer/lib/utils/path';
-import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data';
+import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data.js';
 import { array } from '@neovici/cosmoz-utils/array';
 import { invoke } from '@neovici/cosmoz-utils/function';
 
@@ -81,7 +81,6 @@ const getComparableValue = (
  * @demo demo/index.html
  */
 class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
-	/* eslint-disable-next-line max-lines-per-function */
 	static get properties() {
 		return {
 			ownerTree: { type: Object, notify: true },

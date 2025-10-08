@@ -3,7 +3,7 @@ import { assert, html, fixture, nextFrame } from '@open-wc/testing';
 import '@neovici/cosmoz-omnitable';
 import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
-import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns';
+import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns.js';
 
 /* eslint-disable mocha/no-setup-in-describe */
 /* eslint-disable mocha/no-sibling-hooks */
