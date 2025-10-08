@@ -1,3 +1,9 @@
+## [9.1.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.1...v9.1.2) (2025-10-08)
+
+### Bug Fixes
+
+* cannot import from latest omnitable ([22d144b](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/22d144b0da56ffcd3e847ee398996952e13252bc))
+
 ## [9.1.1](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.0...v9.1.1) (2025-08-04)
 
 ### Bug Fixes
