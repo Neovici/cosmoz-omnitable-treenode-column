@@ -1,3 +1,9 @@
+## [9.1.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.2...v9.1.3) (2025-10-31)
+
+### Bug Fixes
+
+* check compatibility with omnitable@15 ([acb74e7](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/acb74e75f0bb3b8016e16decdaf875d27298efa8))
+
 ## [9.1.2](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.1...v9.1.2) (2025-10-08)
 
 ### Bug Fixes
