@@ -72,7 +72,7 @@
 		"@web/dev-server-storybook": "^2.0.0",
 		"husky": "^9.0.0",
 		"semantic-release": "^25.0.1",
-		"sinon": "^19.0.0"
+		"sinon": "^21.0.0"
 	},
 	"overrides": {
 		"conventional-changelog-conventionalcommits": ">= 8.0.0"
