@@ -1,3 +1,17 @@
+## [10.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.3...v10.0.0) (2025-12-02)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Upgrade to latest omnitable
+
+* chore: cleanup deps
+
+* chore: lint fix
+
+### Features
+
+* **deps:** upgrade to latest upgrade-omnitable ([#153](https://github.com/neovici/cosmoz-omnitable-treenode-column/issues/153)) ([61ec623](https://github.com/neovici/cosmoz-omnitable-treenode-column/commit/61ec6238261cfcac17cbf19d1d72d2267bcd69a2))
+
 ## [9.1.3](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.2...v9.1.3) (2025-10-31)
 
 ### Bug Fixes
