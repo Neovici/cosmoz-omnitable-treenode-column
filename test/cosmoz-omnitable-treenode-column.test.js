@@ -56,6 +56,7 @@ const data = [
 
 suite('basic', () => {
 	const onError = window.onerror;
+
 	setup(() => {
 		window.onerror = function (err) {
 			if (err === 'ResizeObserver loop limit exceeded') {
@@ -66,6 +67,7 @@ suite('basic', () => {
 			return onError(...arguments);
 		};
 	});
+
 	teardown(() => {
 		window.onerror = onError;
 	});
@@ -80,6 +82,7 @@ suite('basic', () => {
 			'/node_modules/@neovici/cosmoz-tree/examples/tree.json',
 		).then((r) => r.json());
 	});
+
 	setup(async () => {
 		omnitable = await fixture(html`
 			<cosmoz-omnitable style="height:300px; width:1200px;">

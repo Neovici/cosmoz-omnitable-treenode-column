@@ -1,80 +1,79 @@
 {
-	"name": "@neovici/cosmoz-omnitable-treenode-column",
-	"version": "9.1.3",
-	"description": "A column for cosmoz-omnitable that displays a tree node.",
-	"keywords": [
-		"polymer",
-		"web-components"
-	],
-	"homepage": "https://github.com/neovici/cosmoz-omnitable-treenode-column#readme",
-	"bugs": {
-		"url": "https://github.com/neovici/cosmoz-omnitable-treenode-column/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/neovici/cosmoz-omnitable-treenode-column.git"
-	},
-	"license": "Apache-2.0",
-	"author": "",
-	"main": "cosmoz-omnitable-treenode-column.js",
-	"directories": {
-		"test": "test"
-	},
-	"scripts": {
-		"lint": "eslint --cache .",
-		"start": "npm run storybook",
-		"test": "wtr --coverage",
-		"test:watch": "wtr --watch",
-		"storybook": "wds",
-		"storybook:build": "build-storybook",
-		"storybook:deploy": "storybook-to-ghpages",
-		"prepare": "husky"
-	},
-	"release": {
-		"plugins": [
-			"@semantic-release/commit-analyzer",
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/changelog",
-			"@semantic-release/github",
-			"@semantic-release/npm",
-			"@semantic-release/git"
-		],
-		"branch": "master",
-		"preset": "conventionalcommits"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"files": [
-		"*.js"
-	],
-	"dependencies": {
-		"@neovici/cosmoz-autocomplete": "^8.0.0 || ^9.0.0 || ^10.0.0",
-		"@neovici/cosmoz-omnitable": "^13.0.0 || ^14.0.0 || ^15.0.0",
-		"@neovici/cosmoz-tree": "^3.0.0",
-		"@neovici/cosmoz-treenode": "^6.0.0",
-		"@neovici/cosmoz-utils": "^6.0.0",
-		"@polymer/paper-spinner": "^3.0.0",
-		"@polymer/polymer": "^3.4.1",
-		"eslint-plugin-import": "^2.31.0",
-		"lit-html": "^2.0.0 || ^3.0.0",
-		"typescript-eslint": "^8.20.0"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^20.1.0",
-		"@commitlint/config-conventional": "^20.0.0",
-		"@neovici/cfg": "^2.0.0",
-		"@open-wc/testing": "^4.0.0",
-		"@semantic-release/changelog": "^6.0.0",
-		"@semantic-release/git": "^10.0.0",
-		"@storybook/storybook-deployer": "^2.8.7",
-		"@typescript-eslint/eslint-plugin": "^8.5.0",
-		"@web/dev-server-storybook": "^2.0.0",
-		"husky": "^9.0.0",
-		"semantic-release": "^25.0.1",
-		"sinon": "^21.0.0"
-	},
-	"overrides": {
-		"conventional-changelog-conventionalcommits": ">= 8.0.0"
-	}
+  "name": "@neovici/cosmoz-omnitable-treenode-column",
+  "version": "9.1.3",
+  "description": "A column for cosmoz-omnitable that displays a tree node.",
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "homepage": "https://github.com/neovici/cosmoz-omnitable-treenode-column#readme",
+  "bugs": {
+    "url": "https://github.com/neovici/cosmoz-omnitable-treenode-column/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neovici/cosmoz-omnitable-treenode-column.git"
+  },
+  "license": "Apache-2.0",
+  "author": "",
+  "main": "cosmoz-omnitable-treenode-column.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint --cache .",
+    "start": "npm run storybook",
+    "test": "wtr --coverage",
+    "test:watch": "wtr --watch",
+    "storybook": "wds",
+    "storybook:build": "build-storybook",
+    "storybook:deploy": "storybook-to-ghpages",
+    "prepare": "husky"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "branch": "master",
+    "preset": "conventionalcommits"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "*.js"
+  ],
+  "dependencies": {
+    "@neovici/cosmoz-autocomplete": "^9.0.0 || ^10.0.0",
+    "@neovici/cosmoz-omnitable": "^15.0.0 || ^16.0.0",
+    "@neovici/cosmoz-tree": "^3.0.0",
+    "@neovici/cosmoz-treenode": "^6.0.0",
+    "@neovici/cosmoz-utils": "^6.0.0",
+    "@polymer/paper-spinner": "^3.0.0",
+    "@polymer/polymer": "^3.4.1",
+    "lit-html": "^2.0.0 || ^3.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@neovici/cfg": "^2.0.0",
+    "@open-wc/testing": "^4.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@storybook/storybook-deployer": "^2.8.7",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@web/dev-server-storybook": "^2.0.0",
+    "husky": "^9.0.0",
+    "semantic-release": "^25.0.1",
+    "sinon": "^21.0.0",
+    "typescript-eslint": "^8.48.0"
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
+  }
 }
