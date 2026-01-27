@@ -6,13 +6,13 @@
     "polymer",
     "web-components"
   ],
-  "homepage": "https://github.com/neovici/cosmoz-omnitable-treenode-column#readme",
+  "homepage": "https://github.com/Neovici/cosmoz-omnitable-treenode-column#readme",
   "bugs": {
-    "url": "https://github.com/neovici/cosmoz-omnitable-treenode-column/issues"
+    "url": "https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neovici/cosmoz-omnitable-treenode-column.git"
+    "url": "git+https://github.com/Neovici/cosmoz-omnitable-treenode-column.git"
   },
   "license": "Apache-2.0",
   "author": "",
