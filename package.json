@@ -22,6 +22,7 @@
   },
   "scripts": {
     "lint": "eslint --cache .",
+    "check:duplicates": "check-duplicate-components",
     "start": "npm run storybook",
     "test": "wtr --coverage",
     "test:watch": "wtr --watch",
@@ -61,7 +62,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@neovici/cfg": "^2.0.0",
+    "@neovici/cfg": "^2.8.0",
     "@open-wc/testing": "^4.0.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
@@ -69,6 +70,7 @@
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@web/dev-server-storybook": "^2.0.0",
     "husky": "^9.0.0",
+    "lint-staged": "^16.2.7",
     "semantic-release": "^25.0.1",
     "sinon": "^21.0.0",
     "typescript-eslint": "^8.48.0"
