@@ -1,3 +1,9 @@
+## [10.0.1](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.0...v10.0.1) (2026-01-28)
+
+### Bug Fixes
+
+* repository URL case sensitivity ([214f356](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/214f356fc9c54e017e3e7a5a34430693f15bff8d))
+
 ## [10.0.0](https://github.com/neovici/cosmoz-omnitable-treenode-column/compare/v9.1.3...v10.0.0) (2025-12-02)
 
 ### ⚠ BREAKING CHANGES
