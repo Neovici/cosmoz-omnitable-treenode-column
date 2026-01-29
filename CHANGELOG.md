@@ -1,3 +1,9 @@
+## [10.0.2](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.1...v10.0.2) (2026-01-29)
+
+### Bug Fixes
+
+* support cosmoz-omnitable v17 ([#192](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/192)) ([026a532](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/026a532f375fe662842e04d73cab72c95dbc0975))
+
 ## [10.0.1](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.0...v10.0.1) (2026-01-28)
 
 ### Bug Fixes
