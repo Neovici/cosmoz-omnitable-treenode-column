@@ -1,3 +1,13 @@
+## [11.0.0](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.3...v11.0.0) (2026-02-17)
+
+### ⚠ BREAKING CHANGES
+
+* requires autocomplete >=12 and omnitable >=18
+
+### Bug Fixes
+
+* use opened-changed event instead of onFocus for autocomplete v12+ ([#209](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/209)) ([1f28e53](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/1f28e533272bc36e79fd1f85d97965cb03ad8ce6))
+
 ## [10.0.3](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.2...v10.0.3) (2026-02-17)
 
 ### Bug Fixes
