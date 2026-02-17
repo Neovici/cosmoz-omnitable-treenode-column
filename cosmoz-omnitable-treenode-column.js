@@ -1,20 +1,20 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element';
 import { html, nothing } from 'lit-html';
-import { when } from 'lit-html/directives/when.js';
 import { guard } from 'lit-html/directives/guard.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { when } from 'lit-html/directives/when.js';
 
 import '@neovici/cosmoz-autocomplete';
 import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
 import { columnMixin } from '@neovici/cosmoz-omnitable/cosmoz-omnitable-column-mixin.js';
-import { get } from '@polymer/polymer/lib/utils/path';
 import { valuesFrom } from '@neovici/cosmoz-omnitable/lib/utils-data.js';
 import { array } from '@neovici/cosmoz-utils/array';
 import { invoke } from '@neovici/cosmoz-utils/function';
+import { get } from '@polymer/polymer/lib/utils/path';
 
-import { makeCollator, computeTooltip, getCurrentFilter } from './utils';
+import { computeTooltip, getCurrentFilter, makeCollator } from './utils';
 
 const computeValues = (
 	{ ownerTree, keyProperty, valueProperty, locale = null },
@@ -202,8 +202,8 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 				}));
 			}}
 			.source=${source}
-			.onFocus=${(headerFocused) =>
-				setState((state) => ({ ...state, headerFocused }))}
+			@opened-changed=${(e) =>
+				setState((state) => ({ ...state, headerFocused: e.detail.value }))}
 			.onText=${(query) => setState((state) => ({ ...state, query }))}
 			>${when(
 				loading,
