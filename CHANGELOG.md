@@ -1,3 +1,9 @@
+## [10.0.3](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.2...v10.0.3) (2026-02-17)
+
+### Bug Fixes
+
+* **deps:** support cosmoz-autocomplete v9–v13 ([#208](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/208)) ([5e5785d](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/5e5785dc79a80a05217adacd6c0a8a7d3ea9ba5e))
+
 ## [10.0.2](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.1...v10.0.2) (2026-01-29)
 
 ### Bug Fixes
