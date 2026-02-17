@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Storybook</title>
+
+    <style>
+      html,
+      body {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <style>
+      #root[hidden],
+      #docs-root[hidden] {
+        display: none !important;
+      }
+    </style>
+    
+  
+<link rel="preload" href="./BO8f67cp.js" as="script" />
+</head>
+
+  <body>
+    <div id="root"></div>
+    <div id="docs-root"></div>
+    
+  
+<script>(function () {
+  function polyfillsLoader() {
+    function loadScript(src, type, attributes) {
+      return new Promise(function (resolve) {
+        var script = document.createElement('script');
+        script.fetchPriority = 'high';
+        function onLoaded() {
+          if (script.parentElement) {
+            script.parentElement.removeChild(script);
+          }
+          resolve();
+        }
+        script.src = src;
+        script.onload = onLoaded;
+        if (attributes) {
+          attributes.forEach(function (att) {
+            script.setAttribute(att.name, att.value);
+          });
+        }
+        script.onerror = function () {
+          console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
+          onLoaded();
+        };
+        if (type) script.type = type;
+        document.head.appendChild(script);
+      });
+    }
+    var polyfills = [];
+    polyfills.push(loadScript('./polyfills/regenerator-runtime.3428902215841e7f2494b925d4d3d57e.js'));
+    if (!('fetch' in window) || !('Request' in window) || !('signal' in window.Request.prototype)) {
+      polyfills.push(loadScript('./polyfills/fetch.dfea551ffa4b00d9ab0e15d39ad3da54.js'));
+    }
+    polyfills.push(loadScript('./polyfills/systemjs.28ad38a0ba199bca3e4954f80486a6f5.js'));
+    if (!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)) {
+      polyfills.push(loadScript('./polyfills/intersection-observer.87fd7198fa214da615dd97c6c1a0e8e1.js'));
+    }
+    if (!('ResizeObserver' in window)) {
+      polyfills.push(loadScript('./polyfills/resize-observer.8c3b300ec33e98cec520ecf710c8bb40.js'));
+    }
+    if (!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) {
+      polyfills.push(loadScript('./polyfills/webcomponents.c5a5cb2aaa3b3d6744a5b84e484e147a.js'));
+    }
+    if (!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype) {
+      polyfills.push(loadScript('./polyfills/custom-elements-es5-adapter.79106fd9b808b3bbd70d54b934850301.js'));
+    }
+    function loadFiles() {
+      System.import('./BO8f67cp.js');
+    }
+    if (polyfills.length) {
+      Promise.all(polyfills).then(loadFiles);
+    } else {
+      loadFiles();
+    }
+  }
+  if (!('noModule' in HTMLScriptElement.prototype)) {
+    var s = document.createElement('script');
+    s.fetchPriority = 'high';
+    function onLoaded() {
+      document.head.removeChild(s);
+      polyfillsLoader();
+    }
+    s.src = "./polyfills/core-js.14ff02edc927d64f8b1557e636075bcc.js";
+    s.onload = onLoaded;
+    s.onerror = function () {
+      console.error('[polyfills-loader] failed to load: ' + s.src + ' check the network tab for HTTP status.');
+      onLoaded();
+    };
+    document.head.appendChild(s);
+  } else {
+    polyfillsLoader();
+  }
+})();</script></body></html>
