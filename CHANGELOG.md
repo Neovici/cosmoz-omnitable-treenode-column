@@ -1,3 +1,9 @@
+## [11.1.0](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v11.0.0...v11.1.0) (2026-04-23)
+
+### Features
+
+* add disabled-filtering attribute support ([#257](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/257)) ([b2c1ff4](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/b2c1ff40511725f9b6460e0ff082242df0315a46)), closes [Neovici/cosmoz-omnitable#954](https://github.com/Neovici/cosmoz-omnitable/issues/954)
+
 ## [11.0.0](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v10.0.3...v11.0.0) (2026-02-17)
 
 ### ⚠ BREAKING CHANGES
