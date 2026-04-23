@@ -178,7 +178,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	}
 
 	renderHeader(
-		{ loading, title, limit, keepOpened, keepQuery },
+		{ loading, title, limit, keepOpened, keepQuery, disabledFiltering },
 		{ filter },
 		setState,
 		source,
@@ -187,6 +187,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			class="cosmoz-treenode-header-input"
 			part="header-treenode"
 			exportparts="header-treenode"
+			?disabled=${disabledFiltering}
 			?keep-opened=${keepOpened}
 			?keep-query=${keepQuery}
 			.label=${title}
