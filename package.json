@@ -51,7 +51,7 @@
 	],
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "^12.0.0 || ^13.0.0",
-		"@neovici/cosmoz-omnitable": "^18.0.0",
+		"@neovici/cosmoz-omnitable": "^18.3.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
 		"@neovici/cosmoz-treenode": "^6.0.0",
 		"@neovici/cosmoz-utils": "^6.0.0",
