@@ -3,7 +3,7 @@ import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import { html } from 'lit-html';
 import { until } from 'lit-html/directives/until.js';
 import '../cosmoz-omnitable-treenode-column';
-
+import treeJson from './tree.json';
 export default {
 	title: 'cosmoz-omnitable-treenode-column',
 	component: 'cosmoz-omnitable-treenode-column',
@@ -63,34 +63,30 @@ const data = [
 ];
 
 const basic = ({ disabledFiltering = false } = {}) => {
-	const content = fetch(
-		'./node_modules/@neovici/cosmoz-tree/examples/tree.json',
-	)
-		.then((r) => r.json())
-		.then(
-			(tree) => html`
-				<cosmoz-omnitable .data=${data} hash-param="test">
-					<cosmoz-omnitable-column
-						name="name"
-						title="Name"
-						value-path="name"
-						min-width="200px"
-					>
-					</cosmoz-omnitable-column>
-					<cosmoz-omnitable-treenode-column
-						name="node"
-						title="Node"
-						flex="5"
-						show-max-nodes="1"
-						value-path="nodeId"
-						key-property="id"
-						?disabled-filtering=${disabledFiltering}
-						.ownerTree=${new DefaultTree(tree)}
-					>
-					</cosmoz-omnitable-treenode-column>
-				</cosmoz-omnitable>
-			`,
-		);
+	const content = Promise.resolve(treeJson).then(
+		(tree) => html`
+			<cosmoz-omnitable .data=${data} hash-param="test">
+				<cosmoz-omnitable-column
+					name="name"
+					title="Name"
+					value-path="name"
+					min-width="200px"
+				>
+				</cosmoz-omnitable-column>
+				<cosmoz-omnitable-treenode-column
+					name="node"
+					title="Node"
+					flex="5"
+					show-max-nodes="1"
+					value-path="nodeId"
+					key-property="id"
+					?disabled-filtering=${disabledFiltering}
+					.ownerTree=${new DefaultTree(tree)}
+				>
+				</cosmoz-omnitable-treenode-column>
+			</cosmoz-omnitable>
+		`,
+	);
 
 	return html`
 		<style>
@@ -103,37 +99,33 @@ const basic = ({ disabledFiltering = false } = {}) => {
 };
 
 const disabledFiltering = () => {
-	const content = fetch(
-		'./node_modules/@neovici/cosmoz-tree/examples/tree.json',
-	)
-		.then((r) => r.json())
-		.then(
-			(tree) => html`
-				<cosmoz-omnitable
-					.data=${data}
-					hash-param="test-disabled"
-					disabled-filtering
+	const content = Promise.resolve(treeJson).then(
+		(tree) => html`
+			<cosmoz-omnitable
+				.data=${data}
+				hash-param="test-disabled"
+				disabled-filtering
+			>
+				<cosmoz-omnitable-column
+					name="name"
+					title="Name"
+					value-path="name"
+					min-width="200px"
 				>
-					<cosmoz-omnitable-column
-						name="name"
-						title="Name"
-						value-path="name"
-						min-width="200px"
-					>
-					</cosmoz-omnitable-column>
-					<cosmoz-omnitable-treenode-column
-						name="node"
-						title="Node"
-						flex="5"
-						show-max-nodes="1"
-						value-path="nodeId"
-						key-property="id"
-						.ownerTree=${new DefaultTree(tree)}
-					>
-					</cosmoz-omnitable-treenode-column>
-				</cosmoz-omnitable>
-			`,
-		);
+				</cosmoz-omnitable-column>
+				<cosmoz-omnitable-treenode-column
+					name="node"
+					title="Node"
+					flex="5"
+					show-max-nodes="1"
+					value-path="nodeId"
+					key-property="id"
+					.ownerTree=${new DefaultTree(tree)}
+				>
+				</cosmoz-omnitable-treenode-column>
+			</cosmoz-omnitable>
+		`,
+	);
 
 	return html`
 		<style>
@@ -149,34 +141,30 @@ const disabledFiltering = () => {
 };
 
 const disabledFilteringPerColumn = () => {
-	const content = fetch(
-		'./node_modules/@neovici/cosmoz-tree/examples/tree.json',
-	)
-		.then((r) => r.json())
-		.then(
-			(tree) => html`
-				<cosmoz-omnitable .data=${data} hash-param="test-disabled-column">
-					<cosmoz-omnitable-column
-						name="name"
-						title="Name"
-						value-path="name"
-						min-width="200px"
-					>
-					</cosmoz-omnitable-column>
-					<cosmoz-omnitable-treenode-column
-						name="node"
-						title="Node (filtering disabled)"
-						flex="5"
-						show-max-nodes="1"
-						value-path="nodeId"
-						key-property="id"
-						disabled-filtering
-						.ownerTree=${new DefaultTree(tree)}
-					>
-					</cosmoz-omnitable-treenode-column>
-				</cosmoz-omnitable>
-			`,
-		);
+	const content = Promise.resolve(treeJson).then(
+		(tree) => html`
+			<cosmoz-omnitable .data=${data} hash-param="test-disabled-column">
+				<cosmoz-omnitable-column
+					name="name"
+					title="Name"
+					value-path="name"
+					min-width="200px"
+				>
+				</cosmoz-omnitable-column>
+				<cosmoz-omnitable-treenode-column
+					name="node"
+					title="Node (filtering disabled)"
+					flex="5"
+					show-max-nodes="1"
+					value-path="nodeId"
+					key-property="id"
+					disabled-filtering
+					.ownerTree=${new DefaultTree(tree)}
+				>
+				</cosmoz-omnitable-treenode-column>
+			</cosmoz-omnitable>
+		`,
+	);
 
 	return html`
 		<style>
