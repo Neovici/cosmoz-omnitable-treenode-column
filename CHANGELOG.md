@@ -1,3 +1,10 @@
+## [11.2.0-beta.1](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v11.1.0...v11.2.0-beta.1) (2026-05-07)
+
+### Features
+
+* fix lint error ([ee3bba3](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/ee3bba3c426d9d4938d520ff18653804e6a7e30d))
+* migrate to system design and update storybook ([#264](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/264)) ([9877c95](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/9877c9546bd43fa1e96e8cdf6e9b347df58466e9))
+
 ## [11.1.0](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v11.0.0...v11.1.0) (2026-04-23)
 
 ### Features
