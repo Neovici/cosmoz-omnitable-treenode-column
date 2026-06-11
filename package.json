@@ -29,19 +29,10 @@
 		"storybook": "wds",
 		"storybook:build": "build-storybook",
 		"storybook:deploy": "storybook-to-ghpages",
-		"prepare": "husky"
-	},
-	"release": {
-		"plugins": [
-			"@semantic-release/commit-analyzer",
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/changelog",
-			"@semantic-release/github",
-			"@semantic-release/npm",
-			"@semantic-release/git"
-		],
-		"branch": "master",
-		"preset": "conventionalcommits"
+		"prepare": "husky",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "npm run build && changeset publish"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -64,14 +55,12 @@
 		"@commitlint/config-conventional": "^21.0.0",
 		"@neovici/cfg": "^2.8.0",
 		"@open-wc/testing": "^4.0.0",
-		"@semantic-release/changelog": "^6.0.0",
-		"@semantic-release/git": "^10.0.0",
+		"@changesets/cli": "^2.28.1",
 		"@storybook/storybook-deployer": "^2.8.7",
 		"@typescript-eslint/eslint-plugin": "^8.5.0",
 		"@web/dev-server-storybook": "^2.0.0",
 		"husky": "^9.0.0",
 		"lint-staged": "^17.0.4",
-		"semantic-release": "^25.0.1",
 		"sinon": "^22.0.0",
 		"typescript-eslint": "^8.48.0"
 	},
