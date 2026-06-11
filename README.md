@@ -1,6 +1,7 @@
 # \<cosmoz-omnitable-treenode-column\>
 
 [![Github CI](https://github.com/Neovici/cosmoz-omnitable-treenode-column/actions/workflows/ci.yml/badge.svg)](https://github.com/Neovici/cosmoz-omnitable-treenode-column/actions/workflows/ci.yml)
+[![Changesets](https://img.shields.io/badge/🔮-changesets-blue)](https://github.com/changesets/changesets)
 
 cosmoz-omnitable column to display a tree node
 
