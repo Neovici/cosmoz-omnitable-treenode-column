@@ -113,12 +113,15 @@ suite('disabled-filtering', () => {
 			assert.isTrue(nodeColumn.disabledFiltering);
 		});
 
-		test('autocomplete is disabled when disabledFiltering is true', () => {
+		test('renders disabled input when disabledFiltering is true', () => {
 			const headerCell = omnitable.shadowRoot.querySelector(
 				'.header-cell[name="node"]',
 			);
 			const autocomplete = headerCell.querySelector('cosmoz-autocomplete');
-			assert.isTrue(autocomplete.hasAttribute('disabled'));
+			assert.isNull(autocomplete);
+			const input = headerCell.querySelector('cosmoz-input');
+			assert.isTrue(input.hasAttribute('disabled'));
+			assert.equal(input.label, 'Node');
 		});
 
 		test('column without disabled-filtering has enabled autocomplete', () => {
@@ -172,12 +175,15 @@ suite('disabled-filtering', () => {
 			});
 		});
 
-		test('autocomplete is disabled with table-level disabled-filtering', () => {
+		test('renders disabled input with table-level disabled-filtering', () => {
 			const headerCell = omnitable.shadowRoot.querySelector(
 				'.header-cell[name="node"]',
 			);
 			const autocomplete = headerCell.querySelector('cosmoz-autocomplete');
-			assert.isTrue(autocomplete.hasAttribute('disabled'));
+			assert.isNull(autocomplete);
+			const input = headerCell.querySelector('cosmoz-input');
+			assert.isTrue(input.hasAttribute('disabled'));
+			assert.equal(input.label, 'Node');
 		});
 	});
 });
