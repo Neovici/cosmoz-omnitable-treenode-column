@@ -5,6 +5,7 @@ import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
 
 import '@neovici/cosmoz-autocomplete';
+import '@neovici/cosmoz-input';
 import '@neovici/cosmoz-treenode';
 import '@polymer/paper-spinner/paper-spinner-lite';
 
@@ -183,6 +184,9 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		setState,
 		source,
 	) {
+		if (disabledFiltering) {
+			return html`<cosmoz-input variant="inline" label=${title} disabled></cosmoz-input>`;
+		}
 		return html` <cosmoz-autocomplete
 			variant="inline"
 			class="cosmoz-treenode-header-input"
