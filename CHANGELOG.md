@@ -1,3 +1,9 @@
+## [11.2.0-beta.2](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v11.2.0-beta.1...v11.2.0-beta.2) (2026-07-13)
+
+### Bug Fixes
+
+* render disabled cosmoz-input in header when disabledFiltering ([#313](https://github.com/Neovici/cosmoz-omnitable-treenode-column/issues/313)) ([01b06c9](https://github.com/Neovici/cosmoz-omnitable-treenode-column/commit/01b06c927125f1adc5e20228857e460fa5ba190e))
+
 ## [11.2.0-beta.1](https://github.com/Neovici/cosmoz-omnitable-treenode-column/compare/v11.1.0...v11.2.0-beta.1) (2026-05-07)
 
 ### Features
