@@ -41,7 +41,7 @@
 		"*.js"
 	],
 	"dependencies": {
-		"@neovici/cosmoz-autocomplete": "^13.6.0-beta.1",
+		"@neovici/cosmoz-autocomplete": "^13.7.0-beta.6",
 		"@neovici/cosmoz-input": "^6.0.0-beta.2",
 		"@neovici/cosmoz-omnitable": "^18.11.0-beta.0",
 		"@neovici/cosmoz-tokens": "^3.4.0",
@@ -53,6 +53,7 @@
 		"@polymer/polymer": "^3.4.1",
 		"i18next": "^23.16.8",
 		"lit-html": "^3.3.2",
+		"lit": "^3.3.2",
 		"typescript": "^6.0.3"
 	},
 	"devDependencies": {
@@ -70,6 +71,11 @@
 		"typescript-eslint": "^8.48.0"
 	},
 	"overrides": {
-		"conventional-changelog-conventionalcommits": ">= 8.0.0"
+		"conventional-changelog-conventionalcommits": ">= 8.0.0",
+		"lit-html": "$lit-html",
+		"lit": "$lit",
+		"@neovici/cosmoz-autocomplete": "$@neovici/cosmoz-autocomplete",
+		"@neovici/cosmoz-input": "$@neovici/cosmoz-input",
+		"@lion/core": "0.22.0"
 	}
 }
