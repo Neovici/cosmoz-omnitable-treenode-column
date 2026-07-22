@@ -1,6 +1,6 @@
 {
 	"name": "@neovici/cosmoz-omnitable-treenode-column",
-	"version": "11.2.0-beta.2",
+	"version": "11.3.0-beta.0",
 	"description": "A column for cosmoz-omnitable that displays a tree node.",
 	"keywords": [
 		"polymer",
@@ -51,7 +51,8 @@
 	],
 	"dependencies": {
 		"@neovici/cosmoz-autocomplete": "^13.6.0-beta.1",
-		"@neovici/cosmoz-omnitable": "^18.4.0-beta.1",
+		"@neovici/cosmoz-input": "^6.0.0-beta.2",
+		"@neovici/cosmoz-omnitable": "^18.11.0-beta.0",
 		"@neovici/cosmoz-tokens": "^3.4.0",
 		"@neovici/cosmoz-tree": "^3.0.0",
 		"@neovici/cosmoz-treenode": "^6.0.0",
