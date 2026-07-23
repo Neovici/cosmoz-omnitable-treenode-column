@@ -192,6 +192,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			></cosmoz-input>`;
 		}
 		return html` <cosmoz-autocomplete
+			variant="inline"
 			class="cosmoz-treenode-header-input"
 			part="header-treenode"
 			exportparts="header-treenode"
