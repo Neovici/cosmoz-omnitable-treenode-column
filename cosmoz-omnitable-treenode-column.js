@@ -19,7 +19,7 @@ import { computeTooltip, getCurrentFilter, makeCollator } from './utils';
 
 const computeValues = (
 	{ ownerTree, keyProperty, valueProperty, locale = null },
-	data,
+	data
 ) => {
 	const collator = makeCollator(locale);
 	const values =
@@ -33,7 +33,7 @@ const computeValues = (
 					value,
 					keyProperty,
 					valueProperty,
-					' / ',
+					' / '
 				),
 			}))
 			.sort((a, b) => collator.compare(a.text, b.text)) ?? []
@@ -45,7 +45,7 @@ const computeSource = (column, data) =>
 
 const getComparableValue = (
 		{ valuePath, ownerTree, keyProperty, valueProperty },
-		item,
+		item
 	) => {
 		if (!item || !ownerTree) {
 			return;
@@ -54,7 +54,7 @@ const getComparableValue = (
 			get(item, valuePath),
 			keyProperty,
 			valueProperty,
-			' / ',
+			' / '
 		);
 	},
 	getString = (column, item) => getComparableValue(column, item),
@@ -69,7 +69,7 @@ const getComparableValue = (
 			return filters.some(
 				(filter) =>
 					(values.length === 0 && filter.value === emptyValue) ||
-					values.some((value) => value === filter.value),
+					values.some((value) => value === filter.value)
 			);
 		};
 
@@ -182,13 +182,16 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		{ loading, title, limit, keepOpened, keepQuery, disabledFiltering },
 		{ filter },
 		setState,
-		source,
+		source
 	) {
 		if (disabledFiltering) {
-			return html`<cosmoz-input variant="inline" label=${title} disabled></cosmoz-input>`;
+			return html`<cosmoz-input
+				variant="inline"
+				label=${title}
+				disabled
+			></cosmoz-input>`;
 		}
 		return html` <cosmoz-autocomplete
-			variant="inline"
 			class="cosmoz-treenode-header-input"
 			part="header-treenode"
 			exportparts="header-treenode"
@@ -219,7 +222,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 						suffix
 						slot="suffix"
 						active
-					></paper-spinner-lite>`,
+					></paper-spinner-lite>`
 			)}</cosmoz-autocomplete
 		>`;
 	}
@@ -243,7 +246,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 			? async (...args) =>
 					computeValues(
 						column,
-						await Promise.resolve(invoke(column.values, ...args)),
+						await Promise.resolve(invoke(column.values, ...args))
 					)
 			: computeSource(column, data);
 	}
@@ -251,5 +254,5 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 
 customElements.define(
 	'cosmoz-omnitable-treenode-column',
-	CosmozOmnitableTreenodeColumn,
+	CosmozOmnitableTreenodeColumn
 );

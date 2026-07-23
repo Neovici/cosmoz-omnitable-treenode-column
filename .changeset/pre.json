@@ -1,0 +1,8 @@
+{
+	"mode": "pre",
+	"tag": "beta",
+	"initialVersions": {
+		"@neovici/cosmoz-omnitable-treenode-column": "11.1.0"
+	},
+	"changesets": []
+}

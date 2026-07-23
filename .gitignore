@@ -3,6 +3,9 @@ coverage/
 debug.log
 .eslintcache
 .DS_Store
+.npmrc
 
-*storybook.log
-storybook-static
+# Codecov uploader artifacts
+codecov
+codecov.SHA256SUM
+codecov.SHA256SUM.sig
