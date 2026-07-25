@@ -1,6 +1,6 @@
 {
 	"name": "@neovici/cosmoz-omnitable-treenode-column",
-	"version": "11.1.0",
+	"version": "11.2.0",
 	"description": "A column for cosmoz-omnitable that displays a tree node.",
 	"keywords": [
 		"polymer",
@@ -30,9 +30,7 @@
 		"storybook:build": "build-storybook",
 		"storybook:deploy": "storybook-to-ghpages",
 		"prepare": "husky",
-		"changeset": "changeset",
-		"version": "changeset version",
-		"release": "npm run build && changeset publish"
+		"changeset": "changeset"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -63,8 +61,5 @@
 		"lint-staged": "^17.0.4",
 		"sinon": "^22.0.0",
 		"typescript-eslint": "^8.48.0"
-	},
-	"overrides": {
-		"conventional-changelog-conventionalcommits": ">= 8.0.0"
 	}
 }
