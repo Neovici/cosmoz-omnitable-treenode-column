@@ -1,3 +1,9 @@
+## 11.3.0
+
+### Minor Changes
+
+- ff60edf: Migrate from semantic-release to changesets for versioning and publishing.
+
 ## 11.2.0
 
 ### Minor Changes
