@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - master
+      - beta
   push:
     branches:
       - beta
@@ -15,5 +16,5 @@ permissions:
 
 jobs:
   build:
-    uses: Neovici/cfg/.github/workflows/forge.yml@master
+    uses: Neovici/cfg/.github/workflows/foundry.yml@master
     secrets: inherit
