@@ -1,3 +1,9 @@
+## 11.4.0-beta.0
+
+### Minor Changes
+
+- 674f028: Adopt cosmoz-tokens, system design storybook migration, disabled-filtering header, and inline variant for autocomplete
+
 ## 11.3.0
 
 ### Minor Changes

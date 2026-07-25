@@ -4,5 +4,7 @@
   "initialVersions": {
     "@neovici/cosmoz-omnitable-treenode-column": "11.3.0"
   },
-  "changesets": []
+  "changesets": [
+    "adopt-cosmoz-tokens-and-system-design"
+  ]
 }
