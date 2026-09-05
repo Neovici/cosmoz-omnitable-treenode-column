@@ -1,3 +1,9 @@
+## 11.4.0
+
+### Minor Changes
+
+- 8b90e84: Adopt cosmoz-tokens and Storybook system-design setup, render a disabled `cosmoz-input` header when filtering is disabled, use inline autocomplete styling, and retarget key dependencies to stable-compatible union ranges.
+
 ## 11.3.0
 
 ### Minor Changes
