@@ -1,10 +1,4 @@
 {
-  "mode": "pre",
-  "tag": "beta",
-  "initialVersions": {
-    "@neovici/cosmoz-omnitable-treenode-column": "11.3.0"
-  },
-  "changesets": [
-    "adopt-cosmoz-tokens-and-system-design"
-  ]
+	"mode": "exit",
+	"tag": "beta"
 }
