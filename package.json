@@ -66,7 +66,7 @@
 		"@storybook/storybook-deployer": "^2.8.7",
 		"@storybook/web-components-vite": "^10.3.6",
 		"@typescript-eslint/eslint-plugin": "^8.5.0",
-		"@vitest/browser-playwright": "^4.1.5",
+		"@vitest/browser-playwright": "^5.0.0",
 		"@vitest/coverage-v8": "^4.1.5",
 		"eslint-plugin-storybook": "^10.3.6",
 		"husky": "^9.0.0",
