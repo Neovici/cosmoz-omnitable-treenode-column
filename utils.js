@@ -31,4 +31,4 @@ const /**
 		return value;
 	};
 
-export { makeCollator, computeTooltip, getCurrentFilter };
+export { computeTooltip, getCurrentFilter, makeCollator };

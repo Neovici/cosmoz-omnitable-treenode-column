@@ -17,7 +17,7 @@ import { get } from '@polymer/polymer/lib/utils/path';
 
 import { computeTooltip, getCurrentFilter, makeCollator } from './utils';
 
-const computeValues = (
+const computeValues = async (
 	{ ownerTree, keyProperty, valueProperty, locale = null },
 	data,
 ) => {
@@ -26,17 +26,19 @@ const computeValues = (
 		data != null && !Array.isArray(data) ? Object.keys(data) : data;
 
 	return (
-		values
-			?.map((value) => ({
-				value,
-				text: ownerTree?.getPathStringByProperty(
+		(
+			await Promise.all(
+				values?.map(async (value) => ({
 					value,
-					keyProperty,
-					valueProperty,
-					' / ',
-				),
-			}))
-			.sort((a, b) => collator.compare(a.text, b.text)) ?? []
+					text: await ownerTree?.getPathStringByProperty(
+						value,
+						keyProperty,
+						valueProperty,
+						' / ',
+					),
+				})),
+			)
+		)?.sort((a, b) => collator.compare(a.text, b.text)) ?? []
 	);
 };
 
@@ -114,7 +116,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	 * Get a comparable value from the column.
 	 * @param {object} column Column configuration.
 	 * @param {object} item Column data.
-	 * @returns {void|string} Column data in a comparable format.
+	 * @returns {Promise<void|string>} Column data in a comparable format.
 	 */
 	getComparableValue(column, item) {
 		return getComparableValue(column, item);
@@ -134,7 +136,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	 * Get column represented as a string.
 	 * @param {object} column Column configuration.
 	 * @param {object} item Item data.
-	 * @returns {void|string} Item value in string format.
+	 * @returns {Promise<void|string>} Item value in string format.
 	 */
 	getString(column, item) {
 		return getString(column, item);
@@ -185,7 +187,11 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 		source,
 	) {
 		if (disabledFiltering) {
-			return html`<cosmoz-input variant="inline" label=${title} disabled></cosmoz-input>`;
+			return html`<cosmoz-input
+				variant="inline"
+				label=${title}
+				disabled
+			></cosmoz-input>`;
 		}
 		return html` <cosmoz-autocomplete
 			variant="inline"
@@ -235,7 +241,7 @@ class CosmozOmnitableTreenodeColumn extends columnMixin(PolymerElement) {
 	 * @param   {string}  column.valuePath      The path to the value.
 	 * @param   {array}  data           Omitable data.
 	 *
-	 * @return  {array}                 The sorted values.
+	 * @return  {Promise<array>}        The sorted values, once paths resolve.
 	 */
 
 	computeSource(column, data) {
