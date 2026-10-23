@@ -1,9 +1,9 @@
-import { assert, html, fixture, nextFrame } from '@open-wc/testing';
+import { assert, fixture, html, nextFrame } from '@open-wc/testing';
 
 import '@neovici/cosmoz-omnitable';
+import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns.js';
 import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
-import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns.js';
 
 /* eslint-disable mocha/no-setup-in-describe */
 const data = [
@@ -83,11 +83,7 @@ suite('disabled-filtering', () => {
 		setup(async () => {
 			omnitable = await fixture(html`
 				<cosmoz-omnitable style="height:300px; width:1200px;">
-					<cosmoz-omnitable-column
-						name="name"
-						title="Name"
-						value-path="name"
-					>
+					<cosmoz-omnitable-column name="name" title="Name" value-path="name">
 					</cosmoz-omnitable-column>
 					<cosmoz-omnitable-treenode-column
 						name="node"
@@ -142,11 +138,7 @@ suite('disabled-filtering', () => {
 					style="height:300px; width:1200px;"
 					disabled-filtering
 				>
-					<cosmoz-omnitable-column
-						name="name"
-						title="Name"
-						value-path="name"
-					>
+					<cosmoz-omnitable-column name="name" title="Name" value-path="name">
 					</cosmoz-omnitable-column>
 					<cosmoz-omnitable-treenode-column
 						name="node"

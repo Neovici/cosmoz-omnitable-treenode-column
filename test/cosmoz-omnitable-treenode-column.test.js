@@ -1,9 +1,9 @@
-import { assert, html, fixture, nextFrame } from '@open-wc/testing';
+import { assert, fixture, html, nextFrame } from '@open-wc/testing';
 
 import '@neovici/cosmoz-omnitable';
+import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns.js';
 import { DefaultTree } from '@neovici/cosmoz-tree/cosmoz-default-tree';
 import '../cosmoz-omnitable-treenode-column';
-import { columnSymbol } from '@neovici/cosmoz-omnitable/lib/use-dom-columns.js';
 
 /* eslint-disable mocha/no-setup-in-describe */
 /* eslint-disable mocha/no-sibling-hooks */
@@ -107,16 +107,21 @@ suite('basic', () => {
 		// omnitable renders the cells in the third animation frame
 	});
 
-	test('renders', () => {
+	test('renders', async () => {
 		assert.isOk(omnitable.columns[1][columnSymbol]);
 		const column = omnitable.columns[1][columnSymbol];
-		assert.deepEqual(autocomplete().source, column.computeSource(column, data));
+		const [autocompleteSource, computeSource] = await Promise.all([
+			autocomplete().source,
+			column.computeSource(column, data),
+		]);
+		assert.deepEqual(autocompleteSource, computeSource);
 	});
 
 	test('onChange', async () => {
 		const column = omnitable.columns[1][columnSymbol];
+		const source = await column.computeSource(column, data);
 		assert.isNull(column.serializeFilter(column, undefined));
-		autocomplete().onChange([autocomplete().source[0]]);
+		autocomplete().onChange([source[0]]);
 		await nextFrame();
 		assert.equal(
 			omnitable.filters.node[0].value,
@@ -134,11 +139,11 @@ suite('basic', () => {
 		assert.isNull(column.deserializeFilter(column));
 	});
 
-	test('getComparableValue', () => {
+	test('getComparableValue', async () => {
 		const column = omnitable.columns[1][columnSymbol];
 		assert.isUndefined(column.getComparableValue(column, undefined));
 		assert.equal(
-			column.getComparableValue(column, omnitable.data[0]),
+			await column.getComparableValue(column, omnitable.data[0]),
 			'Root / Company Pjqcakmiyx',
 		);
 	});
