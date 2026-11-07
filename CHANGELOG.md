@@ -1,3 +1,9 @@
+## 11.5.0
+
+### Minor Changes
+
+- fb6c84d: Allow `@neovici/cosmoz-tokens` ^3 || ^4 (light-dark() adoption)
+
 ## 11.4.0
 
 ### Minor Changes
